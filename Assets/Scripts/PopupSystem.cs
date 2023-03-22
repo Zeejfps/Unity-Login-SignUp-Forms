@@ -9,7 +9,7 @@ public sealed class PopupSystem : MonoBehaviour
     [SerializeField] private InfoPopupWidgetView m_InfoPopupWidgetViewPrefab;
     
     private IPopupService m_PopupService;
-    private IPopupService PopupService => m_PopupService ??= Z.Locate<IPopupService>();
+    private IPopupService PopupService => m_PopupService ??= Z.Get<IPopupService>();
 
     private InfoPopupWidgetView m_InfoPopupWidgetView;
     

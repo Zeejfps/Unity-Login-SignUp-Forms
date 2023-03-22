@@ -4,10 +4,17 @@ namespace Login
 {
     internal sealed class BasicLoginService : ILoginService
     {
-        public async Task<LoginError> LoginAsync(string email, string password)
+        private IPopupService PopupService { get; }
+
+        public BasicLoginService(IPopupService popupService)
+        {
+            PopupService = popupService;
+        }
+
+        public async Task LoginAsync(string email, string password)
         {
             await Task.Delay(2000);
-            return LoginError.InvalidCredentials;
+            await PopupService.ShowInfoPopupAsync("Invalid Credentials", "Email and/or Password was incorrect");
         }
     }
 }

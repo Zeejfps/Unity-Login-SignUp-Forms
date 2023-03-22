@@ -13,7 +13,7 @@ public static class Z
         return (T)New(type);
     }
     
-    public static object New(Type type)
+    private static object New(Type type)
     {
         var constructors = type.GetConstructors(BindingFlags.Public | BindingFlags.Instance);
         var paramValues = new List<object>();
@@ -43,44 +43,50 @@ public static class Z
         throw new Exception($"Could not instantiate object of type {type}");
     }
 
-    public static void RegisterFactory<T>(Func<T> factory)
+    public static void RegisterScoped<TInterface, TConcrete>()
     {
-        var type = typeof(T);
+        var interfaceType = typeof(TInterface);
         try
         {
-            s_TypeToFactoryDictionary.Add(type, new FuncFactory<T>(factory));
+            s_TypeToFactoryDictionary.Add(interfaceType, new FuncFactory<TConcrete>(New<TConcrete>));
         }
         catch (ArgumentException)
         {
-            throw new Exception($"Factory for {type} type already registered");
+            throw new Exception($"Singleton for {interfaceType} type already registered");
         }
     }
 
-    public static void RegisterSingleton<T>(T instance)
+    public static void RegisterSingleton<TInterface, TConcrete>() where TConcrete : TInterface
     {
-        var type = typeof(T);
+        var interfaceType = typeof(TInterface);
         try
         {
-            s_TypeToFactoryDictionary.Add(type, new FuncFactory<T>(() => instance));
+            s_TypeToFactoryDictionary.Add(interfaceType, new SingletonFactory<TConcrete>());
         }
-        catch (ArgumentException e)
+        catch (ArgumentException)
         {
-            throw new Exception($"Singleton for {type} type already registered");
+            throw new Exception($"Singleton for {interfaceType} type already registered");
         }
     }
-
-    public static void UnregisterSingleton<T>()
-    {
-        var type = typeof(T);
-        s_TypeToFactoryDictionary.Remove(type);
-    }
-
-    public static T Locate<T>()
+    
+    public static T Get<T>()
     {
         var type = typeof(T);
         if (s_TypeToFactoryDictionary.TryGetValue(type, out var factory))
             return (T)factory.Create();
         return default;
+    }
+}
+
+internal sealed class SingletonFactory<T> : IFactory
+{
+    private T m_Singleton;
+    
+    public object Create()
+    {
+        if (m_Singleton == null)
+            m_Singleton = Z.New<T>();
+        return m_Singleton;
     }
 }
 
@@ -99,7 +105,7 @@ internal sealed class FuncFactory<T> : IFactory
     }
 }
 
-interface IFactory
+internal interface IFactory
 {
     object Create();
 }

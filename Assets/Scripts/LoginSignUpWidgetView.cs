@@ -13,14 +13,15 @@ public sealed class LoginSignUpWidgetView : WidgetView<ILoginSignUpWidget>
     protected override void Awake()
     {
         base.Awake();
-        
-        Z.RegisterSingleton<ILoginService>(new BasicLoginService());
-        Z.RegisterSingleton<IPopupService>(new BasicPopupService());
-        
-        Z.RegisterFactory<ILoginFormWidget>(Z.New<BasicLoginFormWidget>);
-        Z.RegisterFactory<ISignUpFormWidget>(Z.New<BasicSignUpFormWidget>);
-        
-        Model = Z.New<BasicLoginSignUpWidget>();
+
+        Z.RegisterSingleton<ILoginService, BasicLoginService>();
+        Z.RegisterSingleton<IPopupService, BasicPopupService>();
+
+        Z.RegisterScoped<ILoginFormWidget, BasicLoginFormWidget>();
+        Z.RegisterScoped<ISignUpFormWidget, BasicSignUpFormWidget>();
+        Z.RegisterScoped<ILoginSignUpWidget, BasicLoginSignUpWidget>();
+
+        Model = Z.Get<ILoginSignUpWidget>();
         Model.IsVisibleProp.Set(true);
     }
 
@@ -32,9 +33,4 @@ public sealed class LoginSignUpWidgetView : WidgetView<ILoginSignUpWidget>
         Bind(model.LoginFormWidgetProp, m_LoginFormWidgetView);
         Bind(model.SignUpFormWidgetProp, m_SignUpFormWidgetView);
     }
-}
-
-public interface ISignUpFormWidget : IWidget
-{
-    
 }

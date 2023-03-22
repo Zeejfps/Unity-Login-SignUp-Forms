@@ -12,17 +12,15 @@ namespace Login
         public ObservableProperty<Action> LoginActionProp { get; } = new();
 
         private ILoginService LoginService { get; }
-        private IPopupService PopupService { get; }
 
         private ITextInputWidget EmailInputWidget => EmailInputWidgetProp.Value;
         private ITextInputWidget PasswordInputWidget => PasswordInputWidgetProp.Value;
         private string Email => EmailInputWidgetProp.Value.TextProp.Value;
         private string Password => PasswordInputWidgetProp.Value.TextProp.Value;
     
-        public BasicLoginFormWidget(ILoginService loginService, IPopupService popupService)
+        public BasicLoginFormWidget(ILoginService loginService)
         {
             LoginService = loginService;
-            PopupService = popupService;
             
             EmailInputWidget.TextProp.ValueChanged += EmailProp_OnValueChanged;
             PasswordInputWidget.TextProp.ValueChanged += PasswordProp_OnValueChanged;
@@ -63,9 +61,7 @@ namespace Login
                 var email = Email;
                 var password = Password;
 
-                var error = await LoginService.LoginAsync(email, password);
-                if (error == LoginError.InvalidCredentials) 
-                    await PopupService.ShowInfoPopupAsync("Invalid Credentials", "Email and/or Password was incorrect");
+                await LoginService.LoginAsync(email, password);
             }
             catch (Exception e)
             {

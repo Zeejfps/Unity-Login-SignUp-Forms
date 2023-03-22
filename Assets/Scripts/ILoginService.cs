@@ -2,14 +2,8 @@
 
 namespace Login
 {
-    public enum LoginError
-    {
-        None,
-        InvalidCredentials,
-    }
-    
     public interface ILoginService
     {
-        Task<LoginError> LoginAsync(string email, string password);
+        Task LoginAsync(string email, string password);
     }
 }
