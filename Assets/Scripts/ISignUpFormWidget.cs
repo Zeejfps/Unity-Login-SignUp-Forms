@@ -2,8 +2,8 @@ using YADBF;
 
 public interface ISignUpFormWidget : IWidget
 {
-    ObservableProperty<ITextInputWidget> EmailInputWidgetProp { get; }
-    ObservableProperty<IPasswordInputWidget> PasswordInputWidgetProp { get; }
-    ObservableProperty<IPasswordInputWidget> ConfirmPasswordInputWidgetProp { get; }
+    ITextInputWidget EmailInputWidget { get; }
+    IPasswordInputWidget PasswordInputWidget { get; }
+    IPasswordInputWidget ConfirmPasswordInputWidget { get; }
     IButtonWidget SignUpButtonWidget { get; }
 }

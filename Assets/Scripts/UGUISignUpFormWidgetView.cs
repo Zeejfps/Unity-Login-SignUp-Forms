@@ -12,10 +12,9 @@ namespace Login
         protected override void OnBindToModel(ISignUpFormWidget model)
         {
             base.OnBindToModel(model);
-            Bind(model.EmailInputWidgetProp, m_EmailInputWidgetView);
-            Bind(model.PasswordInputWidgetProp, m_PasswordInputWidgetView);
-            Bind(model.ConfirmPasswordInputWidgetProp, m_ConfirmPasswordInputWidgetView);
-
+            m_EmailInputWidgetView.Model = model.EmailInputWidget;
+            m_PasswordInputWidgetView.Model = model.PasswordInputWidget;
+            m_ConfirmPasswordInputWidgetView.Model = model.ConfirmPasswordInputWidget;
             m_SubmitButtonWidgetView.Model = model.SignUpButtonWidget;
         }
     }
