@@ -2,7 +2,7 @@ using System;
 
 namespace YADBF.Unity
 {
-    internal sealed class ObservablePropertyBinding<T> : IBinding
+    public sealed class ObservablePropertyBinding<T> : IBinding
     {
         private readonly Action<T> m_Listener;
         private readonly ObservableProperty<T> m_ObservableProperty;
