@@ -144,6 +144,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1962473447743131336}
     m_Modifications:
+    - target: {fileID: 2402977494598269120, guid: 13a1eae7008ccc2418e1d32c94f23e8f, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2402977495268580884, guid: 13a1eae7008ccc2418e1d32c94f23e8f, type: 3}
       propertyPath: m_text
       value: Email
