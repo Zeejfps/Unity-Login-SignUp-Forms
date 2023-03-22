@@ -12,7 +12,7 @@ namespace Login
         {
             TextInputWidget = textInputWidget;
             TextInputWidget.IsMaskingCharacters.Set(true);
-            ShowPasswordToggleWidget = new ShowPasswordToggleWidget(textInputWidget);
+            ShowPasswordToggleWidget = new CharacterMaskToggleWidget(textInputWidget);
         }
     }
 }

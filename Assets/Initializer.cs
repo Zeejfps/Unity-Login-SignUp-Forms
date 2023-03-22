@@ -11,7 +11,7 @@ public class Initializer : MonoBehaviour
         Z.RegisterSingleton<ISignUpManager, TestSignUpManager>();
 
         Z.RegisterScoped<ILoginFormWidget, LoginFormWidget>();
-        Z.RegisterScoped<ISignUpFormWidget, BasicSignUpFormWidget>();
+        Z.RegisterScoped<ISignUpFormWidget, SignUpFormWidget>();
         Z.RegisterScoped<ILoginSignUpWidget, BasicLoginSignUpWidget>();
     }
 }

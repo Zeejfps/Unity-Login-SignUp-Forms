@@ -5,8 +5,8 @@ namespace Login
     public sealed class UGUISignUpFormWidgetView : UGUIWidgetView<ISignUpFormWidget>
     {
         [SerializeField] private UGUITextInputWidgetView m_EmailInputWidgetView;
-        [SerializeField] private UGUIPasswordInputWidgetView m_PasswordInputWidgetView;
-        [SerializeField] private UGUIPasswordInputWidgetView m_ConfirmPasswordInputWidgetView;
+        [SerializeField] private UGUIPasswordFieldWidgetView m_PasswordInputWidgetView;
+        [SerializeField] private UGUIPasswordFieldWidgetView m_ConfirmPasswordInputWidgetView;
         [SerializeField] private UGUIButtonWidgetView m_SubmitButtonWidgetView;
         
         protected override void OnBindToModel(ISignUpFormWidget model)

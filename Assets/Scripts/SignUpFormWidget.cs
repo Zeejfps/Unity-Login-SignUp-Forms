@@ -2,7 +2,7 @@ using YADBF;
 
 namespace Login
 {
-    internal sealed class BasicSignUpFormWidget : ISignUpFormWidget
+    internal sealed class SignUpFormWidget : ISignUpFormWidget
     {
         public ObservableProperty<bool> IsVisibleProp { get; } = new();
         public ITextInputWidget EmailInputWidget { get; }
@@ -10,7 +10,7 @@ namespace Login
         public IPasswordFieldWidget ConfirmPasswordFieldWidget { get; }
         public IButtonWidget SignUpButtonWidget { get; }
         
-        public BasicSignUpFormWidget(ISignUpManager signUpManager)
+        public SignUpFormWidget(ISignUpManager signUpManager)
         {
             EmailInputWidget = new SignUpFormEmailInputWidget(signUpManager);
             

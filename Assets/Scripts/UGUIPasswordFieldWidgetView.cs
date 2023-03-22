@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Login
 {
-    public sealed class UGUIPasswordInputWidgetView : UGUIWidgetView<IPasswordFieldWidget>
+    public sealed class UGUIPasswordFieldWidgetView : UGUIWidgetView<IPasswordFieldWidget>
     {
         [SerializeField] private UGUITextInputWidgetView m_TextInputWidgetView;
         [SerializeField] private UGUIToggleWidgetView m_ShowPasswordToggle;
