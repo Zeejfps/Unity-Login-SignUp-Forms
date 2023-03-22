@@ -1,17 +1,23 @@
+using YADBF;
+
 namespace Login
 {
-    internal sealed class SignUpFormEmailInputWidget : BaseTextInputWidget
+    internal sealed class SignUpFormEmailInputWidget : ITextInputWidget
     {
+        public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
+        public ObservableProperty<string> TextProp { get; }
+        public ObservableProperty<bool> IsInteractableProp { get; } = new();
+        public ObservableProperty<bool> IsMaskingCharacters { get; } = new();
+        
         public SignUpFormEmailInputWidget(ISignUpManager signUpManager)
         {
+            TextProp = signUpManager.EmailProp;
             IsInteractableProp.Bind(signUpManager.IsLoadingProp, value => !value);
-            TextProp.Bind(signUpManager.EmailProp);
         }
 
         public void Dispose()
         {
             IsInteractableProp.Unbind();
-            TextProp.Unbind();
         }
     }
 }

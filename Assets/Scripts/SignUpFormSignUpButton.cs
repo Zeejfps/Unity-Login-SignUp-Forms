@@ -15,6 +15,12 @@ namespace Login
         {
             SignUpManager = signUpManager;
             signUpManager.SignUpActionProp.ValueChanged += SignUpActionProp_OnValueChanged;
+            signUpManager.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
+            UpdateState();
+        }
+
+        private void IsLoadingProp_OnValueChanged(ObservableProperty<bool> property, bool prevvalue, bool currvalue)
+        {
             UpdateState();
         }
 
@@ -26,8 +32,10 @@ namespace Login
         private void UpdateState()
         {
             var signUpAction = SignUpManager.SignUpActionProp.Value;
+            var isLoading = SignUpManager.IsLoadingProp.Value;
+            
             ActionProp.Set(signUpAction);
-            IsInteractable.Set(signUpAction != null);
+            IsInteractable.Set(signUpAction != null && !isLoading);
         }
     }
 }
