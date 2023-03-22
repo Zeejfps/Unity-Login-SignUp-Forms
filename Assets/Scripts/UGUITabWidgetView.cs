@@ -18,6 +18,12 @@ public sealed class UGUITabWidgetView : UGUIWidgetView<ITabWidget>, IPointerClic
         });
     }
 
+    protected override void ApplyTheme(UGUITheme theme)
+    {
+        base.ApplyTheme(theme);
+        m_BackgroundImage.color = Theme.TabStyle.DefaultColor;
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         Model?.HandleClick();

@@ -36,6 +36,8 @@ namespace YADBF.Unity
         }
         
         protected virtual void Reset() {}
+        
+        protected virtual void OnValidate() {}
 
         protected virtual void OnModelChanged(TModel prevModel, TModel currModel)
         {

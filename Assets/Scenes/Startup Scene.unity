@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca4ded6725ee46d3b6921baf72acb78b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ThemeProvider: {fileID: 0}
+  m_ThemeProvider: {fileID: 11400000, guid: 9d89b4bc910d5104faeac233b53b7667, type: 2}
   m_LoginFormTabWidgetView: {fileID: 8808078740293583140}
   m_SignUpFormTabWidgetView: {fileID: 1171068068}
   m_LoginFormWidgetView: {fileID: 4425191347206090869}

@@ -16,6 +16,7 @@ public sealed class UGUILoginSignUpWidgetView : UGUIWidgetView<ILoginSignUpWidge
 
         Z.RegisterSingleton<ILoginService, BasicLoginService>();
         Z.RegisterSingleton<IPopupService, BasicPopupService>();
+        Z.RegisterSingleton<ISignUpService, BasicSignUpService>();
 
         Z.RegisterScoped<ILoginFormWidget, BasicLoginFormWidget>();
         Z.RegisterScoped<ISignUpFormWidget, BasicSignUpFormWidget>();

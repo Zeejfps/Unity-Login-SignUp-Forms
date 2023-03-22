@@ -20,5 +20,14 @@ namespace Login
             base.Reset();
             m_ThemeProvider = FindObjectOfType<UGUIThemeProvider>();
         }
+
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+            if (m_ThemeProvider != null)
+                ApplyTheme(m_ThemeProvider.Theme);
+        }
+        
+        protected virtual void ApplyTheme(UGUITheme theme) {}
     }
 }
