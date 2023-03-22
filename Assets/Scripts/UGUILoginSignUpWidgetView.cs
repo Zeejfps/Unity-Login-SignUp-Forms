@@ -1,14 +1,14 @@
 using Login;
 using UnityEngine;
 
-public sealed class LoginSignUpWidgetView : WidgetView<ILoginSignUpWidget>
+public sealed class UGUILoginSignUpWidgetView : UGUIWidgetView<ILoginSignUpWidget>
 {
     [Header("Tabs")]
-    [SerializeField] private TabWidgetView m_LoginFormTabWidgetView;
-    [SerializeField] private TabWidgetView m_SignUpFormTabWidgetView;
+    [SerializeField] private UGUITabWidgetView m_LoginFormTabWidgetView;
+    [SerializeField] private UGUITabWidgetView m_SignUpFormTabWidgetView;
     [Header("Content")]
-    [SerializeField] private LoginFormWidgetView m_LoginFormWidgetView;
-    [SerializeField] private SignUpFormWidgetView m_SignUpFormWidgetView;
+    [SerializeField] private UGUILoginFormWidgetView m_LoginFormWidgetView;
+    [SerializeField] private UGUISignUpFormWidgetView m_SignUpFormWidgetView;
 
     protected override void Awake()
     {

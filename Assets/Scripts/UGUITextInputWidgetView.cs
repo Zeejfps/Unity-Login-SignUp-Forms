@@ -4,7 +4,7 @@ using YADBF.Unity;
 
 namespace Login
 {
-    public sealed class TextInputWidgetView : WidgetView<ITextInputWidget>
+    public sealed class UGUITextInputWidgetView : UGUIWidgetView<ITextInputWidget>
     {
         [SerializeField] private TMP_InputField m_InputField;
 

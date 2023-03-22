@@ -226,5 +226,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BackgroundImage: {fileID: 8808078740001944717}
-  m_DefaultColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0.27058825}
-  m_SelectedColor: {r: 1, g: 1, b: 1, a: 0}
+  m_Theme: {fileID: 11400000, guid: ac5e6e0c2536a6a45a6d7d8c4df4effe, type: 2}

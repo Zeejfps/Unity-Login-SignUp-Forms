@@ -3,7 +3,7 @@ using YADBF;
 public sealed class TabWidget : ITabWidget
 {
     public ObservableProperty<bool> IsSelectedProp { get; } = new();
-    public ObservableProperty<bool> IsVisibleProp { get; } = new();
+    public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
     
     private readonly IWidget m_Content;
 
