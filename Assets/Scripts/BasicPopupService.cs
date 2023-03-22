@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using YADBF;
 
@@ -21,13 +20,5 @@ namespace Login
             InfoPopupWidgetProp.Set(popup);
             return tcs.Task;
         }
-    }
-    
-    internal sealed class BasicInfoPopupWidget : IInfoPopupWidget
-    {
-        public ObservableProperty<string> TitleTextProp { get; } = new();
-        public ObservableProperty<string> InfoTextProp { get; } = new();
-        public ObservableProperty<Action> OkActionProp { get; } = new();
-        public ObservableProperty<bool> IsVisibleProp { get; } = new();
     }
 }
