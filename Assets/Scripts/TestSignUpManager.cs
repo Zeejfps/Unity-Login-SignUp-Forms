@@ -5,7 +5,7 @@ using YADBF;
 
 namespace Login
 {
-    public sealed class BasicSignUpManager : ISignUpManager
+    public sealed class TestSignUpManager : ISignUpManager
     {
         public ObservableProperty<bool> IsLoadingProp { get; } = new();
         public ObservableProperty<string> EmailProp { get; } = new();
@@ -15,7 +15,7 @@ namespace Login
 
         private IPopupService PopupService { get; }
         
-        public BasicSignUpManager(IPopupService popupService)
+        public TestSignUpManager(IPopupService popupService)
         {
             PopupService = popupService;
             EmailProp.ValueChanged += EmailProp_OnValueChanged;
