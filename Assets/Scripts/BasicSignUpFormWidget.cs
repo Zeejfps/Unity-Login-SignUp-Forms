@@ -8,8 +8,8 @@ namespace Login
     {
         public ObservableProperty<bool> IsVisibleProp { get; } = new();
         public ObservableProperty<ITextInputWidget> EmailInputWidgetProp { get; } = new();
-        public ObservableProperty<ITextInputWidget> PasswordInputWidgetProp { get; } = new();
-        public ObservableProperty<ITextInputWidget> ConfirmPasswordInputWidgetProp { get; } = new();
+        public ObservableProperty<IPasswordInputWidget> PasswordInputWidgetProp { get; } = new();
+        public ObservableProperty<IPasswordInputWidget> ConfirmPasswordInputWidgetProp { get; } = new();
         public ObservableProperty<IButtonWidget> SignUpButtonWidgetProp { get; } = new();
         
         private ISignUpService SignUpService { get; }
@@ -19,8 +19,8 @@ namespace Login
             SignUpService = signUpService;
             
             EmailInputWidgetProp.Set(new BasicTextInputWidget());
-            PasswordInputWidgetProp.Set(new BasicTextInputWidget());
-            ConfirmPasswordInputWidgetProp.Set(new BasicTextInputWidget());
+            PasswordInputWidgetProp.Set(new BasicPasswordInputWidget());
+            ConfirmPasswordInputWidgetProp.Set(new BasicPasswordInputWidget());
             SignUpButtonWidgetProp.Set(new BasicButtonWidget());
             
             SignUpButtonWidgetProp.Value.ActionProp.Set(SignUp);
@@ -37,10 +37,16 @@ namespace Login
 
         private async void SignUp()
         {
+            var emailInputWidget = EmailInputWidgetProp.Value;
+            var passwordInputWidget = PasswordInputWidgetProp.Value;
+            var confirmPasswordInputWidget = ConfirmPasswordInputWidgetProp.Value;
+            var signUpButtonWidget = SignUpButtonWidgetProp.Value;
+            
             try
             {
-                var signUpButtonWidget = SignUpButtonWidgetProp.Value;
-
+                emailInputWidget.IsInteractableProp.Set(false);
+                passwordInputWidget.IsInteractableProp.Set(false);
+                confirmPasswordInputWidget.IsInteractableProp.Set(false);
                 signUpButtonWidget.IsInteractable.Set(false);
                 
                 var email = EmailInputWidgetProp.Value.TextProp.Value;
@@ -53,6 +59,9 @@ namespace Login
             }
             finally
             {
+                emailInputWidget.IsInteractableProp.Set(true);
+                passwordInputWidget.IsInteractableProp.Set(true);
+                confirmPasswordInputWidget.IsInteractableProp.Set(true);
                 UpdateButtonState();   
             }
         }

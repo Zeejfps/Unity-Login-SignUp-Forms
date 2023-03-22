@@ -1,11 +1,12 @@
 using UnityEngine;
+using YADBF.Unity;
 
 namespace Login
 {
     public sealed class UGUILoginFormWidgetView : UGUIWidgetView<ILoginFormWidget>
     {
-        [SerializeField] private UGUITextInputWidgetView m_EmailInputWidgetView;
-        [SerializeField] private UGUITextInputWidgetView m_PasswordInputWidgetView;
+        [SerializeField] private View<ITextInputWidget> m_EmailInputWidgetView;
+        [SerializeField] private UGUIPasswordInputWidgetView m_PasswordInputWidgetView;
 
         protected override void OnBindToModel(ILoginFormWidget model)
         {
