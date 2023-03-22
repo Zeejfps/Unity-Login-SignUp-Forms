@@ -3,22 +3,22 @@ using YADBF;
 public sealed class BasicLoginSignUpWidget : ILoginSignUpWidget
 {
     public ObservableProperty<bool> IsVisibleProp { get; } = new();
-    public ObservableProperty<ITabWidget> LoginFormTabWidgetProp { get; } = new();
-    public ObservableProperty<ITabWidget> SignUpFormTabWidgetProp { get; } = new();
-    public ObservableProperty<ILoginFormWidget> LoginFormWidgetProp { get; } = new();
-    public ObservableProperty<ISignUpFormWidget> SignUpFormWidgetProp { get; } = new();
+    public ITabWidget LoginFormTabWidget { get; }
+    public ITabWidget SignUpFormTabWidget { get; }
+    public ILoginFormWidget LoginFormWidget { get; }
+    public ISignUpFormWidget SignUpFormWidget { get; }
 
     public BasicLoginSignUpWidget(ILoginFormWidget loginFormWidget, ISignUpFormWidget signUpFormWidget)
     {
-        LoginFormWidgetProp.Set(loginFormWidget);
-        LoginFormTabWidgetProp.Set(new TabWidget(loginFormWidget));
+        LoginFormWidget = loginFormWidget;
+        LoginFormTabWidget = new TabWidget(loginFormWidget);
         
-        SignUpFormWidgetProp.Set(signUpFormWidget);
-        SignUpFormTabWidgetProp.Set(new TabWidget(signUpFormWidget));
+        SignUpFormWidget = signUpFormWidget;
+        SignUpFormTabWidget = new TabWidget(signUpFormWidget);
 
         var tabGroup = new TabGroup();
-        tabGroup.AddTab(LoginFormTabWidgetProp.Value);
-        tabGroup.AddTab(SignUpFormTabWidgetProp.Value);
-        LoginFormTabWidgetProp.Value.IsSelectedProp.Set(true);
+        tabGroup.AddTab(LoginFormTabWidget);
+        tabGroup.AddTab(SignUpFormTabWidget);
+        LoginFormTabWidget.IsSelectedProp.Set(true);
     }
 }

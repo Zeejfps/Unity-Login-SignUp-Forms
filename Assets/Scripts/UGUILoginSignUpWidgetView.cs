@@ -29,9 +29,9 @@ public sealed class UGUILoginSignUpWidgetView : UGUIWidgetView<ILoginSignUpWidge
     protected override void OnBindToModel(ILoginSignUpWidget model)
     {
         base.OnBindToModel(model);
-        Bind(model.LoginFormTabWidgetProp, m_LoginFormTabWidgetView);
-        Bind(model.SignUpFormTabWidgetProp, m_SignUpFormTabWidgetView);
-        Bind(model.LoginFormWidgetProp, m_LoginFormWidgetView);
-        Bind(model.SignUpFormWidgetProp, m_SignUpFormWidgetView);
+        m_LoginFormWidgetView.Model = model.LoginFormWidget;
+        m_SignUpFormWidgetView.Model = model.SignUpFormWidget;
+        m_LoginFormTabWidgetView.Model = model.LoginFormTabWidget;
+        m_SignUpFormTabWidgetView.Model = model.SignUpFormTabWidget;
     }
 }
