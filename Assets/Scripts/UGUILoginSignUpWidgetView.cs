@@ -13,15 +13,6 @@ public sealed class UGUILoginSignUpWidgetView : UGUIWidgetView<ILoginSignUpWidge
     protected override void Awake()
     {
         base.Awake();
-
-        Z.RegisterSingleton<ILoginService, BasicLoginService>();
-        Z.RegisterSingleton<IPopupService, BasicPopupService>();
-        Z.RegisterSingleton<ISignUpManager, TestSignUpManager>();
-
-        Z.RegisterScoped<ILoginFormWidget, BasicLoginFormWidget>();
-        Z.RegisterScoped<ISignUpFormWidget, BasicSignUpFormWidget>();
-        Z.RegisterScoped<ILoginSignUpWidget, BasicLoginSignUpWidget>();
-
         Model = Z.Get<ILoginSignUpWidget>();
         Model.IsVisibleProp.Set(true);
     }
