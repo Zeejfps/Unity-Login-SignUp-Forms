@@ -6,12 +6,12 @@ using YADBF;
 public sealed class PopupSystem : MonoBehaviour
 {
     [SerializeField] private GameObject m_ScreenDimmer;
-    [SerializeField] private InfoPopupWidgetView m_InfoPopupWidgetViewPrefab;
+    [SerializeField] private UGUIInfoPopupWidgetView m_InfoPopupWidgetViewPrefab;
     
     private IPopupService m_PopupService;
     private IPopupService PopupService => m_PopupService ??= Z.Get<IPopupService>();
 
-    private InfoPopupWidgetView m_InfoPopupWidgetView;
+    private UGUIInfoPopupWidgetView m_InfoPopupWidgetView;
     
     private void Start()
     {

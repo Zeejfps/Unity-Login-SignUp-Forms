@@ -34,6 +34,8 @@ namespace YADBF.Unity
         {
             ClearBindings();
         }
+        
+        protected virtual void Reset() {}
 
         protected virtual void OnModelChanged(TModel prevModel, TModel currModel)
         {

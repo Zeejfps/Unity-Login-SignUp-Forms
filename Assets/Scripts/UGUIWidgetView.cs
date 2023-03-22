@@ -5,14 +5,20 @@ namespace Login
 {
     public abstract class UGUIWidgetView<TWidget> : View<TWidget> where TWidget : class, IWidget
     {
-        [SerializeField] private UGUITheme m_Theme;
+        [SerializeField] private UGUIThemeProvider m_ThemeProvider;
 
-        protected UGUITheme Theme => m_Theme;
+        protected UGUITheme Theme => m_ThemeProvider.Theme;
         
         protected override void OnBindToModel(TWidget model)
         {
             base.OnBindToModel(model);
             Bind(model.IsVisibleProp, gameObject.SetActive);
+        }
+
+        protected override void Reset()
+        {
+            base.Reset();
+            m_ThemeProvider = FindObjectOfType<UGUIThemeProvider>();
         }
     }
 }
