@@ -5,5 +5,5 @@ public interface ILoginFormWidget : IWidget
 {
     ITextInputWidget EmailInputWidget { get; }
     IPasswordFieldWidget PasswordInputWidget { get; }
-    ObservableProperty<Action> LoginActionProp { get; }
+    IButtonWidget LoginButtonWidget { get; }
 }

@@ -94,6 +94,7 @@ MonoBehaviour:
   m_ThemeProvider: {fileID: 11400000, guid: 9d89b4bc910d5104faeac233b53b7667, type: 2}
   m_EmailInputWidgetView: {fileID: 8940318648077465227}
   m_PasswordInputWidgetView: {fileID: 4724727488960460296}
+  m_LoginButtonWidgetView: {fileID: 8170372198392088319}
 --- !u!114 &4425191348393460450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,44 +236,20 @@ PrefabInstance:
       objectReference: {fileID: 4425191348393460448}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
---- !u!1 &4425191347315696748 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4037367268892685832, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
-  m_PrefabInstance: {fileID: 391509935604716132}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &9124265398528585763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4425191347315696748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbe67dc4ee854e2da17aff9d73c4438f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PropertyBindingSettings:
-    m_View: {fileID: 4425191348393460448}
-    m_PropertyName: LoginActionProp
-    m_PropertyTypeName: YADBF.ObservableProperty`1[[System.Action, mscorlib, Version=4.0.0.0,
-      Culture=neutral, PublicKeyToken=b77a5c561934e089]], YADBF, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  m_Button: {fileID: 4425191347315696750}
 --- !u!224 &4425191347315696749 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4037367268892685833, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
   m_PrefabInstance: {fileID: 391509935604716132}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4425191347315696750 stripped
+--- !u!114 &8170372198392088319 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4037367268892685834, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8362078466339902619, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
   m_PrefabInstance: {fileID: 391509935604716132}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4425191347315696748}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d97aaba0d6040be90f136e62594b618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2031237064788275681

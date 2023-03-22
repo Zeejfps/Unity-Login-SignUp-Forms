@@ -7,6 +7,7 @@ namespace Login
     {
         [SerializeField] private View<ITextInputWidget> m_EmailInputWidgetView;
         [SerializeField] private UGUIPasswordInputWidgetView m_PasswordInputWidgetView;
+        [SerializeField] private UGUIButtonWidgetView m_LoginButtonWidgetView;
 
         protected override void OnBindToModel(ILoginFormWidget model)
         {
@@ -15,6 +16,7 @@ namespace Login
 
             m_EmailInputWidgetView.Model = model.EmailInputWidget;
             m_PasswordInputWidgetView.Model = model.PasswordInputWidget;
+            m_LoginButtonWidgetView.Model = model.LoginButtonWidget;
         }
     }
 }
