@@ -1,5 +1,3 @@
-using System;
-using UnityEngine;
 using YADBF;
 
 namespace Login

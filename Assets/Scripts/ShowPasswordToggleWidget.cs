@@ -1,29 +1,7 @@
-using YADBF;
+﻿using YADBF;
 
 namespace Login
 {
-    internal sealed class BasicTextInputWidget : ITextInputWidget
-    {
-        public ObservableProperty<string> TextProp { get; } = new();
-        public ObservableProperty<bool> IsInteractableProp { get; } = new(true);
-        public ObservableProperty<bool> IsMaskingCharacters { get; } = new();
-        public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
-    }
-
-    internal sealed class BasicPasswordInputWidget : IPasswordFieldWidget
-    {
-        public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
-        public ITextInputWidget TextInputWidget { get; }
-        public IToggleWidget ShowPasswordToggleWidget { get; }
-
-        public BasicPasswordInputWidget()
-        {
-            TextInputWidget = new BasicTextInputWidget();
-            TextInputWidget.IsMaskingCharacters.Set(true);
-            ShowPasswordToggleWidget = new ShowPasswordToggleWidget(TextInputWidget);
-        }
-    }
-
     internal sealed class ShowPasswordToggleWidget : IToggleWidget
     {
         public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
