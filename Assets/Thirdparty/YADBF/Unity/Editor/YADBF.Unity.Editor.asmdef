@@ -1,0 +1,18 @@
+{
+    "name": "YADBF.Unity.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f53e2f4cf9927a442bf265154f1bf588"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
