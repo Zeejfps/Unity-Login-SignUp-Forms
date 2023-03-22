@@ -4,6 +4,6 @@ using YADBF;
 public interface ILoginFormWidget : IWidget
 {
     ITextInputWidget EmailInputWidget { get; }
-    IPasswordInputWidget PasswordInputWidget { get; }
+    IPasswordFieldWidget PasswordInputWidget { get; }
     ObservableProperty<Action> LoginActionProp { get; }
 }

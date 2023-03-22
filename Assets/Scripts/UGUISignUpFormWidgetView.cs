@@ -13,8 +13,8 @@ namespace Login
         {
             base.OnBindToModel(model);
             m_EmailInputWidgetView.Model = model.EmailInputWidget;
-            m_PasswordInputWidgetView.Model = model.PasswordInputWidget;
-            m_ConfirmPasswordInputWidgetView.Model = model.ConfirmPasswordInputWidget;
+            m_PasswordInputWidgetView.Model = model.PasswordFieldWidget;
+            m_ConfirmPasswordInputWidgetView.Model = model.ConfirmPasswordFieldWidget;
             m_SubmitButtonWidgetView.Model = model.SignUpButtonWidget;
         }
     }

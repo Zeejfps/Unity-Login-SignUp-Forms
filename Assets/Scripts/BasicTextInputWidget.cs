@@ -10,7 +10,7 @@ namespace Login
         public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
     }
 
-    internal sealed class BasicPasswordInputWidget : IPasswordInputWidget
+    internal sealed class BasicPasswordInputWidget : IPasswordFieldWidget
     {
         public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
         public ITextInputWidget TextInputWidget { get; }

@@ -8,7 +8,7 @@ namespace Login
     {
         public ObservableProperty<bool> IsVisibleProp { get; } = new();
         public ITextInputWidget EmailInputWidget { get; } = new BasicTextInputWidget();
-        public IPasswordInputWidget PasswordInputWidget { get; } =new BasicPasswordInputWidget();
+        public IPasswordFieldWidget PasswordInputWidget { get; } =new BasicPasswordInputWidget();
         public ObservableProperty<Action> LoginActionProp { get; } = new();
 
         private ILoginService LoginService { get; }

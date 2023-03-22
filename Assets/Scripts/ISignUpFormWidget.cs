@@ -3,7 +3,7 @@ using YADBF;
 public interface ISignUpFormWidget : IWidget
 {
     ITextInputWidget EmailInputWidget { get; }
-    IPasswordInputWidget PasswordInputWidget { get; }
-    IPasswordInputWidget ConfirmPasswordInputWidget { get; }
+    IPasswordFieldWidget PasswordFieldWidget { get; }
+    IPasswordFieldWidget ConfirmPasswordFieldWidget { get; }
     IButtonWidget SignUpButtonWidget { get; }
 }
