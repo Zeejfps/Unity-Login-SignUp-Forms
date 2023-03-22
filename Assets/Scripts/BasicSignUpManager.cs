@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using UnityEngine;
 using YADBF;
 
 namespace Login
@@ -12,8 +13,11 @@ namespace Login
         public ObservableProperty<string> ConfirmPasswordProp { get; } = new();
         public ObservableProperty<Action> SignUpActionProp { get; } = new();
 
-        public BasicSignUpManager()
+        private IPopupService PopupService { get; }
+        
+        public BasicSignUpManager(IPopupService popupService)
         {
+            PopupService = popupService;
             EmailProp.ValueChanged += EmailProp_OnValueChanged;
             PasswordProp.ValueChanged += PasswordProp_OnValueChanged;
             ConfirmPasswordProp.ValueChanged += ConfirmPassword_PropOnValueChanged;
@@ -55,9 +59,26 @@ namespace Login
 
         private async void SignUp()
         {
-            IsLoadingProp.Set(true);
-            await Task.Delay(2000);
-            IsLoadingProp.Set(false);
+            try
+            {
+                IsLoadingProp.Set(true);
+
+                var password = PasswordProp.Value;
+                var confirmPassword = ConfirmPasswordProp.Value;
+
+                if (password != confirmPassword)
+                    await PopupService.ShowInfoPopupAsync("Error", "Passwords do not match");
+                else
+                    await Task.Delay(2000);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+            finally
+            {
+                IsLoadingProp.Set(false);
+            }
         }
     }
 }
