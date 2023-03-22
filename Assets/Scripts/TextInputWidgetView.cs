@@ -4,7 +4,7 @@ using YADBF.Unity;
 
 namespace Login
 {
-    public sealed class TextInputWidgetView : View<ITextInputWidget>
+    public sealed class TextInputWidgetView : WidgetView<ITextInputWidget>
     {
         [SerializeField] private TMP_InputField m_InputField;
 
@@ -13,18 +13,13 @@ namespace Login
             base.OnBindToModel(model);
             Bind(model.TextProp, m_InputField.SetTextWithoutNotify);
             Bind(model.IsInteractableProp, value => m_InputField.interactable = value);
-        }
-
-        protected override void Start()
-        {
-            base.Start();
             m_InputField.onValueChanged.AddListener(InputField_OnValueChanged);
         }
 
-        protected override void OnDestroy()
+        protected override void OnUnbindFromModel(ITextInputWidget model)
         {
             m_InputField.onValueChanged.RemoveListener(InputField_OnValueChanged);
-            base.OnDestroy();
+            base.OnUnbindFromModel(model);
         }
 
         private void InputField_OnValueChanged(string value)
