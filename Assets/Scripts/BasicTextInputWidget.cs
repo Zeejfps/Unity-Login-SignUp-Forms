@@ -13,14 +13,14 @@ namespace Login
     internal sealed class BasicPasswordInputWidget : IPasswordInputWidget
     {
         public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
-        public ObservableProperty<ITextInputWidget> TextInputWidgetProp { get; } = new();
-        public ObservableProperty<IToggleWidget> ShowPasswordToggleWidgetProp { get; } = new();
+        public ITextInputWidget TextInputWidget { get; }
+        public IToggleWidget ShowPasswordToggleWidget { get; }
 
         public BasicPasswordInputWidget()
         {
-            TextInputWidgetProp.Set(new BasicTextInputWidget());
-            TextInputWidgetProp.Value.IsMaskingCharacters.Set(true);
-            ShowPasswordToggleWidgetProp.Set(new ShowPasswordToggleWidget(TextInputWidgetProp.Value));
+            TextInputWidget = new BasicTextInputWidget();
+            TextInputWidget.IsMaskingCharacters.Set(true);
+            ShowPasswordToggleWidget = new ShowPasswordToggleWidget(TextInputWidget);
         }
     }
 

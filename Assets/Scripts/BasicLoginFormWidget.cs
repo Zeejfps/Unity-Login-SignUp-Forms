@@ -14,9 +14,9 @@ namespace Login
         private ILoginService LoginService { get; }
 
         private ITextInputWidget EmailInputWidget => EmailInputWidgetProp.Value;
-        private ITextInputWidget PasswordInputWidget => PasswordInputWidgetProp.Value.TextInputWidgetProp.Value;
+        private ITextInputWidget PasswordInputWidget => PasswordInputWidgetProp.Value.TextInputWidget;
         private string Email => EmailInputWidgetProp.Value.TextProp.Value;
-        private string Password => PasswordInputWidgetProp.Value.TextInputWidgetProp.Value.TextProp.Value;
+        private string Password => PasswordInputWidgetProp.Value.TextInputWidget.TextProp.Value;
     
         public BasicLoginFormWidget(ILoginService loginService)
         {

@@ -12,8 +12,8 @@ namespace Login
         protected override void OnBindToModel(IPasswordInputWidget model)
         {
             base.OnBindToModel(model);
-            Bind(model.TextInputWidgetProp, m_TextInputWidgetView);
-            Bind(model.ShowPasswordToggleWidgetProp, m_ShowPasswordToggle);
+            m_TextInputWidgetView.Model = model.TextInputWidget;
+            m_ShowPasswordToggle.Model = model.ShowPasswordToggleWidget;
         }
     }
 }

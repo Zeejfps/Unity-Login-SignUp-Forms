@@ -15,7 +15,8 @@ namespace Login
             Bind(model.EmailInputWidgetProp, m_EmailInputWidgetView);
             Bind(model.PasswordInputWidgetProp, m_PasswordInputWidgetView);
             Bind(model.ConfirmPasswordInputWidgetProp, m_ConfirmPasswordInputWidgetView);
-            Bind(model.SignUpButtonWidgetProp, m_SubmitButtonWidgetView);
+
+            m_SubmitButtonWidgetView.Model = model.SignUpButtonWidget;
         }
     }
 }

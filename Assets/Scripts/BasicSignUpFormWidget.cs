@@ -10,11 +10,11 @@ namespace Login
         public ObservableProperty<ITextInputWidget> EmailInputWidgetProp { get; } = new();
         public ObservableProperty<IPasswordInputWidget> PasswordInputWidgetProp { get; } = new();
         public ObservableProperty<IPasswordInputWidget> ConfirmPasswordInputWidgetProp { get; } = new();
-        public ObservableProperty<IButtonWidget> SignUpButtonWidgetProp { get; } = new();
+        public IButtonWidget SignUpButtonWidget { get; }
         
         private ISignUpService SignUpService { get; }
 
-        private ITextInputWidget PasswordTextInputWidget => PasswordInputWidgetProp.Value.TextInputWidgetProp.Value;
+        private ITextInputWidget PasswordTextInputWidget => PasswordInputWidgetProp.Value.TextInputWidget;
         
         public BasicSignUpFormWidget(ISignUpService signUpService)
         {
@@ -23,13 +23,13 @@ namespace Login
             EmailInputWidgetProp.Set(new BasicTextInputWidget());
             PasswordInputWidgetProp.Set(new BasicPasswordInputWidget());
             ConfirmPasswordInputWidgetProp.Set(new BasicPasswordInputWidget());
-            SignUpButtonWidgetProp.Set(new BasicButtonWidget());
             
-            SignUpButtonWidgetProp.Value.ActionProp.Set(SignUp);
+            SignUpButtonWidget = new BasicButtonWidget();
+            SignUpButtonWidget.ActionProp.Set(SignUp);
             
             EmailInputWidgetProp.Value.TextProp.ValueChanged += TextProp_OnValueChanged;
             PasswordTextInputWidget.TextProp.ValueChanged += TextProp_OnValueChanged;
-            ConfirmPasswordInputWidgetProp.Value.TextInputWidgetProp.Value.TextProp.ValueChanged += TextProp_OnValueChanged;
+            ConfirmPasswordInputWidgetProp.Value.TextInputWidget.TextProp.ValueChanged += TextProp_OnValueChanged;
         }
 
         private void TextProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
@@ -40,9 +40,9 @@ namespace Login
         private async void SignUp()
         {
             var emailInputWidget = EmailInputWidgetProp.Value;
-            var passwordInputWidget = PasswordInputWidgetProp.Value.TextInputWidgetProp.Value;
-            var confirmPasswordInputWidget = ConfirmPasswordInputWidgetProp.Value.TextInputWidgetProp.Value;
-            var signUpButtonWidget = SignUpButtonWidgetProp.Value;
+            var passwordInputWidget = PasswordInputWidgetProp.Value.TextInputWidget;
+            var confirmPasswordInputWidget = ConfirmPasswordInputWidgetProp.Value.TextInputWidget;
+            var signUpButtonWidget = SignUpButtonWidget;
             
             try
             {
@@ -52,7 +52,7 @@ namespace Login
                 signUpButtonWidget.IsInteractable.Set(false);
                 
                 var email = EmailInputWidgetProp.Value.TextProp.Value;
-                var password = PasswordInputWidgetProp.Value.TextInputWidgetProp.Value.TextProp.Value;
+                var password = PasswordInputWidgetProp.Value.TextInputWidget.TextProp.Value;
                 await SignUpService.SignUp(email, password);
             }
             catch (Exception e)
@@ -70,7 +70,7 @@ namespace Login
         
         private void UpdateButtonState()
         {
-            var signUpButtonWidget = SignUpButtonWidgetProp.Value;
+            var signUpButtonWidget = SignUpButtonWidget;
             var allFieldsValid = ValidateFields();
             if (allFieldsValid)
                 signUpButtonWidget.IsInteractable.Set(true);
@@ -81,8 +81,8 @@ namespace Login
         private bool ValidateFields()
         {
             var email = EmailInputWidgetProp.Value.TextProp.Value;
-            var password = PasswordInputWidgetProp.Value.TextInputWidgetProp.Value.TextProp.Value;
-            var confirmPassword = ConfirmPasswordInputWidgetProp.Value.TextInputWidgetProp.Value.TextProp.Value;
+            var password = PasswordInputWidgetProp.Value.TextInputWidget.TextProp.Value;
+            var confirmPassword = ConfirmPasswordInputWidgetProp.Value.TextInputWidget.TextProp.Value;
             
             if (string.IsNullOrWhiteSpace(email))
                 return false;
