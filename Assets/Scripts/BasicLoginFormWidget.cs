@@ -7,23 +7,21 @@ namespace Login
     internal sealed class BasicLoginFormWidget : ILoginFormWidget
     {
         public ObservableProperty<bool> IsVisibleProp { get; } = new();
-        public ObservableProperty<ITextInputWidget> EmailInputWidgetProp { get; } = new(new BasicTextInputWidget());
-        public ObservableProperty<IPasswordInputWidget> PasswordInputWidgetProp { get; } = new(new BasicPasswordInputWidget());
+        public ITextInputWidget EmailInputWidget { get; } = new BasicTextInputWidget();
+        public IPasswordInputWidget PasswordInputWidget { get; } =new BasicPasswordInputWidget();
         public ObservableProperty<Action> LoginActionProp { get; } = new();
 
         private ILoginService LoginService { get; }
-
-        private ITextInputWidget EmailInputWidget => EmailInputWidgetProp.Value;
-        private ITextInputWidget PasswordInputWidget => PasswordInputWidgetProp.Value.TextInputWidget;
-        private string Email => EmailInputWidgetProp.Value.TextProp.Value;
-        private string Password => PasswordInputWidgetProp.Value.TextInputWidget.TextProp.Value;
+        
+        private string Email => EmailInputWidget.TextProp.Value;
+        private string Password => PasswordInputWidget.TextInputWidget.TextProp.Value;
     
         public BasicLoginFormWidget(ILoginService loginService)
         {
             LoginService = loginService;
             
             EmailInputWidget.TextProp.ValueChanged += EmailProp_OnValueChanged;
-            PasswordInputWidget.TextProp.ValueChanged += PasswordProp_OnValueChanged;
+            PasswordInputWidget.TextInputWidget.TextProp.ValueChanged += PasswordProp_OnValueChanged;
         }
 
         public void Dispose()
@@ -56,7 +54,7 @@ namespace Login
             {
                 LoginActionProp.Set(null);
                 EmailInputWidget.IsInteractableProp.Set(false);
-                PasswordInputWidget.IsInteractableProp.Set(false);
+                PasswordInputWidget.TextInputWidget.IsInteractableProp.Set(false);
 
                 var email = Email;
                 var password = Password;
@@ -70,7 +68,7 @@ namespace Login
             finally
             {
                 EmailInputWidget.IsInteractableProp.Set(true);
-                PasswordInputWidget.IsInteractableProp.Set(true);
+                PasswordInputWidget.TextInputWidget.IsInteractableProp.Set(true);
                 UpdateLoginAction();
             }
         }

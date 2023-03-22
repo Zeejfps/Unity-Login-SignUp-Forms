@@ -12,8 +12,9 @@ namespace Login
         {
             base.OnBindToModel(model);
             Bind(model.IsVisibleProp, gameObject.SetActive);
-            Bind(model.EmailInputWidgetProp, m_EmailInputWidgetView);
-            Bind(model.PasswordInputWidgetProp, m_PasswordInputWidgetView);
+
+            m_EmailInputWidgetView.Model = model.EmailInputWidget;
+            m_PasswordInputWidgetView.Model = model.PasswordInputWidget;
         }
     }
 }
