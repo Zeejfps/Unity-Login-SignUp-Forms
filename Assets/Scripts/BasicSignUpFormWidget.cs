@@ -13,6 +13,8 @@ namespace Login
         public ObservableProperty<IButtonWidget> SignUpButtonWidgetProp { get; } = new();
         
         private ISignUpService SignUpService { get; }
+
+        private ITextInputWidget PasswordTextInputWidget => PasswordInputWidgetProp.Value.TextInputWidgetProp.Value;
         
         public BasicSignUpFormWidget(ISignUpService signUpService)
         {
@@ -26,8 +28,8 @@ namespace Login
             SignUpButtonWidgetProp.Value.ActionProp.Set(SignUp);
             
             EmailInputWidgetProp.Value.TextProp.ValueChanged += TextProp_OnValueChanged;
-            PasswordInputWidgetProp.Value.TextProp.ValueChanged += TextProp_OnValueChanged;
-            ConfirmPasswordInputWidgetProp.Value.TextProp.ValueChanged += TextProp_OnValueChanged;
+            PasswordTextInputWidget.TextProp.ValueChanged += TextProp_OnValueChanged;
+            ConfirmPasswordInputWidgetProp.Value.TextInputWidgetProp.Value.TextProp.ValueChanged += TextProp_OnValueChanged;
         }
 
         private void TextProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
@@ -38,8 +40,8 @@ namespace Login
         private async void SignUp()
         {
             var emailInputWidget = EmailInputWidgetProp.Value;
-            var passwordInputWidget = PasswordInputWidgetProp.Value;
-            var confirmPasswordInputWidget = ConfirmPasswordInputWidgetProp.Value;
+            var passwordInputWidget = PasswordInputWidgetProp.Value.TextInputWidgetProp.Value;
+            var confirmPasswordInputWidget = ConfirmPasswordInputWidgetProp.Value.TextInputWidgetProp.Value;
             var signUpButtonWidget = SignUpButtonWidgetProp.Value;
             
             try
@@ -50,7 +52,7 @@ namespace Login
                 signUpButtonWidget.IsInteractable.Set(false);
                 
                 var email = EmailInputWidgetProp.Value.TextProp.Value;
-                var password = PasswordInputWidgetProp.Value.TextProp.Value;
+                var password = PasswordInputWidgetProp.Value.TextInputWidgetProp.Value.TextProp.Value;
                 await SignUpService.SignUp(email, password);
             }
             catch (Exception e)
@@ -79,8 +81,8 @@ namespace Login
         private bool ValidateFields()
         {
             var email = EmailInputWidgetProp.Value.TextProp.Value;
-            var password = PasswordInputWidgetProp.Value.TextProp.Value;
-            var confirmPassword = ConfirmPasswordInputWidgetProp.Value.TextProp.Value;
+            var password = PasswordInputWidgetProp.Value.TextInputWidgetProp.Value.TextProp.Value;
+            var confirmPassword = ConfirmPasswordInputWidgetProp.Value.TextInputWidgetProp.Value.TextProp.Value;
             
             if (string.IsNullOrWhiteSpace(email))
                 return false;
@@ -90,7 +92,7 @@ namespace Login
 
             if (string.IsNullOrWhiteSpace(confirmPassword))
                 return false;
-
+            
             return true;
         }
     }

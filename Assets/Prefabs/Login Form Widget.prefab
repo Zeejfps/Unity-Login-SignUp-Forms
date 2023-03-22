@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ThemeProvider: {fileID: 11400000, guid: 9d89b4bc910d5104faeac233b53b7667, type: 2}
-  m_EmailInputWidgetView: {fileID: 8303024131440457228}
+  m_EmailInputWidgetView: {fileID: 8940318648077465227}
   m_PasswordInputWidgetView: {fileID: 4724727488960460296}
 --- !u!114 &4425191348393460450
 MonoBehaviour:
@@ -397,9 +397,9 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2402977495581711661, guid: 13a1eae7008ccc2418e1d32c94f23e8f, type: 3}
   m_PrefabInstance: {fileID: 2031237064788275681}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8303024131440457228 stripped
+--- !u!114 &8940318648077465227 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8001246368340297709, guid: 13a1eae7008ccc2418e1d32c94f23e8f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6927102649199937386, guid: 13a1eae7008ccc2418e1d32c94f23e8f, type: 3}
   m_PrefabInstance: {fileID: 2031237064788275681}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

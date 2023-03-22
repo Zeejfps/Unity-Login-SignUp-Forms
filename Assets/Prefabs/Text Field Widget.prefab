@@ -491,8 +491,9 @@ GameObject:
   - component: {fileID: 2402977495338824526}
   - component: {fileID: 2402977495338824527}
   - component: {fileID: 2402977495338824524}
+  - component: {fileID: 6927102649199937386}
   m_Layer: 5
-  m_Name: Input Field
+  m_Name: Text Input Widget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -655,6 +656,20 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
+--- !u!114 &6927102649199937386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2402977495338824514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d168f478d0e47a9b8801c397f79b99f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ThemeProvider: {fileID: 11400000, guid: 9d89b4bc910d5104faeac233b53b7667, type: 2}
+  m_InputField: {fileID: 2402977495338824524}
 --- !u!1 &2402977495581711650
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,7 +679,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2402977495581711661}
-  - component: {fileID: 8001246368340297709}
   m_Layer: 5
   m_Name: Text Field Widget
   m_TagString: Untagged
@@ -694,17 +708,3 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8001246368340297709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2402977495581711650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d168f478d0e47a9b8801c397f79b99f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ThemeProvider: {fileID: 11400000, guid: 9d89b4bc910d5104faeac233b53b7667, type: 2}
-  m_InputField: {fileID: 2402977495338824524}
