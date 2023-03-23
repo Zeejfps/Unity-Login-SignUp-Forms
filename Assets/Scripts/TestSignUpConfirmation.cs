@@ -15,7 +15,7 @@ namespace Login
 
         private CancellationTokenSource m_CancellationTokenSource;
         
-        public void Cancel()
+        public void Dispose()
         {
             m_CancellationTokenSource?.Cancel();
         }

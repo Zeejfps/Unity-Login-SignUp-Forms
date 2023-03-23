@@ -5,7 +5,7 @@ using YADBF;
 
 namespace Login
 {
-    public sealed class TestSignUpManager : ISignUpManager
+    public sealed class TestSignUpManager : ISignUpManager, ISignUpConfirmationFactory
     {
         public ObservableProperty<bool> IsLoadingProp { get; } = new();
         public ObservableProperty<string> EmailProp { get; } = new();
@@ -74,8 +74,7 @@ namespace Login
                 else
                 {
                     await Task.Delay(2000);
-                    var confirmation = Z.Get<ISignUpConfirmation>();
-                    PopupManager.PopupWidgetProp.Set(new ConfirmSignUpPopupWidget(confirmation));
+                    PopupManager.PopupWidgetProp.Set(new ConfirmSignUpPopupWidget(this));
                 }
             }
             catch (Exception e)
@@ -86,6 +85,11 @@ namespace Login
             {
                 IsLoadingProp.Set(false);
             }
+        }
+
+        public ISignUpConfirmation Create()
+        {
+            return new TestSignUpConfirmation();
         }
     }
 }

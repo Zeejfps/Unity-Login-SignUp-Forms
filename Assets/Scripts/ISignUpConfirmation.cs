@@ -11,6 +11,6 @@ namespace Login
         ObservableProperty<Action> ConfirmActionProp { get; }
         ObservableProperty<string> ConfirmationCodeTextProp { get; }
         
-        void Cancel();
+        void Dispose();
     }
 }

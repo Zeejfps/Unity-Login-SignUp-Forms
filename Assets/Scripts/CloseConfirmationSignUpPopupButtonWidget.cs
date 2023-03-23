@@ -20,7 +20,7 @@ public sealed class CloseConfirmationSignUpPopupButtonWidget : IButtonWidget
 
     private void ClosePopup()
     {
-        SignUpConfirmation.Cancel();
+        SignUpConfirmation.Dispose();
         PopupWidget.IsVisibleProp.Set(false);
     }
 }

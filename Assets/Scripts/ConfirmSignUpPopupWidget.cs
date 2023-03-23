@@ -10,15 +10,15 @@ public sealed class ConfirmSignUpPopupWidget : IConfirmSignUpPopupWidget
         
     private ISignUpConfirmation SignUpConfirmation { get; }
 
-    public ConfirmSignUpPopupWidget(ISignUpConfirmation signUpConfirmation)
+    public ConfirmSignUpPopupWidget(ISignUpConfirmationFactory signUpConfirmationFactory)
     {
-        SignUpConfirmation = signUpConfirmation;
-        CodeInputWidget = new ConfirmationCodeInputWidget(signUpConfirmation);
-        ConfirmButtonWidget = new ConfirmSignUpButtonWidget(signUpConfirmation);
-        CancelButtonWidget = new CloseConfirmationSignUpPopupButtonWidget(signUpConfirmation, this);
+        SignUpConfirmation = signUpConfirmationFactory.Create();
+        CodeInputWidget = new ConfirmationCodeInputWidget(SignUpConfirmation);
+        ConfirmButtonWidget = new ConfirmSignUpButtonWidget(SignUpConfirmation);
+        CancelButtonWidget = new ClosePopupButtonWidget(this);
         
         IsVisibleProp.ValueChanged += IsVisibleProp_OnValueChanged;
-        signUpConfirmation.Confirmed += SignUpConfirmation_OnConfirmed;
+        SignUpConfirmation.Confirmed += SignUpConfirmation_OnConfirmed;
     }
 
     private void SignUpConfirmation_OnConfirmed()
@@ -29,5 +29,6 @@ public sealed class ConfirmSignUpPopupWidget : IConfirmSignUpPopupWidget
     private void IsVisibleProp_OnValueChanged(ObservableProperty<bool> property, bool prevvalue, bool currvalue)
     {
         SignUpConfirmation.Confirmed -= SignUpConfirmation_OnConfirmed;
+        SignUpConfirmation.Dispose();
     }
 }
