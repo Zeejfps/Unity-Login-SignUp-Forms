@@ -76,7 +76,7 @@ namespace Login
                 else
                 {
                     await Task.Delay(2000);
-                    await PopupManager.ShowPopupAsync(new ConfirmSignUpPopupWidget(SignUpConfirmationManager));
+                    PopupManager.PopupWidgetProp.Set(new ConfirmSignUpPopupWidget(SignUpConfirmationManager));
                 }
             }
             catch (Exception e)

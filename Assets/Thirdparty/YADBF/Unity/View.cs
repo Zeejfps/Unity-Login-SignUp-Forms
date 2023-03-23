@@ -50,7 +50,7 @@ namespace YADBF.Unity
             RaiseModelChangedEvent();
         }
         
-        public sealed override object GetViewModel()
+        public sealed override object GetModel()
         {
             return Model;
         }
@@ -119,7 +119,7 @@ namespace YADBF.Unity
     {
         public event Action ModelChanged;
         public abstract bool TrySetViewModel(object viewModel);
-        public abstract object GetViewModel();
+        public abstract object GetModel();
         public abstract Type GetViewModelType();
 
         protected void RaiseModelChangedEvent()

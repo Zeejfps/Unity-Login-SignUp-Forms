@@ -448,7 +448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5808030529608013133, guid: 4180702ea9ded2145abab59237c51a2e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 380
       objectReference: {fileID: 0}
     - target: {fileID: 5808030529608013133, guid: 4180702ea9ded2145abab59237c51a2e, type: 3}
       propertyPath: m_SizeDelta.y
@@ -484,7 +484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5808030529608013133, guid: 4180702ea9ded2145abab59237c51a2e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 5808030529608013133, guid: 4180702ea9ded2145abab59237c51a2e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -506,7 +506,12 @@ PrefabInstance:
       propertyPath: m_text
       value: Enter confirmation code
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8348626589801380383, guid: 4180702ea9ded2145abab59237c51a2e, type: 3}
+      propertyPath: m_PropertyBindingSettings.m_PropertyName
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8348626589801380383, guid: 4180702ea9ded2145abab59237c51a2e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4180702ea9ded2145abab59237c51a2e, type: 3}
 --- !u!224 &7013222184458675890 stripped
 RectTransform:
@@ -612,7 +617,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Popup Title Text (TMP)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 3745515158875062655, guid: de1932a0046b6a4488e07cdf3e612104, type: 3}
+      propertyPath: m_PropertyBindingSettings.m_PropertyName
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3745515158875062655, guid: de1932a0046b6a4488e07cdf3e612104, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: de1932a0046b6a4488e07cdf3e612104, type: 3}
 --- !u!224 &9070244393682991639 stripped
 RectTransform:

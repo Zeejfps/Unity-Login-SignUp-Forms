@@ -3,16 +3,14 @@ using YADBF;
 
 namespace Login
 {
-    public interface IPopup : IWidget
+    public interface IPopupWidget : IWidget
     {
         
     }
     
     public interface IPopupManager
     {
-        ObservableProperty<IInfoPopupWidget> InfoPopupWidgetProp { get; }
+        ObservableProperty<IPopupWidget> PopupWidgetProp { get; }
         Task ShowInfoPopupAsync(string titleText, string infoText);
-
-        Task ShowPopupAsync(IPopup popup);
     }
 }

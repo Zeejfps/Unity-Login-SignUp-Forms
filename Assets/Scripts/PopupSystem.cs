@@ -1,63 +1,76 @@
-using System;
 using Login;
 using UnityEngine;
 using YADBF;
+using YADBF.Unity;
 
 public sealed class PopupSystem : MonoBehaviour
 {
     [SerializeField] private GameObject m_ScreenDimmer;
+    [SerializeField] private UGUIConfirmationPopupWidgetView m_ConfirmationPopupWidgetViewPrefab;
     [SerializeField] private UGUIInfoPopupWidgetView m_InfoPopupWidgetViewPrefab;
     
     private IPopupManager m_PopupManager;
     private IPopupManager PopupManager => m_PopupManager ??= Z.Get<IPopupManager>();
 
-    private UGUIInfoPopupWidgetView m_InfoPopupWidgetView;
+    private View m_PopupView;
     
     private void Start()
     {
-        PopupManager.InfoPopupWidgetProp.ValueChanged += InfoPopupWidgetProp_OnValueChanged;
+        PopupManager.PopupWidgetProp.ValueChanged += PopupWidgetProp_OnValueChanged;
     }
 
     private void OnDestroy()
     {
-        PopupManager.InfoPopupWidgetProp.ValueChanged -= InfoPopupWidgetProp_OnValueChanged;
+        PopupManager.PopupWidgetProp.ValueChanged -= PopupWidgetProp_OnValueChanged;
     }
 
-    private void InfoPopupWidgetProp_OnValueChanged(ObservableProperty<IInfoPopupWidget> property, IInfoPopupWidget prevvalue, IInfoPopupWidget currvalue)
+    private void PopupWidgetProp_OnValueChanged(ObservableProperty<IPopupWidget> property, IPopupWidget prevvalue, IPopupWidget currvalue)
     {
-        if (currvalue == null && m_InfoPopupWidgetView != null)
-        {
-            HidePopup();
-            return;
-        }
-        
-        if (currvalue != null && m_InfoPopupWidgetView != null)
-        {
-            m_InfoPopupWidgetView.Model = currvalue;
-            return;
-        }
-
-        if (currvalue != null && m_InfoPopupWidgetView == null)
-        {
+        HidePopup();
+        if (currvalue != null)
             ShowPopup(currvalue);
-            return;
-        }
     }
 
-    private void ShowPopup(IInfoPopupWidget widget)
+    private void ShowPopup(IPopupWidget widget)
     {
         m_ScreenDimmer.SetActive(true);
-        m_InfoPopupWidgetView = Instantiate(m_InfoPopupWidgetViewPrefab, transform);
-        m_InfoPopupWidgetView.Model = widget;
+
+        View prefab = null;
+        switch (widget)
+        {
+            case IConfirmSignUpPopupWidget:
+                prefab = m_ConfirmationPopupWidgetViewPrefab;
+                break;
+            case IInfoPopupWidget:
+                prefab = m_InfoPopupWidgetViewPrefab;
+                break;
+        }
+        
+        m_PopupView = Instantiate(prefab, transform);
+        m_PopupView.TrySetViewModel(widget);
+
+        widget.IsVisibleProp.ValueChanged += PopupWidget_IsVisibleProp_OnValueChanged;
     }
 
     private void HidePopup()
     {
+        if (m_PopupView == null)
+            return;
+
         m_ScreenDimmer.SetActive(false);
-        var infoPopupWidgetView = m_InfoPopupWidgetView;
-        var go = infoPopupWidgetView.gameObject;
+
+        var popup = (IPopupWidget)m_PopupView.GetModel();
+        popup.IsVisibleProp.ValueChanged -= PopupWidget_IsVisibleProp_OnValueChanged;
+        
+        var go = m_PopupView.gameObject;
         go.SetActive(false);
         Destroy(go);
-        m_InfoPopupWidgetView = null;
+        m_PopupView = null;
+    }
+
+    private void PopupWidget_IsVisibleProp_OnValueChanged(ObservableProperty<bool> property, bool prevvalue, bool isVisible)
+    {
+        if (!isVisible)
+            HidePopup();
     }
 }

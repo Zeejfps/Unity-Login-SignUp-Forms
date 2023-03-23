@@ -47,7 +47,7 @@ namespace YADBF.Unity
         protected void BindToView()
         {
             var view = m_PropertyBindingSettings.View;
-            var viewModel = view.GetViewModel();
+            var viewModel = view.GetModel();
             view.ModelChanged += View_OnViewModelChanged;
             if (viewModel != null) Bind(viewModel);
         }
@@ -62,7 +62,7 @@ namespace YADBF.Unity
         private void View_OnViewModelChanged()
         {
             Unbind();
-            var model = m_PropertyBindingSettings.View.GetViewModel();
+            var model = m_PropertyBindingSettings.View.GetModel();
             if (model != null) Bind(model);
         }
 

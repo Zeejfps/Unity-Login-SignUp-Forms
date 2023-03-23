@@ -5,7 +5,8 @@ namespace Login
 {
     internal sealed class PopupManager : IPopupManager
     {
-        public ObservableProperty<IInfoPopupWidget> InfoPopupWidgetProp { get; } = new();
+        public ObservableProperty<IPopupWidget> PopupWidgetProp { get; } = new();
+        
         public Task ShowInfoPopupAsync(string titleText, string infoText)
         {
             var tcs = new TaskCompletionSource<bool>();
@@ -14,16 +15,11 @@ namespace Login
             popup.InfoTextProp.Set(infoText);
             popup.OkActionProp.Set(() =>
             {
-                InfoPopupWidgetProp.Set(null);
+                PopupWidgetProp.Set(null);
                 tcs.SetResult(true);
             });
-            InfoPopupWidgetProp.Set(popup);
+            PopupWidgetProp.Set(popup);
             return tcs.Task;
-        }
-
-        public Task ShowPopupAsync(IPopup popup)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

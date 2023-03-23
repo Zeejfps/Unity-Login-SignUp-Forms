@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ScreenDimmer: {fileID: 2988323188815600994}
+  m_ConfirmationPopupWidgetViewPrefab: {fileID: 8494450379279774971, guid: 7b066da6180a74f48930d9c64eb88c5c, type: 3}
   m_InfoPopupWidgetViewPrefab: {fileID: 3962689066942556893, guid: c98d1e24e56994a469fa0855d26830b0, type: 3}
 --- !u!1 &2988323188815600994
 GameObject:

@@ -1,6 +1,6 @@
 ﻿namespace Login
 {
-    public interface IConfirmSignUpPopupWidget : IPopup
+    public interface IConfirmSignUpPopupWidget : IPopupWidget
     {
         ITextInputWidget CodeInputWidget { get; }
         IButtonWidget ConfirmButtonWidget { get; }

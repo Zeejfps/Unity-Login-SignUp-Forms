@@ -3,7 +3,7 @@ using YADBF;
 
 namespace Login
 {
-    public interface IInfoPopupWidget : IWidget
+    public interface IInfoPopupWidget : IPopupWidget
     {
         ObservableProperty<string> TitleTextProp { get; }
         ObservableProperty<string> InfoTextProp { get; }
