@@ -26,8 +26,11 @@ public sealed class ConfirmSignUpPopupWidget : IConfirmSignUpPopupWidget
         IsVisibleProp.Set(false);
     }
 
-    private void IsVisibleProp_OnValueChanged(ObservableProperty<bool> property, bool prevvalue, bool currvalue)
+    private void IsVisibleProp_OnValueChanged(ObservableProperty<bool> property, bool prevvalue, bool isVisible)
     {
+        if (isVisible)
+            return;
+        
         SignUpConfirmation.Confirmed -= SignUpConfirmation_OnConfirmed;
         SignUpConfirmation.Dispose();
     }
