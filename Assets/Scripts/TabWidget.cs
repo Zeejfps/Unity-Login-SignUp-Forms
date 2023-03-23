@@ -11,17 +11,12 @@ public sealed class TabWidget : ITabWidget
     {
         m_Content = content;
         IsSelectedProp.Set(m_Content.IsVisibleProp.Value);
-        IsSelectedProp.ValueChanged += IsSelected_OnValueChanged;
+        m_Content.IsVisibleProp.Bind(IsSelectedProp);
     }
 
     public void HandleClick()
     {
         if (!IsSelectedProp.IsTrue())
             IsSelectedProp.Set(true);
-    }
-
-    private void IsSelected_OnValueChanged(ObservableProperty<bool> property, bool prevvalue, bool isSelected)
-    {
-        m_Content.IsVisibleProp.Set(isSelected);
     }
 }

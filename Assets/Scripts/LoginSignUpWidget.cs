@@ -1,3 +1,4 @@
+using Login;
 using YADBF;
 
 public sealed class LoginSignUpWidget : ILoginSignUpWidget
@@ -8,13 +9,13 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
     public ILoginFormWidget LoginFormWidget { get; }
     public ISignUpFormWidget SignUpFormWidget { get; }
 
-    public LoginSignUpWidget(ILoginFormWidget loginFormWidget, ISignUpFormWidget signUpFormWidget)
+    public LoginSignUpWidget(ILoginManager loginManager, ISignUpManager signUpManager)
     {
-        LoginFormWidget = loginFormWidget;
-        LoginFormTabWidget = new TabWidget(loginFormWidget);
+        LoginFormWidget = new LoginFormWidget(loginManager);
+        LoginFormTabWidget = new LoginFormTabWidget(signUpManager, LoginFormWidget);
         
-        SignUpFormWidget = signUpFormWidget;
-        SignUpFormTabWidget = new TabWidget(signUpFormWidget);
+        SignUpFormWidget = new SignUpFormWidget(signUpManager);
+        SignUpFormTabWidget = new SignUpFormTabWidget(loginManager, SignUpFormWidget);
 
         var tabGroup = new TabGroup();
         tabGroup.AddTab(LoginFormTabWidget);
