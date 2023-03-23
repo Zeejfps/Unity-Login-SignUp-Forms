@@ -8,21 +8,22 @@ public sealed class ConfirmSignUpPopupWidget : IConfirmSignUpPopupWidget
     public IButtonWidget CancelButtonWidget { get; }
     public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
         
-    private ISignUpConfirmation SignUpConfirmation { get; }
+    private ISignUpConfirmationFlow SignUpConfirmationFlow { get; }
 
-    public ConfirmSignUpPopupWidget(ISignUpConfirmationFactory signUpConfirmationFactory)
+    public ConfirmSignUpPopupWidget(ISignUpConfirmationFlow signUpConfirmationFlow)
     {
-        SignUpConfirmation = signUpConfirmationFactory.Create();
-        CodeInputWidget = new ConfirmationCodeInputWidget(SignUpConfirmation);
-        ConfirmButtonWidget = new ConfirmSignUpButtonWidget(SignUpConfirmation);
+        SignUpConfirmationFlow = signUpConfirmationFlow;
+        CodeInputWidget = new ConfirmationCodeInputWidget(SignUpConfirmationFlow);
+        ConfirmButtonWidget = new ConfirmSignUpButtonWidget(SignUpConfirmationFlow);
         CancelButtonWidget = new ClosePopupButtonWidget(this);
         
         IsVisibleProp.ValueChanged += IsVisibleProp_OnValueChanged;
-        SignUpConfirmation.Confirmed += SignUpConfirmation_OnConfirmed;
+        SignUpConfirmationFlow.Completed += SignUpConfirmation_OnConfirmed;
     }
 
-    private void SignUpConfirmation_OnConfirmed()
+    private void SignUpConfirmation_OnConfirmed(ISignUpConfirmationFlow flow)
     {
+        flow.Completed -= SignUpConfirmation_OnConfirmed;
         IsVisibleProp.Set(false);
     }
 
@@ -31,7 +32,7 @@ public sealed class ConfirmSignUpPopupWidget : IConfirmSignUpPopupWidget
         if (isVisible)
             return;
         
-        SignUpConfirmation.Confirmed -= SignUpConfirmation_OnConfirmed;
-        SignUpConfirmation.Dispose();
+        SignUpConfirmationFlow.Completed -= SignUpConfirmation_OnConfirmed;
+        SignUpConfirmationFlow.Cancel();
     }
 }

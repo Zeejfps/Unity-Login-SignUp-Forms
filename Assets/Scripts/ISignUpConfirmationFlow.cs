@@ -3,14 +3,15 @@ using YADBF;
 
 namespace Login
 {
-    public interface ISignUpConfirmation
+    public interface ISignUpConfirmationFlow
     {
-        event Action Confirmed;
+        event Action<ISignUpConfirmationFlow> Completed;
+        event Action<ISignUpConfirmationFlow> Canceled;
         
         ObservableProperty<bool> IsLoadingProp { get; }
         ObservableProperty<Action> ConfirmActionProp { get; }
         ObservableProperty<string> ConfirmationCodeTextProp { get; }
         
-        void Dispose();
+        void Cancel();
     }
 }

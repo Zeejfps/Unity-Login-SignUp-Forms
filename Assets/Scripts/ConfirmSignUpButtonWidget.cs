@@ -9,13 +9,13 @@ namespace Login
         public ObservableProperty<bool> IsInteractable { get; } = new();
         public ObservableProperty<Action> ActionProp { get; } = new();
 
-        private ISignUpConfirmation SignUpConfirmationManager { get; }
+        private ISignUpConfirmationFlow SignUpConfirmationFlowManager { get; }
         
-        public ConfirmSignUpButtonWidget(ISignUpConfirmation signUpConfirmationManager)
+        public ConfirmSignUpButtonWidget(ISignUpConfirmationFlow signUpConfirmationFlowManager)
         {
-            SignUpConfirmationManager = signUpConfirmationManager;
-            SignUpConfirmationManager.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
-            SignUpConfirmationManager.ConfirmationCodeTextProp.ValueChanged += ConfirmationCodeText_PropOnValueChanged;
+            SignUpConfirmationFlowManager = signUpConfirmationFlowManager;
+            SignUpConfirmationFlowManager.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
+            SignUpConfirmationFlowManager.ConfirmationCodeTextProp.ValueChanged += ConfirmationCodeText_PropOnValueChanged;
             UpdateState();
         }
 
@@ -31,8 +31,8 @@ namespace Login
 
         private void UpdateState()
         {
-            var confirmAction = SignUpConfirmationManager.ConfirmActionProp.Value;
-            var isLoading = SignUpConfirmationManager.IsLoadingProp.Value;
+            var confirmAction = SignUpConfirmationFlowManager.ConfirmActionProp.Value;
+            var isLoading = SignUpConfirmationFlowManager.IsLoadingProp.Value;
             IsInteractable.Set(confirmAction != null && !isLoading);
             ActionProp.Set(confirmAction);
         }

@@ -9,7 +9,7 @@ namespace Login
         public ObservableProperty<bool> IsInteractableProp { get; } = new();
         public ObservableProperty<bool> IsMaskingCharacters { get; } = new();
         
-        public SignUpFormEmailInputWidget(ISignUpManager signUpManager)
+        public SignUpFormEmailInputWidget(ISignUpFlow signUpManager)
         {
             TextProp = signUpManager.EmailProp;
             IsInteractableProp.Bind(signUpManager.IsLoadingProp, value => !value);

@@ -8,14 +8,14 @@ public sealed class ConfirmationCodeInputWidget : ITextInputWidget
     public ObservableProperty<bool> IsInteractableProp { get; } = new();
     public ObservableProperty<bool> IsMaskingCharacters { get; } = new();
 
-    private ISignUpConfirmation SignUpConfirmationManager { get; }
+    private ISignUpConfirmationFlow SignUpConfirmationFlowManager { get; }
     
-    public ConfirmationCodeInputWidget(ISignUpConfirmation signUpConfirmationManager)
+    public ConfirmationCodeInputWidget(ISignUpConfirmationFlow signUpConfirmationFlowManager)
     {
-        SignUpConfirmationManager = signUpConfirmationManager;
-        SignUpConfirmationManager.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
+        SignUpConfirmationFlowManager = signUpConfirmationFlowManager;
+        SignUpConfirmationFlowManager.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
 
-        TextProp = signUpConfirmationManager.ConfirmationCodeTextProp;
+        TextProp = signUpConfirmationFlowManager.ConfirmationCodeTextProp;
         
         UpdateState();
     }
@@ -27,7 +27,7 @@ public sealed class ConfirmationCodeInputWidget : ITextInputWidget
 
     private void UpdateState()
     {
-        var isLoading = SignUpConfirmationManager.IsLoadingProp.Value;
+        var isLoading = SignUpConfirmationFlowManager.IsLoadingProp.Value;
         IsInteractableProp.Set(!isLoading);
     }
 }

@@ -9,9 +9,9 @@ namespace Login
         public ObservableProperty<bool> IsInteractable { get; } = new();
         public ObservableProperty<Action> ActionProp { get; } = new();
 
-        private ISignUpManager SignUpManager { get; }
+        private ISignUpFlow SignUpManager { get; }
         
-        public SignUpFormSignUpButton(ISignUpManager signUpManager)
+        public SignUpFormSignUpButton(ISignUpFlow signUpManager)
         {
             SignUpManager = signUpManager;
             signUpManager.SignUpActionProp.ValueChanged += SignUpActionProp_OnValueChanged;

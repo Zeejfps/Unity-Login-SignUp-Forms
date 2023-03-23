@@ -5,8 +5,9 @@ using YADBF;
 
 namespace Login
 {
-    public sealed class TestSignUpManager : ISignUpManager, ISignUpConfirmationFactory
+    public sealed class TestSignUpManager : ISignUpFlow, ISignUpConfirmationFactory
     {
+        public event Action Completed;
         public ObservableProperty<bool> IsLoadingProp { get; } = new();
         public ObservableProperty<string> EmailProp { get; } = new();
         public ObservableProperty<string> PasswordProp { get; } = new();
@@ -74,7 +75,10 @@ namespace Login
                 else
                 {
                     await Task.Delay(2000);
-                    PopupManager.PopupWidgetProp.Set(new ConfirmSignUpPopupWidget(this));
+                    var confirmationFlow = new TestSignUpConfirmationFlow();
+                    confirmationFlow.Completed += SignUpConfirmationFlow_OnCompleted;
+                    confirmationFlow.Canceled += SignUpConfirmationFlow_OnCanceled;
+                    PopupManager.PopupWidgetProp.Set(new ConfirmSignUpPopupWidget(confirmationFlow));
                 }
             }
             catch (Exception e)
@@ -87,9 +91,22 @@ namespace Login
             }
         }
 
-        public ISignUpConfirmation Create()
+        private void SignUpConfirmationFlow_OnCompleted(ISignUpConfirmationFlow flow)
         {
-            return new TestSignUpConfirmation();
+            flow.Completed -= SignUpConfirmationFlow_OnCompleted;
+            flow.Canceled -= SignUpConfirmationFlow_OnCanceled;
+            Completed?.Invoke();
+        }
+
+        private void SignUpConfirmationFlow_OnCanceled(ISignUpConfirmationFlow flow)
+        {
+            flow.Completed -= SignUpConfirmationFlow_OnCompleted;
+            flow.Canceled -= SignUpConfirmationFlow_OnCanceled;
+        }
+
+        public ISignUpConfirmationFlow Create()
+        {
+            return new TestSignUpConfirmationFlow();
         }
     }
 }

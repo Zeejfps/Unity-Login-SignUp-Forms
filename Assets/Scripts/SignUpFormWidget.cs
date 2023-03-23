@@ -10,7 +10,7 @@ namespace Login
         public IPasswordFieldWidget ConfirmPasswordFieldWidget { get; }
         public IButtonWidget SignUpButtonWidget { get; }
         
-        public SignUpFormWidget(ISignUpManager signUpManager)
+        public SignUpFormWidget(ISignUpFlow signUpManager)
         {
             EmailInputWidget = new SignUpFormEmailInputWidget(signUpManager);
             
