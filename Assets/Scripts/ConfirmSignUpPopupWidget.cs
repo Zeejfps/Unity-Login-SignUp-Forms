@@ -1,6 +1,4 @@
-﻿using System;
-using Login;
-using UnityEditor.Purchasing;
+﻿using Login;
 using YADBF;
 
 public sealed class ConfirmSignUpPopupWidget : IConfirmSignUpPopupWidget
@@ -10,36 +8,26 @@ public sealed class ConfirmSignUpPopupWidget : IConfirmSignUpPopupWidget
     public IButtonWidget CancelButtonWidget { get; }
     public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
         
-    private ISignUpConfirmationManager SignUpManager { get; }
+    private ISignUpConfirmation SignUpConfirmation { get; }
 
-    public ConfirmSignUpPopupWidget(ISignUpConfirmationManager signUpManager)
+    public ConfirmSignUpPopupWidget(ISignUpConfirmation signUpConfirmation)
     {
-        SignUpManager = signUpManager;
-        CodeInputWidget = new ConfirmationCodeInputWidget(signUpManager);
-        ConfirmButtonWidget = new ConfirmSignUpButtonWidget(signUpManager);
-        CancelButtonWidget = new ClosePopupButtonWidget(this);
-    }
-}
-
-public sealed class CloseConfirmationSignUpPopupButtonWidget : IButtonWidget
-{
-    public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
-    public ObservableProperty<bool> IsInteractable { get; } = new(true);
-    public ObservableProperty<Action> ActionProp { get; } = new();
-
-    private ISignUpConfirmationManager SignUpConfirmationManager { get; }
-    private IPopupWidget PopupWidget { get; }
-
-    public CloseConfirmationSignUpPopupButtonWidget(ISignUpConfirmationManager signUpConfirmationManager, IPopupWidget popupWidget)
-    {
-        SignUpConfirmationManager = signUpConfirmationManager;
-        PopupWidget = popupWidget;
-        ActionProp.Set(ClosePopup);
+        SignUpConfirmation = signUpConfirmation;
+        CodeInputWidget = new ConfirmationCodeInputWidget(signUpConfirmation);
+        ConfirmButtonWidget = new ConfirmSignUpButtonWidget(signUpConfirmation);
+        CancelButtonWidget = new CloseConfirmationSignUpPopupButtonWidget(signUpConfirmation, this);
+        
+        IsVisibleProp.ValueChanged += IsVisibleProp_OnValueChanged;
+        signUpConfirmation.Confirmed += SignUpConfirmation_OnConfirmed;
     }
 
-    private void ClosePopup()
+    private void SignUpConfirmation_OnConfirmed()
     {
-        //SignUpConfirmationManager.CancelSignUp();
-        PopupWidget.IsVisibleProp.Set(false);
+        IsVisibleProp.Set(false);
+    }
+
+    private void IsVisibleProp_OnValueChanged(ObservableProperty<bool> property, bool prevvalue, bool currvalue)
+    {
+        SignUpConfirmation.Confirmed -= SignUpConfirmation_OnConfirmed;
     }
 }

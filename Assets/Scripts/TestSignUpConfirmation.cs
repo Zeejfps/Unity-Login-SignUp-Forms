@@ -1,16 +1,26 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
+using UnityEngine;
 using YADBF;
 
 namespace Login
 {
-    public sealed class TestSignUpConfirmationManager : ISignUpConfirmationManager
+    public sealed class TestSignUpConfirmation : ISignUpConfirmation
     {
+        public event Action Confirmed;
         public ObservableProperty<bool> IsLoadingProp { get; } = new();
         public ObservableProperty<Action> ConfirmActionProp { get; } = new();
         public ObservableProperty<string> ConfirmationCodeTextProp { get; } = new();
 
-        public TestSignUpConfirmationManager()
+        private CancellationTokenSource m_CancellationTokenSource;
+        
+        public void Cancel()
+        {
+            m_CancellationTokenSource?.Cancel();
+        }
+
+        public TestSignUpConfirmation()
         {
             ConfirmationCodeTextProp.ValueChanged += ConfirmationCodeTextProp_OnValueChanged;
         }
@@ -31,9 +41,22 @@ namespace Login
 
         private async void ConfirmSignUp()
         {
-            IsLoadingProp.Set(true);
-            await Task.Delay(2000);
-            IsLoadingProp.Set(false);
+            try
+            {
+                m_CancellationTokenSource = new CancellationTokenSource();
+                IsLoadingProp.Set(true);
+                await Task.Delay(3000, m_CancellationTokenSource.Token);
+                
+                Confirmed?.Invoke();
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+            finally
+            {
+                IsLoadingProp.Set(false);
+            }
         }
     }
 }

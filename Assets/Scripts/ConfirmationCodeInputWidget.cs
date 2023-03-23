@@ -8,9 +8,9 @@ public sealed class ConfirmationCodeInputWidget : ITextInputWidget
     public ObservableProperty<bool> IsInteractableProp { get; } = new();
     public ObservableProperty<bool> IsMaskingCharacters { get; } = new();
 
-    private ISignUpConfirmationManager SignUpConfirmationManager { get; }
+    private ISignUpConfirmation SignUpConfirmationManager { get; }
     
-    public ConfirmationCodeInputWidget(ISignUpConfirmationManager signUpConfirmationManager)
+    public ConfirmationCodeInputWidget(ISignUpConfirmation signUpConfirmationManager)
     {
         SignUpConfirmationManager = signUpConfirmationManager;
         SignUpConfirmationManager.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;

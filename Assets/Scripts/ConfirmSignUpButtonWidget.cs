@@ -9,9 +9,9 @@ namespace Login
         public ObservableProperty<bool> IsInteractable { get; } = new();
         public ObservableProperty<Action> ActionProp { get; } = new();
 
-        private ISignUpConfirmationManager SignUpConfirmationManager { get; }
+        private ISignUpConfirmation SignUpConfirmationManager { get; }
         
-        public ConfirmSignUpButtonWidget(ISignUpConfirmationManager signUpConfirmationManager)
+        public ConfirmSignUpButtonWidget(ISignUpConfirmation signUpConfirmationManager)
         {
             SignUpConfirmationManager = signUpConfirmationManager;
             SignUpConfirmationManager.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;

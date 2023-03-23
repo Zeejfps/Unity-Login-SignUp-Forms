@@ -14,12 +14,10 @@ namespace Login
         public ObservableProperty<Action> SignUpActionProp { get; } = new();
 
         private IPopupManager PopupManager { get; }
-        private ISignUpConfirmationManager SignUpConfirmationManager { get; }
         
-        public TestSignUpManager(IPopupManager popupManager, ISignUpConfirmationManager signUpConfirmationManager)
+        public TestSignUpManager(IPopupManager popupManager)
         {
             PopupManager = popupManager;
-            SignUpConfirmationManager = signUpConfirmationManager;
             
             EmailProp.ValueChanged += EmailProp_OnValueChanged;
             PasswordProp.ValueChanged += PasswordProp_OnValueChanged;
@@ -76,7 +74,8 @@ namespace Login
                 else
                 {
                     await Task.Delay(2000);
-                    PopupManager.PopupWidgetProp.Set(new ConfirmSignUpPopupWidget(SignUpConfirmationManager));
+                    var confirmation = Z.Get<ISignUpConfirmation>();
+                    PopupManager.PopupWidgetProp.Set(new ConfirmSignUpPopupWidget(confirmation));
                 }
             }
             catch (Exception e)
