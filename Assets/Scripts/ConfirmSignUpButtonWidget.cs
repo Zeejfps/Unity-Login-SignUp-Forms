@@ -14,6 +14,18 @@ namespace Login
         public ConfirmSignUpButtonWidget(ISignUpConfirmationManager signUpConfirmationManager)
         {
             SignUpConfirmationManager = signUpConfirmationManager;
+            SignUpConfirmationManager.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
+            SignUpConfirmationManager.ConfirmationCodeTextProp.ValueChanged += ConfirmationCodeText_PropOnValueChanged;
+            UpdateState();
+        }
+
+        private void IsLoadingProp_OnValueChanged(ObservableProperty<bool> property, bool prevvalue, bool currvalue)
+        {
+            UpdateState();
+        }
+
+        private void ConfirmationCodeText_PropOnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
+        {
             UpdateState();
         }
 

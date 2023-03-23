@@ -1,4 +1,6 @@
-﻿using Login;
+﻿using System;
+using Login;
+using UnityEditor.Purchasing;
 using YADBF;
 
 public sealed class ConfirmSignUpPopupWidget : IConfirmSignUpPopupWidget
@@ -16,5 +18,28 @@ public sealed class ConfirmSignUpPopupWidget : IConfirmSignUpPopupWidget
         CodeInputWidget = new ConfirmationCodeInputWidget(signUpManager);
         ConfirmButtonWidget = new ConfirmSignUpButtonWidget(signUpManager);
         CancelButtonWidget = new ClosePopupButtonWidget(this);
+    }
+}
+
+public sealed class CloseConfirmationSignUpPopupButtonWidget : IButtonWidget
+{
+    public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
+    public ObservableProperty<bool> IsInteractable { get; } = new(true);
+    public ObservableProperty<Action> ActionProp { get; } = new();
+
+    private ISignUpConfirmationManager SignUpConfirmationManager { get; }
+    private IPopupWidget PopupWidget { get; }
+
+    public CloseConfirmationSignUpPopupButtonWidget(ISignUpConfirmationManager signUpConfirmationManager, IPopupWidget popupWidget)
+    {
+        SignUpConfirmationManager = signUpConfirmationManager;
+        PopupWidget = popupWidget;
+        ActionProp.Set(ClosePopup);
+    }
+
+    private void ClosePopup()
+    {
+        //SignUpConfirmationManager.CancelSignUp();
+        PopupWidget.IsVisibleProp.Set(false);
     }
 }
