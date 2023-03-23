@@ -48,7 +48,6 @@ namespace Login
                 m_CancellationTokenSource = new CancellationTokenSource();
                 IsLoadingProp.Set(true);
                 await Task.Delay(3000, m_CancellationTokenSource.Token);
-                Debug.Log("?");
                 Completed?.Invoke(this);
             }
             catch (Exception e)

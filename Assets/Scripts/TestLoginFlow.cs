@@ -4,7 +4,7 @@ using Login;
 using UnityEngine;
 using YADBF;
 
-internal sealed class TestLoginManager : ILoginManager
+internal sealed class TestLoginFlow : ILoginFlow
 {
     public ObservableProperty<string> EmailProp { get; } = new();
     public ObservableProperty<string> PasswordProp { get; } = new();
@@ -13,7 +13,7 @@ internal sealed class TestLoginManager : ILoginManager
 
     private IPopupManager PopupManager { get; }
 
-    public TestLoginManager(IPopupManager popupManager)
+    public TestLoginFlow(IPopupManager popupManager)
     {
         PopupManager = popupManager;
         EmailProp.ValueChanged += EmailProp_OnValueChanged;

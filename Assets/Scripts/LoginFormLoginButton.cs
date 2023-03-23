@@ -9,13 +9,13 @@ namespace Login
         public ObservableProperty<bool> IsInteractable { get; } = new();
         public ObservableProperty<Action> ActionProp { get; } = new();
 
-        private ILoginManager LoginManager { get; }
+        private ILoginFlow LoginFlow { get; }
         
-        public LoginFormLoginButton(ILoginManager loginManager)
+        public LoginFormLoginButton(ILoginFlow loginFlow)
         {
-            LoginManager = loginManager;
-            LoginManager.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
-            LoginManager.LoginActionProp.ValueChanged += LoginActionProp_OnValueChanged;
+            LoginFlow = loginFlow;
+            LoginFlow.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
+            LoginFlow.LoginActionProp.ValueChanged += LoginActionProp_OnValueChanged;
             UpdateState();
         }
 
@@ -31,8 +31,8 @@ namespace Login
 
         private void UpdateState()
         {
-            var loginAction = LoginManager.LoginActionProp.Value;
-            var isLoading = LoginManager.IsLoadingProp.Value;
+            var loginAction = LoginFlow.LoginActionProp.Value;
+            var isLoading = LoginFlow.IsLoadingProp.Value;
             
             ActionProp.Set(loginAction);
             IsInteractable.Set(loginAction != null && !isLoading);

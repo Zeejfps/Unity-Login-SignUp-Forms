@@ -9,14 +9,14 @@ namespace Login
         public IPasswordFieldWidget PasswordInputWidget { get; }
         public IButtonWidget LoginButtonWidget { get; }
 
-        private ILoginManager LoginManager { get; }
+        private ILoginFlow LoginFlow { get; }
         
-        public LoginFormWidget(ILoginManager loginManager)
+        public LoginFormWidget(ILoginFlow loginFlow)
         {
-            LoginManager = loginManager;
-            EmailInputWidget = new LoginFormEmailInputWidget(loginManager);
-            PasswordInputWidget = new PasswordFieldWidget(new LoginFormPasswordInputWidget(loginManager));
-            LoginButtonWidget = new LoginFormLoginButton(loginManager);
+            LoginFlow = loginFlow;
+            EmailInputWidget = new LoginFormEmailInputWidget(loginFlow);
+            PasswordInputWidget = new PasswordFieldWidget(new LoginFormPasswordInputWidget(loginFlow));
+            LoginButtonWidget = new LoginFormLoginButton(loginFlow);
         }
 
         public void Dispose()

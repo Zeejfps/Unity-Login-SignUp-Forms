@@ -5,7 +5,7 @@ using YADBF;
 
 namespace Login
 {
-    public sealed class TestSignUpManager : ISignUpFlow, ISignUpConfirmationFactory
+    public sealed class TestSignUpFlow : ISignUpFlow, ISignUpConfirmationFactory
     {
         public event Action Completed;
         public ObservableProperty<bool> IsLoadingProp { get; } = new();
@@ -16,7 +16,7 @@ namespace Login
 
         private IPopupManager PopupManager { get; }
         
-        public TestSignUpManager(IPopupManager popupManager)
+        public TestSignUpFlow(IPopupManager popupManager)
         {
             PopupManager = popupManager;
             

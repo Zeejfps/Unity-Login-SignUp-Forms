@@ -9,13 +9,13 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
     public ILoginFormWidget LoginFormWidget { get; }
     public ISignUpFormWidget SignUpFormWidget { get; }
 
-    public LoginSignUpWidget(ILoginManager loginManager, ISignUpFlow signUpFlow)
+    public LoginSignUpWidget(ILoginFlow loginFlow, ISignUpFlow signUpFlow)
     {
-        LoginFormWidget = new LoginFormWidget(loginManager);
+        LoginFormWidget = new LoginFormWidget(loginFlow);
         LoginFormTabWidget = new LoginFormTabWidget(signUpFlow, LoginFormWidget);
         
         SignUpFormWidget = new SignUpFormWidget(signUpFlow);
-        SignUpFormTabWidget = new SignUpFormTabWidget(loginManager, SignUpFormWidget);
+        SignUpFormTabWidget = new SignUpFormTabWidget(loginFlow, SignUpFormWidget);
 
         var tabGroup = new TabGroup();
         tabGroup.AddTab(LoginFormTabWidget);
@@ -27,6 +27,10 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
 
     private void SignUpFlow_OnCompleted()
     {
+        var email = SignUpFormWidget.EmailInputWidget.TextProp.Value;
+        var password = SignUpFormWidget.PasswordFieldWidget.TextInputWidget.TextProp.Value;
+        LoginFormWidget.EmailInputWidget.TextProp.Set(email);
+        LoginFormWidget.PasswordInputWidget.TextInputWidget.TextProp.Set(password);
         LoginFormTabWidget.IsSelectedProp.Set(true);
     }
 }
