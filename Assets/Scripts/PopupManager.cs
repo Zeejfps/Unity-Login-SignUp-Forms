@@ -3,7 +3,7 @@ using YADBF;
 
 namespace Login
 {
-    internal sealed class BasicPopupService : IPopupService
+    internal sealed class PopupManager : IPopupManager
     {
         public ObservableProperty<IInfoPopupWidget> InfoPopupWidgetProp { get; } = new();
         public Task ShowInfoPopupAsync(string titleText, string infoText)

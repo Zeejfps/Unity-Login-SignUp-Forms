@@ -11,11 +11,11 @@ internal sealed class TestLoginManager : ILoginManager
     public ObservableProperty<bool> IsLoadingProp { get; } = new();
     public ObservableProperty<Action> LoginActionProp { get; } = new();
 
-    private IPopupService PopupService { get; }
+    private IPopupManager PopupManager { get; }
 
-    public TestLoginManager(IPopupService popupService)
+    public TestLoginManager(IPopupManager popupManager)
     {
-        PopupService = popupService;
+        PopupManager = popupManager;
         EmailProp.ValueChanged += EmailProp_OnValueChanged;
         PasswordProp.ValueChanged += PasswordProp_OnValueChanged;
         UpdateState();
@@ -57,7 +57,7 @@ internal sealed class TestLoginManager : ILoginManager
             IsLoadingProp.Set(true);
 
             await Task.Delay(2000);
-            await PopupService.ShowInfoPopupAsync("Invalid Credentials", "Email and/or Password was incorrect");
+            await PopupManager.ShowInfoPopupAsync("Invalid Credentials", "Email and/or Password was incorrect");
         }
         catch (Exception e)
         {

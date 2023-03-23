@@ -8,19 +8,19 @@ public sealed class PopupSystem : MonoBehaviour
     [SerializeField] private GameObject m_ScreenDimmer;
     [SerializeField] private UGUIInfoPopupWidgetView m_InfoPopupWidgetViewPrefab;
     
-    private IPopupService m_PopupService;
-    private IPopupService PopupService => m_PopupService ??= Z.Get<IPopupService>();
+    private IPopupManager m_PopupManager;
+    private IPopupManager PopupManager => m_PopupManager ??= Z.Get<IPopupManager>();
 
     private UGUIInfoPopupWidgetView m_InfoPopupWidgetView;
     
     private void Start()
     {
-        PopupService.InfoPopupWidgetProp.ValueChanged += InfoPopupWidgetProp_OnValueChanged;
+        PopupManager.InfoPopupWidgetProp.ValueChanged += InfoPopupWidgetProp_OnValueChanged;
     }
 
     private void OnDestroy()
     {
-        PopupService.InfoPopupWidgetProp.ValueChanged -= InfoPopupWidgetProp_OnValueChanged;
+        PopupManager.InfoPopupWidgetProp.ValueChanged -= InfoPopupWidgetProp_OnValueChanged;
     }
 
     private void InfoPopupWidgetProp_OnValueChanged(ObservableProperty<IInfoPopupWidget> property, IInfoPopupWidget prevvalue, IInfoPopupWidget currvalue)
