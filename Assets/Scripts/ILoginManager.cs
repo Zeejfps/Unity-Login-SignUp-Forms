@@ -10,7 +10,5 @@ namespace Login
         ObservableProperty<string> PasswordProp { get; }
         ObservableProperty<bool> IsLoadingProp { get; }
         ObservableProperty<Action> LoginActionProp { get; }
-
-        Task LoginAsync(string email, string password);
     }
 }

@@ -1,6 +1,6 @@
 using YADBF;
 
-public sealed class BasicLoginSignUpWidget : ILoginSignUpWidget
+public sealed class LoginSignUpWidget : ILoginSignUpWidget
 {
     public ObservableProperty<bool> IsVisibleProp { get; } = new();
     public ITabWidget LoginFormTabWidget { get; }
@@ -8,7 +8,7 @@ public sealed class BasicLoginSignUpWidget : ILoginSignUpWidget
     public ILoginFormWidget LoginFormWidget { get; }
     public ISignUpFormWidget SignUpFormWidget { get; }
 
-    public BasicLoginSignUpWidget(ILoginFormWidget loginFormWidget, ISignUpFormWidget signUpFormWidget)
+    public LoginSignUpWidget(ILoginFormWidget loginFormWidget, ISignUpFormWidget signUpFormWidget)
     {
         LoginFormWidget = loginFormWidget;
         LoginFormTabWidget = new TabWidget(loginFormWidget);
@@ -19,6 +19,7 @@ public sealed class BasicLoginSignUpWidget : ILoginSignUpWidget
         var tabGroup = new TabGroup();
         tabGroup.AddTab(LoginFormTabWidget);
         tabGroup.AddTab(SignUpFormTabWidget);
+        
         LoginFormTabWidget.IsSelectedProp.Set(true);
     }
 }

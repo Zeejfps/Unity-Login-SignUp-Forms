@@ -12,6 +12,6 @@ public class Initializer : MonoBehaviour
 
         Z.RegisterScoped<ILoginFormWidget, LoginFormWidget>();
         Z.RegisterScoped<ISignUpFormWidget, SignUpFormWidget>();
-        Z.RegisterScoped<ILoginSignUpWidget, BasicLoginSignUpWidget>();
+        Z.RegisterScoped<ILoginSignUpWidget, LoginSignUpWidget>();
     }
 }

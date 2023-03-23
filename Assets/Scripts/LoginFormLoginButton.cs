@@ -14,8 +14,21 @@ namespace Login
         public LoginFormLoginButton(ILoginManager loginManager)
         {
             LoginManager = loginManager;
+            LoginManager.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
+            LoginManager.LoginActionProp.ValueChanged += LoginActionProp_OnValueChanged;
+            UpdateState();
         }
-        
+
+        private void LoginActionProp_OnValueChanged(ObservableProperty<Action> property, Action prevvalue, Action currvalue)
+        {
+            UpdateState();
+        }
+
+        private void IsLoadingProp_OnValueChanged(ObservableProperty<bool> property, bool prevvalue, bool currvalue)
+        {
+            UpdateState();
+        }
+
         private void UpdateState()
         {
             var loginAction = LoginManager.LoginActionProp.Value;

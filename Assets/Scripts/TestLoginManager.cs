@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using UnityEngine;
 using YADBF;
 
 namespace Login
@@ -16,12 +17,57 @@ namespace Login
         public TestLoginManager(IPopupService popupService)
         {
             PopupService = popupService;
+            EmailProp.ValueChanged += EmailProp_OnValueChanged;
+            PasswordProp.ValueChanged += PasswordProp_OnValueChanged;
+            UpdateState();
         }
 
-        public async Task LoginAsync(string email, string password)
+        private void EmailProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
         {
-            await Task.Delay(2000);
-            await PopupService.ShowInfoPopupAsync("Invalid Credentials", "Email and/or Password was incorrect");
+            UpdateState();
+        }
+
+        private void PasswordProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
+        {
+            UpdateState();
+        }
+
+        private void UpdateState()
+        {
+            var email = EmailProp.Value;
+            var password = PasswordProp.Value;
+
+            if (string.IsNullOrEmpty(email) ||
+                string.IsNullOrEmpty(password))
+            {
+                LoginActionProp.Set(null);
+            }
+            else
+            {
+                LoginActionProp.Set(LoginAsync);
+            }
+        }
+
+        private async void LoginAsync()
+        {
+            try
+            {
+                var email = EmailProp.Value;
+                var password = PasswordProp.Value;
+
+                IsLoadingProp.Set(true);
+
+                await Task.Delay(2000);
+                await PopupService.ShowInfoPopupAsync("Invalid Credentials", "Email and/or Password was incorrect");
+            }
+            catch (Exception e)
+            {
+
+            }
+            finally
+            {
+                IsLoadingProp.Set(false);
+            }
         }
     }
 }
