@@ -14,10 +14,13 @@ namespace Login
         public ObservableProperty<Action> SignUpActionProp { get; } = new();
 
         private IPopupManager PopupManager { get; }
+        private ISignUpConfirmationManager SignUpConfirmationManager { get; }
         
-        public TestSignUpManager(IPopupManager popupManager)
+        public TestSignUpManager(IPopupManager popupManager, ISignUpConfirmationManager signUpConfirmationManager)
         {
             PopupManager = popupManager;
+            SignUpConfirmationManager = signUpConfirmationManager;
+            
             EmailProp.ValueChanged += EmailProp_OnValueChanged;
             PasswordProp.ValueChanged += PasswordProp_OnValueChanged;
             ConfirmPasswordProp.ValueChanged += ConfirmPassword_PropOnValueChanged;
@@ -67,9 +70,14 @@ namespace Login
                 var confirmPassword = ConfirmPasswordProp.Value;
 
                 if (password != confirmPassword)
+                {
                     await PopupManager.ShowInfoPopupAsync("Error", "Passwords do not match");
+                }
                 else
+                {
                     await Task.Delay(2000);
+                    await PopupManager.ShowPopupAsync(new ConfirmSignUpPopupWidget(SignUpConfirmationManager));
+                }
             }
             catch (Exception e)
             {

@@ -20,5 +20,10 @@ namespace Login
             InfoPopupWidgetProp.Set(popup);
             return tcs.Task;
         }
+
+        public Task ShowPopupAsync(IPopup popup)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
