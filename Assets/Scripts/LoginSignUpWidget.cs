@@ -11,7 +11,11 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
 
     public LoginSignUpWidget(ILoginFlow loginFlow, ISignUpFlow signUpFlow)
     {
-        LoginFormWidget = new LoginFormWidget(loginFlow);
+        LoginFormWidget = new LoginFormWidget(
+            new LoginFormEmailInputWidget(loginFlow),
+            new PasswordFieldWidget(new LoginFormPasswordInputWidget(loginFlow)),
+            new LoginFormLoginButton(loginFlow));
+        
         LoginFormTabWidget = new LoginFormTabWidget(signUpFlow, LoginFormWidget);
         
         SignUpFormWidget = new SignUpFormWidget(
@@ -19,8 +23,7 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
             new PasswordFieldWidget(new SignUpFormPasswordInputWidget(signUpFlow, loginFlow)),
             new PasswordFieldWidget(new SignUpFormConfirmPasswordInputWidget(signUpFlow)),
             new SignUpFormSignUpButton(signUpFlow));
-        
-        
+
         SignUpFormTabWidget = new SignUpFormTabWidget(loginFlow, SignUpFormWidget);
 
         var tabGroup = new TabGroup();
