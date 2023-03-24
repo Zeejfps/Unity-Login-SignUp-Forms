@@ -142,6 +142,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4425191348393460455}
     m_Modifications:
+    - target: {fileID: 1296355638179753779, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296355638179753779, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296355638179753779, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296355638179753779, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4037367268892685832, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
       propertyPath: m_Name
       value: Login Button

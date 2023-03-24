@@ -55,7 +55,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74519551945a43bc948ed3cea2419f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ThemeProvider: {fileID: 0}
+  m_ThemeProvider: {fileID: 11400000, guid: 9d89b4bc910d5104faeac233b53b7667, type: 2}
+  m_ButtonWidgetView: {fileID: 7164104489024664319}
 --- !u!114 &1893275730792652209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,6 +243,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1893275732011159276}
     m_Modifications:
+    - target: {fileID: 1296355638179753779, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296355638179753779, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296355638179753779, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296355638179753779, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4037367267488988646, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
       propertyPath: m_text
       value: Ok
@@ -336,44 +353,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
---- !u!1 &3415854144544149612 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4037367268892685832, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
-  m_PrefabInstance: {fileID: 1684365076757915236}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1153718423311259281
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3415854144544149612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbe67dc4ee854e2da17aff9d73c4438f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PropertyBindingSettings:
-    m_View: {fileID: 3962689066942556893}
-    m_PropertyName: OkActionProp
-    m_PropertyTypeName: YADBF.ObservableProperty`1[[System.Action, mscorlib, Version=4.0.0.0,
-      Culture=neutral, PublicKeyToken=b77a5c561934e089]], YADBF, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  m_Button: {fileID: 3415854144544149614}
 --- !u!224 &3415854144544149613 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4037367268892685833, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
   m_PrefabInstance: {fileID: 1684365076757915236}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3415854144544149614 stripped
+--- !u!114 &7164104489024664319 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4037367268892685834, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8362078466339902619, guid: 963d11bb0820ea147a79cc291d729465, type: 3}
   m_PrefabInstance: {fileID: 1684365076757915236}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3415854144544149612}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d97aaba0d6040be90f136e62594b618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2899976637499737656
@@ -523,7 +516,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5808030529608013133, guid: 4180702ea9ded2145abab59237c51a2e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 380
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5808030529608013133, guid: 4180702ea9ded2145abab59237c51a2e, type: 3}
       propertyPath: m_SizeDelta.y
@@ -559,7 +552,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5808030529608013133, guid: 4180702ea9ded2145abab59237c51a2e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5808030529608013133, guid: 4180702ea9ded2145abab59237c51a2e, type: 3}
       propertyPath: m_AnchoredPosition.y

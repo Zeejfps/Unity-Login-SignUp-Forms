@@ -27,10 +27,18 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
 
     private void SignUpFlow_OnCompleted()
     {
-        var email = SignUpFormWidget.EmailInputWidget.TextProp.Value;
-        var password = SignUpFormWidget.PasswordFieldWidget.TextInputWidget.TextProp.Value;
-        LoginFormWidget.EmailInputWidget.TextProp.Set(email);
-        LoginFormWidget.PasswordInputWidget.TextInputWidget.TextProp.Set(password);
+        var signUpFormWidget = SignUpFormWidget;
+        var loginFormWidget = LoginFormWidget;
+        
+        var email = signUpFormWidget.EmailInputWidget.TextProp.Value;
+        var password = signUpFormWidget.PasswordFieldWidget.TextInputWidget.TextProp.Value;
+        
+        // Clear out the password fields
+        signUpFormWidget.PasswordFieldWidget.TextInputWidget.TextProp.Set(string.Empty);
+        signUpFormWidget.ConfirmPasswordFieldWidget.TextInputWidget.TextProp.Set(string.Empty);
+        
+        loginFormWidget.EmailInputWidget.TextProp.Set(email);
+        loginFormWidget.PasswordInputWidget.TextInputWidget.TextProp.Set(password);
         LoginFormTabWidget.IsSelectedProp.Set(true);
     }
 }

@@ -6,14 +6,16 @@ namespace Login
     internal sealed class LoginFormLoginButton : IButtonWidget
     {
         public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
-        public ObservableProperty<bool> IsInteractable { get; } = new();
+        public ObservableProperty<bool> IsInteractableProp { get; } = new();
         public ObservableProperty<Action> ActionProp { get; } = new();
+        public ObservableProperty<bool> IsLoadingProp { get; } 
 
         private ILoginFlow LoginFlow { get; }
         
         public LoginFormLoginButton(ILoginFlow loginFlow)
         {
             LoginFlow = loginFlow;
+            IsLoadingProp = loginFlow.IsLoadingProp;
             LoginFlow.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
             LoginFlow.LoginActionProp.ValueChanged += LoginActionProp_OnValueChanged;
             UpdateState();
@@ -35,7 +37,7 @@ namespace Login
             var isLoading = LoginFlow.IsLoadingProp.Value;
             
             ActionProp.Set(loginAction);
-            IsInteractable.Set(loginAction != null && !isLoading);
+            IsInteractableProp.Set(loginAction != null && !isLoading);
         }
     }
 }

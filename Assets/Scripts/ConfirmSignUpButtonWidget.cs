@@ -6,16 +6,19 @@ namespace Login
     public sealed class ConfirmSignUpButtonWidget : IButtonWidget
     {
         public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
-        public ObservableProperty<bool> IsInteractable { get; } = new();
+        public ObservableProperty<bool> IsInteractableProp { get; } = new();
         public ObservableProperty<Action> ActionProp { get; } = new();
+        public ObservableProperty<bool> IsLoadingProp { get; }
 
-        private ISignUpConfirmationFlow SignUpConfirmationFlowManager { get; }
+        private ISignUpConfirmationFlow SignUpConfirmationFlow { get; }
         
-        public ConfirmSignUpButtonWidget(ISignUpConfirmationFlow signUpConfirmationFlowManager)
+        public ConfirmSignUpButtonWidget(ISignUpConfirmationFlow signUpConfirmationFlow)
         {
-            SignUpConfirmationFlowManager = signUpConfirmationFlowManager;
-            SignUpConfirmationFlowManager.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
-            SignUpConfirmationFlowManager.ConfirmationCodeTextProp.ValueChanged += ConfirmationCodeText_PropOnValueChanged;
+            SignUpConfirmationFlow = signUpConfirmationFlow;
+            IsLoadingProp = signUpConfirmationFlow.IsLoadingProp;
+            
+            SignUpConfirmationFlow.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
+            SignUpConfirmationFlow.ConfirmationCodeTextProp.ValueChanged += ConfirmationCodeText_PropOnValueChanged;
             UpdateState();
         }
 
@@ -31,9 +34,9 @@ namespace Login
 
         private void UpdateState()
         {
-            var confirmAction = SignUpConfirmationFlowManager.ConfirmActionProp.Value;
-            var isLoading = SignUpConfirmationFlowManager.IsLoadingProp.Value;
-            IsInteractable.Set(confirmAction != null && !isLoading);
+            var confirmAction = SignUpConfirmationFlow.ConfirmActionProp.Value;
+            var isLoading = SignUpConfirmationFlow.IsLoadingProp.Value;
+            IsInteractableProp.Set(confirmAction != null && !isLoading);
             ActionProp.Set(confirmAction);
         }
     }

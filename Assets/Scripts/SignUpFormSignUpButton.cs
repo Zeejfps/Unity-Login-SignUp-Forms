@@ -6,14 +6,17 @@ namespace Login
     internal sealed class SignUpFormSignUpButton : IButtonWidget
     {
         public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
-        public ObservableProperty<bool> IsInteractable { get; } = new();
+        public ObservableProperty<bool> IsInteractableProp { get; } = new();
         public ObservableProperty<Action> ActionProp { get; } = new();
+        public ObservableProperty<bool> IsLoadingProp { get; }
 
         private ISignUpFlow SignUpManager { get; }
         
         public SignUpFormSignUpButton(ISignUpFlow signUpManager)
         {
             SignUpManager = signUpManager;
+            IsLoadingProp = signUpManager.IsLoadingProp;
+            
             signUpManager.SignUpActionProp.ValueChanged += SignUpActionProp_OnValueChanged;
             signUpManager.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
             UpdateState();
@@ -35,7 +38,7 @@ namespace Login
             var isLoading = SignUpManager.IsLoadingProp.Value;
             
             ActionProp.Set(signUpAction);
-            IsInteractable.Set(signUpAction != null && !isLoading);
+            IsInteractableProp.Set(signUpAction != null && !isLoading);
         }
     }
 }

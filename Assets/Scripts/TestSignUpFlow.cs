@@ -95,8 +95,6 @@ namespace Login
         {
             flow.Completed -= SignUpConfirmationFlow_OnCompleted;
             flow.Canceled -= SignUpConfirmationFlow_OnCanceled;
-            PasswordProp.Value = string.Empty;
-            ConfirmPasswordProp.Value = string.Empty;
             Completed?.Invoke();
         }
 
