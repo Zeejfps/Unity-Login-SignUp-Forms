@@ -21,5 +21,10 @@ namespace Login
             PopupWidgetProp.Set(popup);
             return tcs.Task;
         }
+
+        public void ShowPopup(IPopupWidget popupWidget)
+        {
+            PopupWidgetProp.Set(popupWidget);
+        }
     }
 }

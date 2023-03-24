@@ -12,5 +12,6 @@ namespace Login
     {
         ObservableProperty<IPopupWidget> PopupWidgetProp { get; }
         Task ShowInfoPopupAsync(string titleText, string infoText);
+        void ShowPopup(IPopupWidget popupWidget);
     }
 }

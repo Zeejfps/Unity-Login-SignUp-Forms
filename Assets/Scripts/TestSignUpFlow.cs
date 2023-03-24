@@ -5,7 +5,7 @@ using YADBF;
 
 namespace Login
 {
-    public sealed class TestSignUpFlow : ISignUpFlow, ISignUpConfirmationFactory
+    public sealed class TestSignUpFlow : ISignUpFlow
     {
         public event Action Completed;
         public ObservableProperty<bool> IsLoadingProp { get; } = new();
@@ -78,7 +78,7 @@ namespace Login
                     var confirmationFlow = new TestSignUpConfirmationFlow();
                     confirmationFlow.Completed += SignUpConfirmationFlow_OnCompleted;
                     confirmationFlow.Canceled += SignUpConfirmationFlow_OnCanceled;
-                    PopupManager.PopupWidgetProp.Set(new ConfirmSignUpPopupWidget(confirmationFlow));
+                    PopupManager.ShowPopup(new ConfirmSignUpPopupWidget(confirmationFlow));
                 }
             }
             catch (Exception e)
@@ -95,6 +95,8 @@ namespace Login
         {
             flow.Completed -= SignUpConfirmationFlow_OnCompleted;
             flow.Canceled -= SignUpConfirmationFlow_OnCanceled;
+            PasswordProp.Value = string.Empty;
+            ConfirmPasswordProp.Value = string.Empty;
             Completed?.Invoke();
         }
 
@@ -102,11 +104,6 @@ namespace Login
         {
             flow.Completed -= SignUpConfirmationFlow_OnCompleted;
             flow.Canceled -= SignUpConfirmationFlow_OnCanceled;
-        }
-
-        public ISignUpConfirmationFlow Create()
-        {
-            return new TestSignUpConfirmationFlow();
         }
     }
 }
