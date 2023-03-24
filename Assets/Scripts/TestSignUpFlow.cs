@@ -78,7 +78,7 @@ namespace Login
                     var confirmationFlow = new TestSignUpConfirmationFlow();
                     confirmationFlow.Completed += SignUpConfirmationFlow_OnCompleted;
                     confirmationFlow.Canceled += SignUpConfirmationFlow_OnCanceled;
-                    PopupManager.ShowPopup(new ConfirmSignUpPopupWidget(confirmationFlow));
+                    await PopupManager.ShowPopupAsync(new ConfirmSignUpPopupWidget(confirmationFlow));
                 }
             }
             catch (Exception e)

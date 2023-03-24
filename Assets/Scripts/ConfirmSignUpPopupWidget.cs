@@ -1,8 +1,11 @@
-﻿using Login;
+﻿using System;
+using Login;
 using YADBF;
 
 public sealed class ConfirmSignUpPopupWidget : IConfirmSignUpPopupWidget
 {
+    public event Action<IPopupWidget> Closed;
+
     public ITextInputWidget CodeInputWidget { get; }
     public IButtonWidget ConfirmButtonWidget { get; }
     public IButtonWidget CancelButtonWidget { get; }
@@ -34,5 +37,6 @@ public sealed class ConfirmSignUpPopupWidget : IConfirmSignUpPopupWidget
         
         SignUpConfirmationFlow.Completed -= SignUpConfirmation_OnConfirmed;
         SignUpConfirmationFlow.Cancel();
+        Closed?.Invoke(this);
     }
 }

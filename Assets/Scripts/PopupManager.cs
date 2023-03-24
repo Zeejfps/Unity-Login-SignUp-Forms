@@ -22,9 +22,17 @@ namespace Login
             return tcs.Task;
         }
 
-        public void ShowPopup(IPopupWidget popupWidget)
+        public Task ShowPopupAsync(IPopupWidget popupWidget)
         {
+            var tcs = new TaskCompletionSource<bool>();
+
+            popupWidget.Closed += popup =>
+            {
+                tcs.SetResult(true);
+            };
             PopupWidgetProp.Set(popupWidget);
+
+            return tcs.Task;
         }
     }
 }
