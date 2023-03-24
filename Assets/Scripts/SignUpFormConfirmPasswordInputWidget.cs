@@ -8,11 +8,17 @@ namespace Login
         public ObservableProperty<string> TextProp { get; }
         public ObservableProperty<bool> IsInteractableProp { get; } = new();
         public ObservableProperty<bool> IsMaskingCharacters { get; } = new(true);
-
-        public SignUpFormConfirmPasswordInputWidget(ISignUpFlow signUpManager)
+        
+        public SignUpFormConfirmPasswordInputWidget(ISignUpFlow signUpFlow)
         {
-            TextProp = signUpManager.ConfirmPasswordProp;
-            IsInteractableProp.Bind(signUpManager.IsLoadingProp, value => !value);   
+            TextProp = signUpFlow.ConfirmPasswordProp;
+            IsInteractableProp.Bind(signUpFlow.IsLoadingProp, value => !value);   
+            signUpFlow.Completed += SignUpFlow_OnCompleted;
+        }
+
+        private void SignUpFlow_OnCompleted()
+        {
+            TextProp.Set(string.Empty);
         }
     }
 }

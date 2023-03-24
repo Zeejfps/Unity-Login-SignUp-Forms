@@ -41,9 +41,6 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
         
         var email = signUpFormWidget.EmailInputWidget.TextProp.Value;
         
-        // Clear out the password fields
-        signUpFormWidget.ConfirmPasswordFieldWidget.TextInputWidget.TextProp.Set(string.Empty);
-        
         loginFormWidget.EmailInputWidget.TextProp.Set(email);
         LoginFormTabWidget.IsSelectedProp.Set(true);
     }
