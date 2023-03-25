@@ -7,4 +7,5 @@ public interface ILoginForm
     ObservableProperty<string> PasswordProp { get; }
     ObservableProperty<bool> IsLoadingProp { get; }
     ObservableProperty<Action> SubmitActionProp { get; }
+    EmailValidationStatus IsEmailValid { get; }
 }
