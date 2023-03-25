@@ -1,3 +1,4 @@
+using Login;
 using YADBF;
 
 internal sealed class LoginFormWidget : ILoginFormWidget
@@ -6,6 +7,7 @@ internal sealed class LoginFormWidget : ILoginFormWidget
     public ITextFieldWidget EmailFieldWidget { get; }
     public IPasswordFieldWidget PasswordFieldWidget { get; }
     public IButtonWidget LoginButtonWidget { get; }
+    public IToggleWidget RememberMeToggleWidget { get; }
 
     public LoginFormWidget(
         ITextFieldWidget emailFieldWidget,
@@ -15,9 +17,6 @@ internal sealed class LoginFormWidget : ILoginFormWidget
         EmailFieldWidget = emailFieldWidget;
         PasswordFieldWidget = passwordInputWidget;
         LoginButtonWidget = loginButtonWidget;
-    }
-
-    public void Dispose()
-    {
+        RememberMeToggleWidget = new LoginFormRememberMeToggleWidget();
     }
 }
