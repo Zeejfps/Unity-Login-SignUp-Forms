@@ -1,5 +1,3 @@
-using YADBF;
-
 public interface IPasswordFieldWidget : IWidget
 {
     ITextInputWidget TextInputWidget { get; }
