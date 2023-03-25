@@ -144,6 +144,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2402977495581711661}
+  - component: {fileID: 5332768952836774431}
   m_Layer: 5
   m_Name: Text Field Widget
   m_TagString: Untagged
@@ -174,6 +175,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5332768952836774431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2402977495581711650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3af48a94ef14a4190d71868e280dcae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ThemeProvider: {fileID: 11400000, guid: 9d89b4bc910d5104faeac233b53b7667, type: 2}
+  m_TextInputWidgetView: {fileID: 6927102649199937386}
+  m_ErrorText: {fileID: 5331660986870462498}
 --- !u!1 &7225252606545279069
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,7 +207,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4240116076305045783
 RectTransform:
   m_ObjectHideFlags: 0
@@ -411,3 +427,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5707651712281000342, guid: 90501e77c80d9334b8ff3d3d7151c523, type: 3}
   m_PrefabInstance: {fileID: 7956930015437064923}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6927102649199937386 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1030957736944192945, guid: 90501e77c80d9334b8ff3d3d7151c523, type: 3}
+  m_PrefabInstance: {fileID: 7956930015437064923}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d168f478d0e47a9b8801c397f79b99f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

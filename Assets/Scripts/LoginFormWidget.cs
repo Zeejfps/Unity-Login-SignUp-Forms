@@ -3,17 +3,17 @@ using YADBF;
 internal sealed class LoginFormWidget : ILoginFormWidget
 {
     public ObservableProperty<bool> IsVisibleProp { get; } = new();
-    public ITextInputWidget EmailInputWidget { get; }
-    public IPasswordFieldWidget PasswordInputWidget { get; }
+    public ITextFieldWidget EmailFieldWidget { get; }
+    public IPasswordFieldWidget PasswordFieldWidget { get; }
     public IButtonWidget LoginButtonWidget { get; }
 
     public LoginFormWidget(
-        ITextInputWidget emailInputWidget,
+        ITextFieldWidget emailFieldWidget,
         IPasswordFieldWidget passwordInputWidget,
         IButtonWidget loginButtonWidget
     ) {
-        EmailInputWidget = emailInputWidget;
-        PasswordInputWidget = passwordInputWidget;
+        EmailFieldWidget = emailFieldWidget;
+        PasswordFieldWidget = passwordInputWidget;
         LoginButtonWidget = loginButtonWidget;
     }
 

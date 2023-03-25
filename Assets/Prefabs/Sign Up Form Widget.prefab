@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ThemeProvider: {fileID: 11400000, guid: 9d89b4bc910d5104faeac233b53b7667, type: 2}
-  m_EmailInputWidgetView: {fileID: 8871554823678934078}
-  m_UsernameInputWidgetView: {fileID: 4007355878108335223}
+  m_EmailFieldWidgetView: {fileID: 5854070558104396107}
+  m_UsernameFieldWidgetView: {fileID: 2143487763772805378}
   m_PasswordInputWidgetView: {fileID: 2877956627652314123}
   m_ConfirmPasswordInputWidgetView: {fileID: 6492243638742930820}
   m_SubmitButtonWidgetView: {fileID: 8011913891492363394}
@@ -257,15 +257,15 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2402977495581711661, guid: 13a1eae7008ccc2418e1d32c94f23e8f, type: 3}
   m_PrefabInstance: {fileID: 1962473446553418580}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8871554823678934078 stripped
+--- !u!114 &5854070558104396107 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6927102649199937386, guid: 13a1eae7008ccc2418e1d32c94f23e8f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5332768952836774431, guid: 13a1eae7008ccc2418e1d32c94f23e8f, type: 3}
   m_PrefabInstance: {fileID: 1962473446553418580}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d168f478d0e47a9b8801c397f79b99f, type: 3}
+  m_Script: {fileID: 11500000, guid: d3af48a94ef14a4190d71868e280dcae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1962473447162996761
@@ -741,15 +741,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13a1eae7008ccc2418e1d32c94f23e8f, type: 3}
---- !u!114 &4007355878108335223 stripped
+--- !u!114 &2143487763772805378 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6927102649199937386, guid: 13a1eae7008ccc2418e1d32c94f23e8f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5332768952836774431, guid: 13a1eae7008ccc2418e1d32c94f23e8f, type: 3}
   m_PrefabInstance: {fileID: 6322772230237473565}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d168f478d0e47a9b8801c397f79b99f, type: 3}
+  m_Script: {fileID: 11500000, guid: d3af48a94ef14a4190d71868e280dcae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &8568072542481651248 stripped

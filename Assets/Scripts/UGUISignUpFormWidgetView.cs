@@ -5,8 +5,8 @@ namespace Login
 {
     public sealed class UGUISignUpFormWidgetView : UGUIWidgetView<ISignUpFormWidget>
     {
-        [SerializeField] private UGUITextInputWidgetView m_EmailInputWidgetView;
-        [SerializeField] private View<ITextInputWidget> m_UsernameInputWidgetView;
+        [SerializeField] private View<ITextFieldWidget> m_EmailFieldWidgetView;
+        [SerializeField] private View<ITextFieldWidget> m_UsernameFieldWidgetView;
         [SerializeField] private UGUIPasswordFieldWidgetView m_PasswordInputWidgetView;
         [SerializeField] private UGUIPasswordFieldWidgetView m_ConfirmPasswordInputWidgetView;
         [SerializeField] private UGUIButtonWidgetView m_SubmitButtonWidgetView;
@@ -14,8 +14,8 @@ namespace Login
         protected override void OnBindToModel(ISignUpFormWidget model)
         {
             base.OnBindToModel(model);
-            m_EmailInputWidgetView.Model = model.EmailInputWidget;
-            m_UsernameInputWidgetView.Model = model.UsernameInputWidget;
+            m_EmailFieldWidgetView.Model = model.EmailFieldWidget;
+            m_UsernameFieldWidgetView.Model = model.UsernameFieldWidget;
             m_PasswordInputWidgetView.Model = model.PasswordFieldWidget;
             m_ConfirmPasswordInputWidgetView.Model = model.ConfirmPasswordFieldWidget;
             m_SubmitButtonWidgetView.Model = model.SignUpButtonWidget;

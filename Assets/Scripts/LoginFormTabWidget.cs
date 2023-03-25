@@ -24,7 +24,7 @@ internal sealed class LoginFormTabWidget : ITabWidget
             return;
 
         var email = SignUpManager.EmailProp.Value;
-        LoginFormWidget.EmailInputWidget.TextProp.Set(email);
+        LoginFormWidget.EmailFieldWidget.TextInputWidget.TextProp.Set(email);
         IsSelectedProp.Set(true);
     }
 }

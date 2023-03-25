@@ -22,15 +22,15 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
         PopupManager = popupManager;
         
         LoginFormWidget = new LoginFormWidget(
-            new LoginFormEmailInputWidget(loginForm),
+            new LoginFormEmailFieldWidget(loginForm),
             new PasswordFieldWidget(new LoginFormPasswordInputWidget(loginForm)),
             new LoginFormLoginButton(loginForm));
         
         LoginFormTabWidget = new LoginFormTabWidget(signUpForm, LoginFormWidget);
         
         SignUpFormWidget = new SignUpFormWidget(
-            new SignUpFormEmailInputWidget(signUpForm),
-            new SignUpFormUsernameInputWidget(signUpForm),
+            new SignUpFormEmailFieldWidget(signUpForm),
+            new SignUpFormUsernameFieldWidget(signUpForm),
             new PasswordFieldWidget(new SignUpFormPasswordInputWidget(signUpForm)),
             new PasswordFieldWidget(new SignUpFormConfirmPasswordInputWidget(signUpForm)),
             new SignUpFormSignUpButton(signUpForm));
@@ -51,11 +51,11 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
         var signUpFormWidget = SignUpFormWidget;
         var loginFormWidget = LoginFormWidget;
         
-        var email = signUpFormWidget.EmailInputWidget.TextProp.Value;
+        var email = signUpFormWidget.EmailFieldWidget.TextInputWidget.TextProp.Value;
         var password = signUpFormWidget.PasswordFieldWidget.TextInputWidget.TextProp.Value;
 
-        loginFormWidget.EmailInputWidget.TextProp.Set(email);
-        loginFormWidget.PasswordInputWidget.TextInputWidget.TextProp.Set(password);
+        loginFormWidget.EmailFieldWidget.TextInputWidget.TextProp.Set(email);
+        loginFormWidget.PasswordFieldWidget.TextInputWidget.TextProp.Set(password);
 
         signUpFormWidget.PasswordFieldWidget.TextInputWidget.TextProp.Set(string.Empty);
         signUpFormWidget.ConfirmPasswordFieldWidget.TextInputWidget.TextProp.Set(string.Empty);

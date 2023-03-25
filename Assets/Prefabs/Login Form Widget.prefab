@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ThemeProvider: {fileID: 11400000, guid: 9d89b4bc910d5104faeac233b53b7667, type: 2}
-  m_EmailInputWidgetView: {fileID: 8940318648077465227}
+  m_EmailFieldWidgetView: {fileID: 6210932563886648318}
   m_PasswordInputWidgetView: {fileID: 4724727488960460296}
   m_LoginButtonWidgetView: {fileID: 8170372198392088319}
 --- !u!114 &4425191348393460450
@@ -386,15 +386,15 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2402977495581711661, guid: 13a1eae7008ccc2418e1d32c94f23e8f, type: 3}
   m_PrefabInstance: {fileID: 2031237064788275681}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8940318648077465227 stripped
+--- !u!114 &6210932563886648318 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6927102649199937386, guid: 13a1eae7008ccc2418e1d32c94f23e8f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5332768952836774431, guid: 13a1eae7008ccc2418e1d32c94f23e8f, type: 3}
   m_PrefabInstance: {fileID: 2031237064788275681}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d168f478d0e47a9b8801c397f79b99f, type: 3}
+  m_Script: {fileID: 11500000, guid: d3af48a94ef14a4190d71868e280dcae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &6408580492684019620

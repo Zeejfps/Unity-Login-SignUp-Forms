@@ -1,6 +1,6 @@
 public interface ILoginFormWidget : IWidget
 {
-    ITextInputWidget EmailInputWidget { get; }
-    IPasswordFieldWidget PasswordInputWidget { get; }
+    ITextFieldWidget EmailFieldWidget { get; }
+    IPasswordFieldWidget PasswordFieldWidget { get; }
     IButtonWidget LoginButtonWidget { get; }
 }

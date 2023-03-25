@@ -25,7 +25,7 @@ internal sealed class SignUpFormTabWidget : ITabWidget
         
         var email = LoginForm.EmailProp.Value;
         if (!string.IsNullOrWhiteSpace(email))
-            SignUpFormWidget.EmailInputWidget.TextProp.Set(email);
+            SignUpFormWidget.EmailFieldWidget.TextInputWidget.TextProp.Set(email);
         
         IsSelectedProp.Set(true);
     }
