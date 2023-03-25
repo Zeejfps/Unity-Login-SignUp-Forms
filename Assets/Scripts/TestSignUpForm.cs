@@ -12,6 +12,7 @@ namespace Login
         public event Action Submitted;
         public ObservableProperty<bool> IsLoadingProp { get; } = new();
         public ObservableProperty<string> EmailProp { get; } = new();
+        public EmailValidationStatus IsEmailValid { get; private set; }
         public ObservableProperty<string> UsernameProp { get; } = new();
         public ObservableProperty<string> PasswordProp { get; } = new();
         public ObservableProperty<string> ConfirmPasswordProp { get; } = new();
@@ -30,11 +31,11 @@ namespace Login
             UpdateState();
         }
 
-        public EmailValidationResult ValidateEmail()
+        private EmailValidationStatus ValidateEmail()
         {
             var email = EmailProp.Value;
             if (string.IsNullOrWhiteSpace(email))
-                return EmailValidationResult.Empty;
+                return EmailValidationStatus.Empty;
             
             try
             {
@@ -56,11 +57,11 @@ namespace Login
             }
             catch (RegexMatchTimeoutException)
             {
-                return EmailValidationResult.Invalid;
+                return EmailValidationStatus.Invalid;
             }
             catch (ArgumentException)
             {
-                return EmailValidationResult.Invalid;
+                return EmailValidationStatus.Invalid;
             }
 
             try
@@ -68,12 +69,12 @@ namespace Login
                 return Regex.IsMatch(email,
                     @"^[^@\s]+@[^@\s]+\.[^@\s]+$",
                     RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250))
-                    ? EmailValidationResult.Valid
-                    : EmailValidationResult.Invalid;
+                    ? EmailValidationStatus.Valid
+                    : EmailValidationStatus.Invalid;
             }
             catch (RegexMatchTimeoutException)
             {
-                return EmailValidationResult.Invalid;
+                return EmailValidationStatus.Invalid;
             }
         }
 
@@ -84,6 +85,7 @@ namespace Login
 
         private void EmailProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
         {
+            IsEmailValid = ValidateEmail();
             UpdateState();
         }
 
@@ -107,7 +109,8 @@ namespace Login
             if (string.IsNullOrWhiteSpace(email) ||
                 string.IsNullOrWhiteSpace(username) ||
                 string.IsNullOrWhiteSpace(password) ||
-                string.IsNullOrWhiteSpace(confirmPassword))
+                string.IsNullOrWhiteSpace(confirmPassword) ||
+                IsEmailValid != EmailValidationStatus.Valid)
             {
                 SubmitActionProp.Set(null);     
             }

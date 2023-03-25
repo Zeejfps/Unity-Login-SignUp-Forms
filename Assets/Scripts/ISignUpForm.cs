@@ -1,7 +1,7 @@
 using System;
 using YADBF;
 
-public enum EmailValidationResult
+public enum EmailValidationStatus
 {
     Valid,
     Empty,
@@ -14,10 +14,9 @@ public interface ISignUpForm
         
     ObservableProperty<bool> IsLoadingProp { get; }
     ObservableProperty<string> EmailProp { get; }
+    EmailValidationStatus IsEmailValid { get; }
     ObservableProperty<string> UsernameProp { get; }
     ObservableProperty<string> PasswordProp { get; }
     ObservableProperty<string> ConfirmPasswordProp { get; }
     ObservableProperty<Action> SubmitActionProp { get; }
-
-    EmailValidationResult ValidateEmail();
 }

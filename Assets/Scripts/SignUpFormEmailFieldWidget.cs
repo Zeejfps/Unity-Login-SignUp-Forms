@@ -18,17 +18,17 @@ internal sealed class SignUpFormEmailFieldWidget : ITextFieldWidget
     
     private void TextProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
     {
-        var result = SignUpForm.ValidateEmail();
-        switch (result)
+        var status = SignUpForm.IsEmailValid;
+        switch (status)
         {
-            case EmailValidationResult.Valid:
+            case EmailValidationStatus.Valid:
                 ErrorTextProp.Set(string.Empty);
                 break;
-            case EmailValidationResult.Invalid:
+            case EmailValidationStatus.Invalid:
                 ErrorTextProp.Set("Please enter a valid email");
                 break;
-            case EmailValidationResult.Empty:
-                ErrorTextProp.Set("Email can not be empty");
+            case EmailValidationStatus.Empty:
+                ErrorTextProp.Set("Email is required");
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
