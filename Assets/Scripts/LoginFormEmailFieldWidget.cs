@@ -16,7 +16,7 @@ internal sealed class LoginFormEmailFieldWidget : ITextFieldWidget
         TextInputWidget.TextProp.ValueChanged += TextProp_OnValueChanged;
     }
     
-    private void TextProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
+    private void Validate()
     {
         var status = LoginForm.IsEmailValid;
         switch (status)
@@ -33,5 +33,10 @@ internal sealed class LoginFormEmailFieldWidget : ITextFieldWidget
             default:
                 throw new ArgumentOutOfRangeException();
         }
+    }
+
+    private void TextProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
+    {
+        Validate();
     }
 }

@@ -43,7 +43,8 @@ internal sealed class TestLoginForm : ILoginForm
         var password = PasswordProp.Value;
 
         if (string.IsNullOrEmpty(email) ||
-            string.IsNullOrEmpty(password))
+            string.IsNullOrEmpty(password) ||
+            IsEmailValid != EmailValidationStatus.Valid)
         {
             SubmitActionProp.Set(null);
         }

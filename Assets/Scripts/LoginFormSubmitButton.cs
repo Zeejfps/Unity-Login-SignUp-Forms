@@ -3,7 +3,7 @@ using YADBF;
 
 namespace Login
 {
-    internal sealed class LoginFormLoginButton : IButtonWidget
+    internal sealed class LoginFormSubmitButton : IButtonWidget
     {
         public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
         public ObservableProperty<bool> IsInteractableProp { get; } = new();
@@ -12,7 +12,7 @@ namespace Login
 
         private ILoginForm LoginForm { get; }
         
-        public LoginFormLoginButton(ILoginForm loginForm)
+        public LoginFormSubmitButton(ILoginForm loginForm)
         {
             LoginForm = loginForm;
             IsLoadingProp = loginForm.IsLoadingProp;

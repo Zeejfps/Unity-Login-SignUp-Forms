@@ -20,7 +20,20 @@ public sealed class UGUITextInputWidgetView : UGUIWidgetView<ITextInputWidget>
         Bind(model.TextProp, m_InputField.SetTextWithoutNotify);
         Bind(model.IsInteractableProperty, UpdateInteractableState);
         Bind(model.IsMaskingCharactersProperty, UpdateCharacterMaskingState);
+        
+        m_InputField.onSelect.AddListener(InputField_OnSelected);
+        m_InputField.onDeselect.AddListener(InputField_OnDeselected);
         m_InputField.onValueChanged.AddListener(InputField_OnValueChanged);
+    }
+
+    private void InputField_OnSelected(string value)
+    {
+        Model.IsFocused.Set(true);
+    }
+    
+    private void InputField_OnDeselected(string value)
+    {
+        Model.IsFocused.Set(false);
     }
 
     protected override void OnUnbindFromModel(ITextInputWidget model)
