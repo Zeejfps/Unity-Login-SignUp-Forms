@@ -4,7 +4,7 @@ using YADBF;
 
 namespace Login
 {
-    public interface ISignUpFlow
+    public interface ISignUpForm
     {
         event Action Completed;
         

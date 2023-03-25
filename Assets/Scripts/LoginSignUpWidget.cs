@@ -9,29 +9,29 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
     public ILoginFormWidget LoginFormWidget { get; }
     public ISignUpFormWidget SignUpFormWidget { get; }
 
-    public LoginSignUpWidget(ILoginFlow loginFlow, ISignUpFlow signUpFlow)
+    public LoginSignUpWidget(ILoginForm loginForm, ISignUpForm signUpForm)
     {
         LoginFormWidget = new LoginFormWidget(
-            new LoginFormEmailInputWidget(loginFlow),
-            new PasswordFieldWidget(new LoginFormPasswordInputWidget(loginFlow)),
-            new LoginFormLoginButton(loginFlow));
+            new LoginFormEmailInputWidget(loginForm),
+            new PasswordFieldWidget(new LoginFormPasswordInputWidget(loginForm)),
+            new LoginFormLoginButton(loginForm));
         
-        LoginFormTabWidget = new LoginFormTabWidget(signUpFlow, LoginFormWidget);
+        LoginFormTabWidget = new LoginFormTabWidget(signUpForm, LoginFormWidget);
         
         SignUpFormWidget = new SignUpFormWidget(
-            new SignUpFormEmailInputWidget(signUpFlow),
-            new PasswordFieldWidget(new SignUpFormPasswordInputWidget(signUpFlow)),
-            new PasswordFieldWidget(new SignUpFormConfirmPasswordInputWidget(signUpFlow)),
-            new SignUpFormSignUpButton(signUpFlow));
+            new SignUpFormEmailInputWidget(signUpForm),
+            new PasswordFieldWidget(new SignUpFormPasswordInputWidget(signUpForm)),
+            new PasswordFieldWidget(new SignUpFormConfirmPasswordInputWidget(signUpForm)),
+            new SignUpFormSignUpButton(signUpForm));
 
-        SignUpFormTabWidget = new SignUpFormTabWidget(loginFlow, SignUpFormWidget);
+        SignUpFormTabWidget = new SignUpFormTabWidget(loginForm, SignUpFormWidget);
 
         var tabGroup = new TabGroup();
         tabGroup.AddTab(LoginFormTabWidget);
         tabGroup.AddTab(SignUpFormTabWidget);
         
         LoginFormTabWidget.IsSelectedProp.Set(true);
-        signUpFlow.Completed += SignUpFlow_OnCompleted; 
+        signUpForm.Completed += SignUpFlow_OnCompleted; 
     }
 
     private void SignUpFlow_OnCompleted()

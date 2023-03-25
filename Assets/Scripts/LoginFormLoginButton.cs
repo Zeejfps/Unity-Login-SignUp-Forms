@@ -10,14 +10,14 @@ namespace Login
         public ObservableProperty<Action> ActionProp { get; } = new();
         public ObservableProperty<bool> IsLoadingProp { get; } 
 
-        private ILoginFlow LoginFlow { get; }
+        private ILoginForm LoginForm { get; }
         
-        public LoginFormLoginButton(ILoginFlow loginFlow)
+        public LoginFormLoginButton(ILoginForm loginForm)
         {
-            LoginFlow = loginFlow;
-            IsLoadingProp = loginFlow.IsLoadingProp;
-            LoginFlow.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
-            LoginFlow.LoginActionProp.ValueChanged += LoginActionProp_OnValueChanged;
+            LoginForm = loginForm;
+            IsLoadingProp = loginForm.IsLoadingProp;
+            LoginForm.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
+            LoginForm.LoginActionProp.ValueChanged += LoginActionProp_OnValueChanged;
             UpdateState();
         }
 
@@ -33,8 +33,8 @@ namespace Login
 
         private void UpdateState()
         {
-            var loginAction = LoginFlow.LoginActionProp.Value;
-            var isLoading = LoginFlow.IsLoadingProp.Value;
+            var loginAction = LoginForm.LoginActionProp.Value;
+            var isLoading = LoginForm.IsLoadingProp.Value;
             
             ActionProp.Set(loginAction);
             IsInteractableProp.Set(loginAction != null && !isLoading);

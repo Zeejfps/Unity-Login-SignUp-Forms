@@ -9,10 +9,10 @@ namespace Login
         public ObservableProperty<bool> IsInteractableProp { get; } = new();
         public ObservableProperty<bool> IsMaskingCharacters { get; } = new(true);
 
-        public LoginFormPasswordInputWidget(ILoginFlow loginFlow)
+        public LoginFormPasswordInputWidget(ILoginForm loginForm)
         {
-            TextProp = loginFlow.PasswordProp;
-            IsInteractableProp.Bind(loginFlow.IsLoadingProp, value => !value);
+            TextProp = loginForm.PasswordProp;
+            IsInteractableProp.Bind(loginForm.IsLoadingProp, value => !value);
         }
     }
 }

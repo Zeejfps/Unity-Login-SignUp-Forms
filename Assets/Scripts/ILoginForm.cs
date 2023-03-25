@@ -1,7 +1,7 @@
 ﻿using System;
 using YADBF;
 
-public interface ILoginFlow
+public interface ILoginForm
 {
     ObservableProperty<string> EmailProp { get; }
     ObservableProperty<string> PasswordProp { get; }

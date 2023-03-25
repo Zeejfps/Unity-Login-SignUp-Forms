@@ -9,14 +9,14 @@ namespace Login
         public ObservableProperty<bool> IsInteractableProp { get; } = new();
         public ObservableProperty<bool> IsMaskingCharacters { get; } = new(true);
 
-        private ISignUpFlow SignUpFlow { get; }
+        private ISignUpForm SignUpForm { get; }
 
-        public SignUpFormPasswordInputWidget(ISignUpFlow signUpFlow)
+        public SignUpFormPasswordInputWidget(ISignUpForm signUpForm)
         {
-            SignUpFlow = signUpFlow;
-            TextProp = signUpFlow.PasswordProp;
-            IsInteractableProp.Bind(signUpFlow.IsLoadingProp, value => !value);
-            signUpFlow.Completed += SignUpFlow_OnCompleted;
+            SignUpForm = signUpForm;
+            TextProp = signUpForm.PasswordProp;
+            IsInteractableProp.Bind(signUpForm.IsLoadingProp, value => !value);
+            signUpForm.Completed += SignUpFlow_OnCompleted;
         }
 
         private void SignUpFlow_OnCompleted()
