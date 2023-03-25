@@ -11,22 +11,22 @@ public sealed class ConfirmSignUpPopupWidget : IConfirmSignUpPopupWidget
     public IButtonWidget CancelButtonWidget { get; }
     public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
         
-    private ISignUpConfirmationFlow SignUpConfirmationFlow { get; }
+    private ISignUpConfirmationForm SignUpConfirmationForm { get; }
 
-    public ConfirmSignUpPopupWidget(ISignUpConfirmationFlow signUpConfirmationFlow)
+    public ConfirmSignUpPopupWidget(ISignUpConfirmationForm signUpConfirmationForm)
     {
-        SignUpConfirmationFlow = signUpConfirmationFlow;
-        CodeInputWidget = new ConfirmationCodeInputWidget(SignUpConfirmationFlow);
-        ConfirmButtonWidget = new ConfirmSignUpButtonWidget(SignUpConfirmationFlow);
+        SignUpConfirmationForm = signUpConfirmationForm;
+        CodeInputWidget = new ConfirmationCodeInputWidget(SignUpConfirmationForm);
+        ConfirmButtonWidget = new ConfirmSignUpButtonWidget(SignUpConfirmationForm);
         CancelButtonWidget = new ClosePopupButtonWidget(this);
         
         IsVisibleProp.ValueChanged += IsVisibleProp_OnValueChanged;
-        SignUpConfirmationFlow.Completed += SignUpConfirmation_OnConfirmed;
+        SignUpConfirmationForm.Submitted += SignUpConfirmation_OnConfirmed;
     }
 
-    private void SignUpConfirmation_OnConfirmed(ISignUpConfirmationFlow flow)
+    private void SignUpConfirmation_OnConfirmed(ISignUpConfirmationForm form)
     {
-        flow.Completed -= SignUpConfirmation_OnConfirmed;
+        form.Submitted -= SignUpConfirmation_OnConfirmed;
         IsVisibleProp.Set(false);
     }
 
@@ -35,8 +35,8 @@ public sealed class ConfirmSignUpPopupWidget : IConfirmSignUpPopupWidget
         if (isVisible)
             return;
         
-        SignUpConfirmationFlow.Completed -= SignUpConfirmation_OnConfirmed;
-        SignUpConfirmationFlow.Cancel();
+        SignUpConfirmationForm.Submitted -= SignUpConfirmation_OnConfirmed;
+        SignUpConfirmationForm.Cancel();
         Closed?.Invoke(this);
     }
 }

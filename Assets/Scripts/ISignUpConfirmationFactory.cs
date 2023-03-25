@@ -2,5 +2,5 @@
 
 public interface ISignUpConfirmationFactory
 {
-    ISignUpConfirmationFlow Create();
+    ISignUpConfirmationForm Create();
 }

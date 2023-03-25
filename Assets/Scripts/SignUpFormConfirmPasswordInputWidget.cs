@@ -13,7 +13,7 @@ namespace Login
         {
             TextProp = signUpForm.ConfirmPasswordProp;
             IsInteractableProp.Bind(signUpForm.IsLoadingProp, value => !value);   
-            signUpForm.Completed += SignUpFlow_OnCompleted;
+            signUpForm.Submitted += SignUpFlow_OnCompleted;
         }
 
         private void SignUpFlow_OnCompleted()

@@ -1,10 +1,12 @@
 using UnityEngine;
+using YADBF.Unity;
 
 namespace Login
 {
     public sealed class UGUISignUpFormWidgetView : UGUIWidgetView<ISignUpFormWidget>
     {
         [SerializeField] private UGUITextInputWidgetView m_EmailInputWidgetView;
+        [SerializeField] private View<ITextInputWidget> m_UsernameInputWidgetView;
         [SerializeField] private UGUIPasswordFieldWidgetView m_PasswordInputWidgetView;
         [SerializeField] private UGUIPasswordFieldWidgetView m_ConfirmPasswordInputWidgetView;
         [SerializeField] private UGUIButtonWidgetView m_SubmitButtonWidgetView;
@@ -13,6 +15,7 @@ namespace Login
         {
             base.OnBindToModel(model);
             m_EmailInputWidgetView.Model = model.EmailInputWidget;
+            m_UsernameInputWidgetView.Model = model.UsernameInputWidget;
             m_PasswordInputWidgetView.Model = model.PasswordFieldWidget;
             m_ConfirmPasswordInputWidgetView.Model = model.ConfirmPasswordFieldWidget;
             m_SubmitButtonWidgetView.Model = model.SignUpButtonWidget;

@@ -9,8 +9,18 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
     public ILoginFormWidget LoginFormWidget { get; }
     public ISignUpFormWidget SignUpFormWidget { get; }
 
-    public LoginSignUpWidget(ILoginForm loginForm, ISignUpForm signUpForm)
+    private IPopupManager PopupManager { get; }
+    private ISignUpConfirmationForm SignUpConfirmationForm { get; }
+    
+    public LoginSignUpWidget(
+        ILoginForm loginForm, 
+        ISignUpForm signUpForm, 
+        ISignUpConfirmationForm signUpConfirmationForm,
+        IPopupManager popupManager)
     {
+        SignUpConfirmationForm = signUpConfirmationForm;
+        PopupManager = popupManager;
+        
         LoginFormWidget = new LoginFormWidget(
             new LoginFormEmailInputWidget(loginForm),
             new PasswordFieldWidget(new LoginFormPasswordInputWidget(loginForm)),
@@ -20,6 +30,7 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
         
         SignUpFormWidget = new SignUpFormWidget(
             new SignUpFormEmailInputWidget(signUpForm),
+            new SignUpFormUsernameInputWidget(signUpForm),
             new PasswordFieldWidget(new SignUpFormPasswordInputWidget(signUpForm)),
             new PasswordFieldWidget(new SignUpFormConfirmPasswordInputWidget(signUpForm)),
             new SignUpFormSignUpButton(signUpForm));
@@ -31,10 +42,11 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
         tabGroup.AddTab(SignUpFormTabWidget);
         
         LoginFormTabWidget.IsSelectedProp.Set(true);
-        signUpForm.Completed += SignUpFlow_OnCompleted; 
+        signUpForm.Submitted += SignUpForm_OnSubmitted;
+        signUpConfirmationForm.Submitted += SignUpConfirmationForm_OnSubmitted;
     }
 
-    private void SignUpFlow_OnCompleted()
+    private void SignUpConfirmationForm_OnSubmitted(ISignUpConfirmationForm form)
     {
         var signUpFormWidget = SignUpFormWidget;
         var loginFormWidget = LoginFormWidget;
@@ -46,5 +58,10 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
         loginFormWidget.PasswordInputWidget.TextInputWidget.TextProp.Set(password);
         
         LoginFormTabWidget.IsSelectedProp.Set(true);
+    }
+
+    private async void SignUpForm_OnSubmitted()
+    {
+        await PopupManager.ShowPopupAsync(new ConfirmSignUpPopupWidget(SignUpConfirmationForm));
     }
 }

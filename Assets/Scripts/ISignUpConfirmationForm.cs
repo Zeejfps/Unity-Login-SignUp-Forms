@@ -3,10 +3,9 @@ using YADBF;
 
 namespace Login
 {
-    public interface ISignUpConfirmationFlow
+    public interface ISignUpConfirmationForm
     {
-        event Action<ISignUpConfirmationFlow> Completed;
-        event Action<ISignUpConfirmationFlow> Canceled;
+        event Action<ISignUpConfirmationForm> Submitted;
         
         ObservableProperty<bool> IsLoadingProp { get; }
         ObservableProperty<Action> ConfirmActionProp { get; }

@@ -7,9 +7,10 @@ namespace Login
 {
     public sealed class TestSignUpForm : ISignUpForm
     {
-        public event Action Completed;
+        public event Action Submitted;
         public ObservableProperty<bool> IsLoadingProp { get; } = new();
         public ObservableProperty<string> EmailProp { get; } = new();
+        public ObservableProperty<string> UsernameProp { get; } = new();
         public ObservableProperty<string> PasswordProp { get; } = new();
         public ObservableProperty<string> ConfirmPasswordProp { get; } = new();
         public ObservableProperty<Action> SubmitActionProp { get; } = new();
@@ -21,8 +22,14 @@ namespace Login
             PopupManager = popupManager;
             
             EmailProp.ValueChanged += EmailProp_OnValueChanged;
+            UsernameProp.ValueChanged += UsernameProp_OnValueChanged;
             PasswordProp.ValueChanged += PasswordProp_OnValueChanged;
             ConfirmPasswordProp.ValueChanged += ConfirmPassword_PropOnValueChanged;
+            UpdateState();
+        }
+
+        private void UsernameProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
+        {
             UpdateState();
         }
 
@@ -44,22 +51,24 @@ namespace Login
         private void UpdateState()
         {
             var email = EmailProp.Value;
+            var username = UsernameProp.Value;
             var password = PasswordProp.Value;
             var confirmPassword = ConfirmPasswordProp.Value;
 
-            if (string.IsNullOrEmpty(email) ||
-                string.IsNullOrEmpty(password) ||
-                string.IsNullOrEmpty(confirmPassword))
+            if (string.IsNullOrWhiteSpace(email) ||
+                string.IsNullOrWhiteSpace(username) ||
+                string.IsNullOrWhiteSpace(password) ||
+                string.IsNullOrWhiteSpace(confirmPassword))
             {
                 SubmitActionProp.Set(null);     
             }
             else
             {
-                SubmitActionProp.Set(SignUp);
+                SubmitActionProp.Set(Submit);
             }
         }
 
-        private async void SignUp()
+        private async void Submit()
         {
             try
             {
@@ -75,10 +84,7 @@ namespace Login
                 else
                 {
                     await Task.Delay(2000);
-                    var confirmationFlow = new TestSignUpConfirmationFlow();
-                    confirmationFlow.Completed += SignUpConfirmationFlow_OnCompleted;
-                    confirmationFlow.Canceled += SignUpConfirmationFlow_OnCanceled;
-                    await PopupManager.ShowPopupAsync(new ConfirmSignUpPopupWidget(confirmationFlow));
+                    Submitted?.Invoke();
                 }
             }
             catch (Exception e)
@@ -89,19 +95,6 @@ namespace Login
             {
                 IsLoadingProp.Set(false);
             }
-        }
-
-        private void SignUpConfirmationFlow_OnCompleted(ISignUpConfirmationFlow flow)
-        {
-            flow.Completed -= SignUpConfirmationFlow_OnCompleted;
-            flow.Canceled -= SignUpConfirmationFlow_OnCanceled;
-            Completed?.Invoke();
-        }
-
-        private void SignUpConfirmationFlow_OnCanceled(ISignUpConfirmationFlow flow)
-        {
-            flow.Completed -= SignUpConfirmationFlow_OnCompleted;
-            flow.Canceled -= SignUpConfirmationFlow_OnCanceled;
         }
     }
 }

@@ -6,10 +6,9 @@ using YADBF;
 
 namespace Login
 {
-    public sealed class TestSignUpConfirmationFlow : ISignUpConfirmationFlow
+    public sealed class TestSignUpConfirmationForm : ISignUpConfirmationForm
     {
-        public event Action<ISignUpConfirmationFlow> Completed;
-        public event Action<ISignUpConfirmationFlow> Canceled;
+        public event Action<ISignUpConfirmationForm> Submitted;
         
         public ObservableProperty<bool> IsLoadingProp { get; } = new();
         public ObservableProperty<Action> ConfirmActionProp { get; } = new();
@@ -22,7 +21,7 @@ namespace Login
             m_CancellationTokenSource?.Cancel();
         }
 
-        public TestSignUpConfirmationFlow()
+        public TestSignUpConfirmationForm()
         {
             ConfirmationCodeTextProp.ValueChanged += ConfirmationCodeTextProp_OnValueChanged;
         }
@@ -38,22 +37,21 @@ namespace Login
             if (string.IsNullOrEmpty(confirmationCode))
                 ConfirmActionProp.Set(null);
             else
-                ConfirmActionProp.Set(ConfirmSignUp);
+                ConfirmActionProp.Set(Submit);
         }
 
-        private async void ConfirmSignUp()
+        private async void Submit()
         {
             try
             {
                 m_CancellationTokenSource = new CancellationTokenSource();
                 IsLoadingProp.Set(true);
                 await Task.Delay(3000, m_CancellationTokenSource.Token);
-                Completed?.Invoke(this);
+                Submitted?.Invoke(this);
             }
             catch (Exception e)
             {
                 Debug.LogException(e);
-                Canceled?.Invoke(this);
             }
             finally
             {

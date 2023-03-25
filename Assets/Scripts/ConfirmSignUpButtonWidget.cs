@@ -10,15 +10,15 @@ namespace Login
         public ObservableProperty<Action> ActionProp { get; } = new();
         public ObservableProperty<bool> IsLoadingProp { get; }
 
-        private ISignUpConfirmationFlow SignUpConfirmationFlow { get; }
+        private ISignUpConfirmationForm SignUpConfirmationForm { get; }
         
-        public ConfirmSignUpButtonWidget(ISignUpConfirmationFlow signUpConfirmationFlow)
+        public ConfirmSignUpButtonWidget(ISignUpConfirmationForm signUpConfirmationForm)
         {
-            SignUpConfirmationFlow = signUpConfirmationFlow;
-            IsLoadingProp = signUpConfirmationFlow.IsLoadingProp;
+            SignUpConfirmationForm = signUpConfirmationForm;
+            IsLoadingProp = signUpConfirmationForm.IsLoadingProp;
             
-            SignUpConfirmationFlow.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
-            SignUpConfirmationFlow.ConfirmationCodeTextProp.ValueChanged += ConfirmationCodeText_PropOnValueChanged;
+            SignUpConfirmationForm.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
+            SignUpConfirmationForm.ConfirmationCodeTextProp.ValueChanged += ConfirmationCodeText_PropOnValueChanged;
             UpdateState();
         }
 
@@ -34,8 +34,8 @@ namespace Login
 
         private void UpdateState()
         {
-            var confirmAction = SignUpConfirmationFlow.ConfirmActionProp.Value;
-            var isLoading = SignUpConfirmationFlow.IsLoadingProp.Value;
+            var confirmAction = SignUpConfirmationForm.ConfirmActionProp.Value;
+            var isLoading = SignUpConfirmationForm.IsLoadingProp.Value;
             IsInteractableProp.Set(confirmAction != null && !isLoading);
             ActionProp.Set(confirmAction);
         }
