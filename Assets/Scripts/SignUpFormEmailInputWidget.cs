@@ -1,15 +1,8 @@
-using Login;
-
 internal sealed class SignUpFormEmailInputWidget : BaseTextInputWidget
 {
-    public SignUpFormEmailInputWidget(ISignUpForm signUpManager)
+    public SignUpFormEmailInputWidget(ISignUpForm signUpForm)
     {
-        TextProp = signUpManager.EmailProp;
-        IsInteractableProperty.Bind(signUpManager.IsLoadingProp, value => !value);
-    }
-
-    public void Dispose()
-    {
-        IsInteractableProperty.Unbind();
+        TextProp = signUpForm.EmailProp;
+        IsInteractableProperty.Bind(signUpForm.IsLoadingProp, value => !value);
     }
 }
