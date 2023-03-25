@@ -8,6 +8,11 @@ public enum EmailValidationStatus
     Invalid
 }
 
+public enum PasswordValidationStatus
+{
+    Valid,
+}
+
 public interface ISignUpForm
 {
     event Action Submitted;

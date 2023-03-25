@@ -27,12 +27,12 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
             new LoginFormSubmitButton(loginForm));
         
         LoginFormTabWidget = new LoginFormTabWidget(signUpForm, LoginFormWidget);
-        
+
         SignUpFormWidget = new SignUpFormWidget(
             new SignUpFormEmailFieldWidget(signUpForm),
             new SignUpFormUsernameFieldWidget(signUpForm),
             new PasswordFieldWidget(new SignUpFormPasswordInputWidget(signUpForm)),
-            new PasswordFieldWidget(new SignUpFormConfirmPasswordInputWidget(signUpForm)),
+            new SignUpFormConfirmPasswordFieldWidget(signUpForm),
             new SignUpFormSignUpButton(signUpForm));
 
         SignUpFormTabWidget = new SignUpFormTabWidget(loginForm, SignUpFormWidget);

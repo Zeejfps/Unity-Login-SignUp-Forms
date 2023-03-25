@@ -1,6 +1,4 @@
 using System;
-using System.Globalization;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UnityEngine;
 using YADBF;
@@ -65,7 +63,8 @@ namespace Login
                 string.IsNullOrWhiteSpace(username) ||
                 string.IsNullOrWhiteSpace(password) ||
                 string.IsNullOrWhiteSpace(confirmPassword) ||
-                IsEmailValid != EmailValidationStatus.Valid)
+                IsEmailValid != EmailValidationStatus.Valid ||
+                password != confirmPassword)
             {
                 SubmitActionProp.Set(null);     
             }

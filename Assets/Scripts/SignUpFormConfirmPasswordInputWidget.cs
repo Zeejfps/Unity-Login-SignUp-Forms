@@ -1,6 +1,4 @@
-using Login;
-
-internal class SignUpFormConfirmPasswordInputWidget : BaseTextInputWidget
+internal sealed class SignUpFormConfirmPasswordInputWidget : BaseTextInputWidget
 {
     public SignUpFormConfirmPasswordInputWidget(ISignUpForm signUpForm)
     {

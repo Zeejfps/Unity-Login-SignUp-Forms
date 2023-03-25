@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EmailFieldWidgetView: {fileID: 5854070558104396107}
   m_UsernameFieldWidgetView: {fileID: 2143487763772805378}
   m_PasswordInputWidgetView: {fileID: 5372087446013738572}
-  m_ConfirmPasswordInputWidgetView: {fileID: 5372087446013738572}
+  m_ConfirmPasswordInputWidgetView: {fileID: 3866828515612739483}
   m_SubmitButtonWidgetView: {fileID: 8011913891492363394}
 --- !u!114 &1962473447743131342
 MonoBehaviour:
@@ -512,6 +512,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1033916624049317342, guid: 39dbda2a39f446344b86409dc53194d6, type: 3}
   m_PrefabInstance: {fileID: 2535819740234389719}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3866828515612739483 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1628252005613625164, guid: 39dbda2a39f446344b86409dc53194d6, type: 3}
+  m_PrefabInstance: {fileID: 2535819740234389719}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18c9cb66d90d4a78bd4ea05dbac97e8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6322772230237473565
 PrefabInstance:
   m_ObjectHideFlags: 0
