@@ -9,7 +9,7 @@ internal sealed class TestLoginForm : ILoginForm
     public ObservableProperty<string> EmailProp { get; } = new();
     public ObservableProperty<string> PasswordProp { get; } = new();
     public ObservableProperty<bool> IsLoadingProp { get; } = new();
-    public ObservableProperty<Action> LoginActionProp { get; } = new();
+    public ObservableProperty<Action> SubmitActionProp { get; } = new();
 
     private IPopupManager PopupManager { get; }
 
@@ -39,11 +39,11 @@ internal sealed class TestLoginForm : ILoginForm
         if (string.IsNullOrEmpty(email) ||
             string.IsNullOrEmpty(password))
         {
-            LoginActionProp.Set(null);
+            SubmitActionProp.Set(null);
         }
         else
         {
-            LoginActionProp.Set(LoginAsync);
+            SubmitActionProp.Set(LoginAsync);
         }
     }
 

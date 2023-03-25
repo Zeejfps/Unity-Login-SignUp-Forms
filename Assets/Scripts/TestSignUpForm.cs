@@ -12,7 +12,7 @@ namespace Login
         public ObservableProperty<string> EmailProp { get; } = new();
         public ObservableProperty<string> PasswordProp { get; } = new();
         public ObservableProperty<string> ConfirmPasswordProp { get; } = new();
-        public ObservableProperty<Action> SignUpActionProp { get; } = new();
+        public ObservableProperty<Action> SubmitActionProp { get; } = new();
 
         private IPopupManager PopupManager { get; }
         
@@ -51,11 +51,11 @@ namespace Login
                 string.IsNullOrEmpty(password) ||
                 string.IsNullOrEmpty(confirmPassword))
             {
-                SignUpActionProp.Set(null);     
+                SubmitActionProp.Set(null);     
             }
             else
             {
-                SignUpActionProp.Set(SignUp);
+                SubmitActionProp.Set(SignUp);
             }
         }
 

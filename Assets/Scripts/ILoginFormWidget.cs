@@ -1,6 +1,3 @@
-using System;
-using YADBF;
-
 public interface ILoginFormWidget : IWidget
 {
     ITextInputWidget EmailInputWidget { get; }

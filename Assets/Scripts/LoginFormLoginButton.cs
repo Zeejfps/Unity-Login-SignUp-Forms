@@ -17,7 +17,7 @@ namespace Login
             LoginForm = loginForm;
             IsLoadingProp = loginForm.IsLoadingProp;
             LoginForm.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
-            LoginForm.LoginActionProp.ValueChanged += LoginActionProp_OnValueChanged;
+            LoginForm.SubmitActionProp.ValueChanged += LoginActionProp_OnValueChanged;
             UpdateState();
         }
 
@@ -33,7 +33,7 @@ namespace Login
 
         private void UpdateState()
         {
-            var loginAction = LoginForm.LoginActionProp.Value;
+            var loginAction = LoginForm.SubmitActionProp.Value;
             var isLoading = LoginForm.IsLoadingProp.Value;
             
             ActionProp.Set(loginAction);

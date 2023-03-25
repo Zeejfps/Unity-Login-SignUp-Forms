@@ -1,5 +1,3 @@
-using YADBF;
-
 public interface ILoginSignUpWidget : IWidget
 {
     ITabWidget LoginFormTabWidget { get; }

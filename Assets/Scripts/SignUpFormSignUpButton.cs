@@ -17,7 +17,7 @@ namespace Login
             SignUpForm = signUpForm;
             IsLoadingProp = signUpForm.IsLoadingProp;
             
-            signUpForm.SignUpActionProp.ValueChanged += SignUpActionProp_OnValueChanged;
+            signUpForm.SubmitActionProp.ValueChanged += SignUpActionProp_OnValueChanged;
             signUpForm.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
             UpdateState();
         }
@@ -34,7 +34,7 @@ namespace Login
 
         private void UpdateState()
         {
-            var signUpAction = SignUpForm.SignUpActionProp.Value;
+            var signUpAction = SignUpForm.SubmitActionProp.Value;
             var isLoading = SignUpForm.IsLoadingProp.Value;
             
             ActionProp.Set(signUpAction);
