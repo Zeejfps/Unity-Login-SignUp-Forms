@@ -10,11 +10,9 @@ namespace Login
         public ObservableProperty<bool> IsMaskingCharacters { get; } = new(true);
 
         private ISignUpFlow SignUpFlow { get; }
-        private ILoginFlow LoginFlow { get; }
 
-        public SignUpFormPasswordInputWidget(ISignUpFlow signUpFlow, ILoginFlow loginFlow)
+        public SignUpFormPasswordInputWidget(ISignUpFlow signUpFlow)
         {
-            LoginFlow = loginFlow;
             SignUpFlow = signUpFlow;
             TextProp = signUpFlow.PasswordProp;
             IsInteractableProp.Bind(signUpFlow.IsLoadingProp, value => !value);
@@ -23,7 +21,6 @@ namespace Login
 
         private void SignUpFlow_OnCompleted()
         {
-            LoginFlow.PasswordProp.Set(TextProp.Value);
             TextProp.Set(string.Empty);
         }
     }

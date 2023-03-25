@@ -20,7 +20,7 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
         
         SignUpFormWidget = new SignUpFormWidget(
             new SignUpFormEmailInputWidget(signUpFlow),
-            new PasswordFieldWidget(new SignUpFormPasswordInputWidget(signUpFlow, loginFlow)),
+            new PasswordFieldWidget(new SignUpFormPasswordInputWidget(signUpFlow)),
             new PasswordFieldWidget(new SignUpFormConfirmPasswordInputWidget(signUpFlow)),
             new SignUpFormSignUpButton(signUpFlow));
 
@@ -40,8 +40,11 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
         var loginFormWidget = LoginFormWidget;
         
         var email = signUpFormWidget.EmailInputWidget.TextProp.Value;
-        
+        var password = signUpFormWidget.PasswordFieldWidget.TextInputWidget.TextProp.Value;
+
         loginFormWidget.EmailInputWidget.TextProp.Set(email);
+        loginFormWidget.PasswordInputWidget.TextInputWidget.TextProp.Set(password);
+        
         LoginFormTabWidget.IsSelectedProp.Set(true);
     }
 }
