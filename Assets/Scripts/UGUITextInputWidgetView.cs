@@ -6,7 +6,8 @@ namespace Login
     public sealed class UGUITextInputWidgetView : UGUIWidgetView<ITextInputWidget>
     {
         [SerializeField] private TMP_InputField m_InputField;
-
+        [SerializeField] private TMP_Text m_ErrorText;
+        
         private TMP_InputField.ContentType m_CachedContentType;
 
         protected override void Awake()
@@ -19,9 +20,15 @@ namespace Login
         {
             base.OnBindToModel(model);
             Bind(model.TextProp, m_InputField.SetTextWithoutNotify);
-            Bind(model.IsInteractableProp, UpdateInteractableState);
-            Bind(model.IsMaskingCharacters, UpdateCharacterMaskingState);
+            Bind(model.IsInteractableProperty, UpdateInteractableState);
+            Bind(model.IsMaskingCharactersProperty, UpdateCharacterMaskingState);
+            Bind(model.ErrorTextProperty, UpdateErrorText);
             m_InputField.onValueChanged.AddListener(InputField_OnValueChanged);
+        }
+
+        private void UpdateErrorText(string text)
+        {
+            m_ErrorText.text = text;
         }
 
         protected override void OnUnbindFromModel(ITextInputWidget model)

@@ -1,21 +1,16 @@
 ﻿using Login;
 using YADBF;
 
-public sealed class ConfirmationCodeInputWidget : ITextInputWidget
+public sealed class ConfirmationCodeInputWidget : BaseTextInputWidget
 {
-    public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
-    public ObservableProperty<string> TextProp { get; }
-    public ObservableProperty<bool> IsInteractableProp { get; } = new();
-    public ObservableProperty<bool> IsMaskingCharacters { get; } = new();
-
-    private ISignUpConfirmationForm SignUpConfirmationFormManager { get; }
+    private ISignUpConfirmationForm SignUpConfirmationForm { get; }
     
-    public ConfirmationCodeInputWidget(ISignUpConfirmationForm signUpConfirmationFormManager)
+    public ConfirmationCodeInputWidget(ISignUpConfirmationForm signUpConfirmationForm)
     {
-        SignUpConfirmationFormManager = signUpConfirmationFormManager;
-        SignUpConfirmationFormManager.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
+        SignUpConfirmationForm = signUpConfirmationForm;
+        SignUpConfirmationForm.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
 
-        TextProp = signUpConfirmationFormManager.ConfirmationCodeTextProp;
+        TextProp = signUpConfirmationForm.ConfirmationCodeTextProp;
         
         UpdateState();
     }
@@ -27,7 +22,7 @@ public sealed class ConfirmationCodeInputWidget : ITextInputWidget
 
     private void UpdateState()
     {
-        var isLoading = SignUpConfirmationFormManager.IsLoadingProp.Value;
-        IsInteractableProp.Set(!isLoading);
+        var isLoading = SignUpConfirmationForm.IsLoadingProp.Value;
+        IsInteractableProperty.Set(!isLoading);
     }
 }

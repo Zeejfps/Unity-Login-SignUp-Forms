@@ -13,13 +13,13 @@ namespace Login
         public CharacterMaskToggleWidget(ITextInputWidget textInputWidget)
         {
             TextInputWidget = textInputWidget;
-            IsInteractable.Bind(TextInputWidget.IsInteractableProp);
-            IsOnProp.Bind(TextInputWidget.IsMaskingCharacters);
+            IsInteractable.Bind(TextInputWidget.IsInteractableProperty);
+            IsOnProp.Bind(TextInputWidget.IsMaskingCharactersProperty);
         }
 
         public void HandleClick()
         {
-            TextInputWidget.IsMaskingCharacters.Toggle();
+            TextInputWidget.IsMaskingCharactersProperty.Toggle();
         }
     }
 }

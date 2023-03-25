@@ -11,7 +11,7 @@ namespace Login
         public PasswordFieldWidget(ITextInputWidget textInputWidget)
         {
             TextInputWidget = textInputWidget;
-            TextInputWidget.IsMaskingCharacters.Set(true);
+            TextInputWidget.IsMaskingCharactersProperty.Set(true);
             ShowPasswordToggleWidget = new CharacterMaskToggleWidget(textInputWidget);
         }
     }
