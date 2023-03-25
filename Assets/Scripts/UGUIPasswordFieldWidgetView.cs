@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 namespace Login
@@ -6,6 +7,8 @@ namespace Login
     {
         [SerializeField] private UGUITextInputWidgetView m_TextInputWidgetView;
         [SerializeField] private UGUIToggleWidgetView m_ShowPasswordToggle;
+        [SerializeField] private TMP_Text m_ErrorText;
+        [SerializeField] private GameObject m_ErrorHighlight;
 
         private bool m_IsShowingPassword;
         
@@ -14,6 +17,12 @@ namespace Login
             base.OnBindToModel(model);
             m_TextInputWidgetView.Model = model.TextInputWidget;
             m_ShowPasswordToggle.Model = model.ShowPasswordToggleWidget;
+            Bind(model.ErrorTextProperty, value =>
+            {
+                var showHighlight = !string.IsNullOrWhiteSpace(value);
+                m_ErrorText.SetText(value);
+                m_ErrorHighlight.SetActive(showHighlight);
+            });
         }
     }
 }

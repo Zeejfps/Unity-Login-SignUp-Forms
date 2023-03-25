@@ -7,6 +7,7 @@ namespace Login
         public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
         public ITextInputWidget TextInputWidget { get; }
         public IToggleWidget ShowPasswordToggleWidget { get; }
+        public ObservableProperty<string> ErrorTextProperty { get; } = new();
 
         public PasswordFieldWidget(ITextInputWidget textInputWidget)
         {
