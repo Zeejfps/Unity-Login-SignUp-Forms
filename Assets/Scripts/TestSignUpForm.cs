@@ -79,7 +79,10 @@ namespace Login
 
                 if (password != confirmPassword)
                 {
-                    await PopupManager.ShowInfoPopupAsync("Error", "Passwords do not match");
+                    var infoPopup = new BasicInfoPopupWidget();
+                    infoPopup.TitleTextProp.Set("Error");
+                    infoPopup.InfoTextProp.Set("Passwords do not match");
+                    await PopupManager.ShowPopupAsync(infoPopup);
                 }
                 else
                 {

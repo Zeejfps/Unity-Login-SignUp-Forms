@@ -56,6 +56,9 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
 
         loginFormWidget.EmailInputWidget.TextProp.Set(email);
         loginFormWidget.PasswordInputWidget.TextInputWidget.TextProp.Set(password);
+
+        signUpFormWidget.PasswordFieldWidget.TextInputWidget.TextProp.Set(string.Empty);
+        signUpFormWidget.ConfirmPasswordFieldWidget.TextInputWidget.TextProp.Set(string.Empty);
         
         LoginFormTabWidget.IsSelectedProp.Set(true);
     }

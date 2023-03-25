@@ -18,7 +18,7 @@ public sealed class ConfirmSignUpPopupWidget : IConfirmSignUpPopupWidget
         SignUpConfirmationForm = signUpConfirmationForm;
         CodeInputWidget = new ConfirmationCodeInputWidget(SignUpConfirmationForm);
         ConfirmButtonWidget = new ConfirmSignUpButtonWidget(SignUpConfirmationForm);
-        CancelButtonWidget = new ClosePopupButtonWidget(this);
+        CancelButtonWidget = new CancelConfirmSignUpButtonWidget(SignUpConfirmationForm, this);
         
         IsVisibleProp.ValueChanged += IsVisibleProp_OnValueChanged;
         SignUpConfirmationForm.Submitted += SignUpConfirmation_OnConfirmed;

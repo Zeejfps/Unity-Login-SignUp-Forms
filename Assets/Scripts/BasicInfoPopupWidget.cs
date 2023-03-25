@@ -14,7 +14,13 @@ namespace Login
 
         public BasicInfoPopupWidget()
         {
+            OkActionProp.Set(Close);
             IsVisibleProp.ValueChanged += IsVisibleProp_OnValueChanged;
+        }
+
+        private void Close()
+        {
+            IsVisibleProp.Set(false);
         }
 
         private void IsVisibleProp_OnValueChanged(ObservableProperty<bool> property, bool prevvalue, bool currvalue)

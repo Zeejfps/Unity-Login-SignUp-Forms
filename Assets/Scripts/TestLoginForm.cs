@@ -57,7 +57,10 @@ internal sealed class TestLoginForm : ILoginForm
             IsLoadingProp.Set(true);
 
             await Task.Delay(2000);
-            await PopupManager.ShowInfoPopupAsync("Invalid Credentials", "Email and/or Password was incorrect");
+            var infoPopup = new BasicInfoPopupWidget();
+            infoPopup.TitleTextProp.Set("Invalid Credentials");
+            infoPopup.InfoTextProp.Set("Email and/or Password was incorrect");
+            await PopupManager.ShowPopupAsync(infoPopup);
         }
         catch (Exception e)
         {
