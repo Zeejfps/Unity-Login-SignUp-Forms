@@ -3,7 +3,7 @@ using UnityEngine;
 using YADBF;
 using YADBF.Unity;
 
-public sealed class PopupSystem : MonoBehaviour
+public sealed class UGUIPopupSystem : MonoBehaviour
 {
     [SerializeField] private GameObject m_ScreenDimmer;
     [SerializeField] private UGUIConfirmationPopupWidgetView m_ConfirmationPopupWidgetViewPrefab;
