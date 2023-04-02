@@ -38,6 +38,7 @@ namespace Login
                 new MinDigitsPasswordRequirement(1),
                 new MinUpperCaseCharactersPasswordRequirement(1),
                 new MinLowerCaseCharactersPasswordRequirement(1),
+                new MinSpecialCharactersPasswordRequirement(1)
             };
             
             EmailProp.ValueChanged += EmailProp_OnValueChanged;
