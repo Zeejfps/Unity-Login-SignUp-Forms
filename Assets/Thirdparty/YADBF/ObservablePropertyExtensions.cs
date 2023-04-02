@@ -6,6 +6,11 @@ namespace YADBF
         {
             return prop.Value == true;
         }
+
+        public static bool IsFalse(this IReadOnlyObservableProperty<bool> prop)
+        {
+            return prop.Value == false;
+        }
         
         public static bool Toggle(this ObservableProperty<bool> prop)
         {

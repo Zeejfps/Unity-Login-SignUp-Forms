@@ -17,6 +17,7 @@ namespace Login
         public ObservableProperty<string> ConfirmPasswordProp { get; } = new();
         public ObservableProperty<Action> SubmitActionProp { get; } = new();
         public IPasswordRequirement[] PasswordRequirements { get; }
+        public bool AreAllPasswordRequirementsMet { get; private set; }
 
         private IPopupManager PopupManager { get; }
         private IEmailValidator EmailValidator { get; }
@@ -61,6 +62,16 @@ namespace Login
 
         private void PasswordProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
         {
+            var allRequirementsMet = true;
+            foreach (var passwordRequirement in PasswordRequirements)
+            {
+                if (!passwordRequirement.IsMet(currvalue))
+                {
+                    allRequirementsMet = false;
+                    break;
+                }
+            }
+            AreAllPasswordRequirementsMet = allRequirementsMet;
             ConfirmPasswordProp.Value = string.Empty;
             UpdateState();
         }

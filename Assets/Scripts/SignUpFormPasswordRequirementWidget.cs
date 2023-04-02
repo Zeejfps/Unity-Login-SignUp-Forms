@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using YADBF;
+﻿using YADBF;
 
 public sealed class SignUpFormPasswordRequirementWidget : IPasswordRequirementWidget
 {

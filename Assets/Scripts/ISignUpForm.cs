@@ -20,4 +20,5 @@ public interface ISignUpForm
     ObservableProperty<string> ConfirmPasswordProp { get; }
     ObservableProperty<Action> SubmitActionProp { get; }
     IPasswordRequirement[] PasswordRequirements { get; }
+    bool AreAllPasswordRequirementsMet { get; }
 }
