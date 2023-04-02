@@ -15,9 +15,9 @@ public interface ISignUpForm
     ObservableProperty<bool> IsLoadingProp { get; }
     ObservableProperty<string> EmailProp { get; }
     EmailValidationStatus EmailValidationResult { get; }
-    IPasswordValidationResult PasswordValidationResult { get; }
     ObservableProperty<string> UsernameProp { get; }
     ObservableProperty<string> PasswordProp { get; }
     ObservableProperty<string> ConfirmPasswordProp { get; }
     ObservableProperty<Action> SubmitActionProp { get; }
+    IPasswordRequirement[] PasswordRequirements { get; }
 }

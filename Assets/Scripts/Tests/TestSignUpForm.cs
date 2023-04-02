@@ -12,11 +12,11 @@ namespace Login
         public ObservableProperty<bool> IsLoadingProp { get; } = new();
         public ObservableProperty<string> EmailProp { get; } = new();
         public EmailValidationStatus EmailValidationResult { get; private set; }
-        public IPasswordValidationResult PasswordValidationResult { get; set; }
         public ObservableProperty<string> UsernameProp { get; } = new();
         public ObservableProperty<string> PasswordProp { get; } = new();
         public ObservableProperty<string> ConfirmPasswordProp { get; } = new();
         public ObservableProperty<Action> SubmitActionProp { get; } = new();
+        public IPasswordRequirement[] PasswordRequirements { get; }
 
         private IPopupManager PopupManager { get; }
         private IEmailValidator EmailValidator { get; }
@@ -25,14 +25,18 @@ namespace Login
         public TestSignUpForm(IPopupManager popupManager)
         {
             PopupManager = popupManager;
-
-            PasswordValidationResult = new ValidationSuccess();
             
             EmailValidator = new RegexEmailValidator();
             PasswordValidator = new TestPasswordValidator(new List<IPasswordRequirement>
             {
                 new MinLengthPasswordRequirement(3)
             });
+
+            PasswordRequirements = new IPasswordRequirement[]
+            {
+                new MinLengthPasswordRequirement(3),
+                new MinDigitsPasswordRequirement(1),
+            };
             
             EmailProp.ValueChanged += EmailProp_OnValueChanged;
             UsernameProp.ValueChanged += UsernameProp_OnValueChanged;
@@ -54,7 +58,6 @@ namespace Login
 
         private void PasswordProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
         {
-            PasswordValidationResult = PasswordValidator.Validate(currvalue);
             UpdateState();
         }
 
@@ -75,7 +78,6 @@ namespace Login
                 string.IsNullOrWhiteSpace(password) ||
                 string.IsNullOrWhiteSpace(confirmPassword) ||
                 EmailValidationResult != EmailValidationStatus.Valid ||
-                PasswordValidationResult.FailedRequirement != null ||
                 password != confirmPassword)
             {
                 SubmitActionProp.Set(null);     
