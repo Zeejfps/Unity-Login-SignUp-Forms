@@ -22,7 +22,7 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
         PopupManager = popupManager;
         
         LoginFormWidget = new LoginFormWidget(
-            new LoginFormEmailFieldWidget(loginForm),
+            loginForm,
             new PasswordFieldWidget(new LoginFormPasswordInputWidget(loginForm)),
             new LoginFormSubmitButton(loginForm));
         

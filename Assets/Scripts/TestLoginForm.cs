@@ -1,6 +1,4 @@
 using System;
-using System.Globalization;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Login;
 using UnityEngine;
@@ -13,6 +11,7 @@ internal sealed class TestLoginForm : ILoginForm
     public ObservableProperty<bool> IsLoadingProp { get; } = new();
     public ObservableProperty<Action> SubmitActionProp { get; } = new();
     public EmailValidationStatus IsEmailValid { get; private set; }
+    public bool IsRememberMeChecked { get; set; }
 
     private IPopupManager PopupManager { get; }
     private IEmailValidator EmailValidator { get; }

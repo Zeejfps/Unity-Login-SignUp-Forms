@@ -8,4 +8,6 @@ public interface ILoginForm
     ObservableProperty<bool> IsLoadingProp { get; }
     ObservableProperty<Action> SubmitActionProp { get; }
     EmailValidationStatus IsEmailValid { get; }
+    
+    bool IsRememberMeChecked { get; set; }
 }
