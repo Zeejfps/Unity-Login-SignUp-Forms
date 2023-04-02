@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 using Login;
 using UnityEngine;
 using YADBF;
@@ -20,28 +20,20 @@ namespace Tests
         public IPasswordRequirement[] PasswordRequirements { get; }
         public bool AreAllPasswordRequirementsMet { get; private set; }
 
-        private IPopupManager PopupManager { get; }
         private IEmailValidator EmailValidator { get; }
         private IPasswordValidator PasswordValidator { get; }
+        private ISignUpService SignUpService { get; }
 
-        public TestSignUpForm(IPopupManager popupManager)
+        public TestSignUpForm(ISignUpService signUpService)
         {
-            PopupManager = popupManager;
-            
+            SignUpService = signUpService;
             EmailValidator = new RegexEmailValidator();
             PasswordValidator = new TestPasswordValidator(new List<IPasswordRequirement>
             {
                 new MinLengthPasswordRequirement(3)
             });
 
-            PasswordRequirements = new IPasswordRequirement[]
-            {
-                new MinLengthPasswordRequirement(3),
-                new MinDigitsPasswordRequirement(1),
-                new MinUpperCaseCharactersPasswordRequirement(1),
-                new MinLowerCaseCharactersPasswordRequirement(1),
-                new MinSpecialCharactersPasswordRequirement(1)
-            };
+            PasswordRequirements = SignUpService.GetPasswordRequirements().ToArray();
             
             EmailProp.ValueChanged += EmailProp_OnValueChanged;
             UsernameProp.ValueChanged += UsernameProp_OnValueChanged;
@@ -109,22 +101,8 @@ namespace Tests
             try
             {
                 IsLoadingProp.Set(true);
-
-                var password = PasswordProp.Value;
-                var confirmPassword = ConfirmPasswordProp.Value;
-
-                if (password != confirmPassword)
-                {
-                    var infoPopup = new BasicInfoPopupWidget();
-                    infoPopup.TitleTextProp.Set("Error");
-                    infoPopup.InfoTextProp.Set("Passwords do not match");
-                    await PopupManager.ShowPopupAsync(infoPopup);
-                }
-                else
-                {
-                    await Task.Delay(2000);
-                    Submitted?.Invoke();
-                }
+                await SignUpService.SignUpAsync(EmailProp.Value, UsernameProp.Value, PasswordProp.Value);
+                Submitted?.Invoke();
             }
             catch (Exception e)
             {
