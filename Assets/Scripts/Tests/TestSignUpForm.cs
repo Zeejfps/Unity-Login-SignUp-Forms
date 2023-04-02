@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using YADBF;
@@ -10,7 +11,8 @@ namespace Login
         public event Action Submitted;
         public ObservableProperty<bool> IsLoadingProp { get; } = new();
         public ObservableProperty<string> EmailProp { get; } = new();
-        public EmailValidationStatus IsEmailValid { get; private set; }
+        public EmailValidationStatus EmailValidationResult { get; private set; }
+        public IPasswordValidationResult PasswordValidationResult { get; set; }
         public ObservableProperty<string> UsernameProp { get; } = new();
         public ObservableProperty<string> PasswordProp { get; } = new();
         public ObservableProperty<string> ConfirmPasswordProp { get; } = new();
@@ -18,11 +20,19 @@ namespace Login
 
         private IPopupManager PopupManager { get; }
         private IEmailValidator EmailValidator { get; }
+        private IPasswordValidator PasswordValidator { get; }
 
         public TestSignUpForm(IPopupManager popupManager)
         {
             PopupManager = popupManager;
+
+            PasswordValidationResult = new ValidationSuccess();
+            
             EmailValidator = new RegexEmailValidator();
+            PasswordValidator = new TestPasswordValidator(new List<IPasswordRequirement>
+            {
+                new MinLengthPasswordRequirement(3)
+            });
             
             EmailProp.ValueChanged += EmailProp_OnValueChanged;
             UsernameProp.ValueChanged += UsernameProp_OnValueChanged;
@@ -38,12 +48,13 @@ namespace Login
 
         private void EmailProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
         {
-            IsEmailValid = EmailValidator.Validate(currvalue);
+            EmailValidationResult = EmailValidator.Validate(currvalue);
             UpdateState();
         }
 
         private void PasswordProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
         {
+            PasswordValidationResult = PasswordValidator.Validate(currvalue);
             UpdateState();
         }
 
@@ -63,7 +74,8 @@ namespace Login
                 string.IsNullOrWhiteSpace(username) ||
                 string.IsNullOrWhiteSpace(password) ||
                 string.IsNullOrWhiteSpace(confirmPassword) ||
-                IsEmailValid != EmailValidationStatus.Valid ||
+                EmailValidationResult != EmailValidationStatus.Valid ||
+                PasswordValidationResult.FailedRequirement != null ||
                 password != confirmPassword)
             {
                 SubmitActionProp.Set(null);     

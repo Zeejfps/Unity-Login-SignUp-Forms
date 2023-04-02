@@ -22,6 +22,7 @@ internal sealed class SignUpFormConfirmPasswordFieldWidget : IPasswordFieldWidge
     {
         var password = SignUpForm.PasswordProp.Value;
         var confirmPassword = SignUpForm.ConfirmPasswordProp.Value;
+
         var isMatching = password == confirmPassword;
         if (isMatching)
             ErrorTextProperty.Set(string.Empty);

@@ -31,7 +31,7 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
         SignUpFormWidget = new SignUpFormWidget(
             new SignUpFormEmailFieldWidget(signUpForm),
             new SignUpFormUsernameFieldWidget(signUpForm),
-            new PasswordFieldWidget(new SignUpFormPasswordInputWidget(signUpForm)),
+            new SignUpFormPasswordFieldWidget(signUpForm),
             new SignUpFormConfirmPasswordFieldWidget(signUpForm),
             new SignUpFormSignUpButton(signUpForm));
 

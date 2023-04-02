@@ -1,5 +1,3 @@
-using Login;
-
 internal sealed class SignUpFormPasswordInputWidget : BaseTextInputWidget
 {
     public SignUpFormPasswordInputWidget(ISignUpForm signUpForm)

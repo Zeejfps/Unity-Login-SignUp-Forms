@@ -18,7 +18,7 @@ internal sealed class SignUpFormEmailFieldWidget : ITextFieldWidget
     
     private void TextProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
     {
-        var status = SignUpForm.IsEmailValid;
+        var status = SignUpForm.EmailValidationResult;
         switch (status)
         {
             case EmailValidationStatus.Valid:

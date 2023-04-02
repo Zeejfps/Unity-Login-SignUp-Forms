@@ -8,18 +8,14 @@ public enum EmailValidationStatus
     Invalid
 }
 
-public enum PasswordValidationStatus
-{
-    Valid,
-}
-
 public interface ISignUpForm
 {
     event Action Submitted;
         
     ObservableProperty<bool> IsLoadingProp { get; }
     ObservableProperty<string> EmailProp { get; }
-    EmailValidationStatus IsEmailValid { get; }
+    EmailValidationStatus EmailValidationResult { get; }
+    IPasswordValidationResult PasswordValidationResult { get; }
     ObservableProperty<string> UsernameProp { get; }
     ObservableProperty<string> PasswordProp { get; }
     ObservableProperty<string> ConfirmPasswordProp { get; }
