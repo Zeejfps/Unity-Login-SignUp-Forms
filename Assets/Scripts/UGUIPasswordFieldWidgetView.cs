@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Login
 {
@@ -21,6 +22,7 @@ namespace Login
             {
                 var showHighlight = !string.IsNullOrWhiteSpace(value);
                 m_ErrorText.SetText(value);
+                LayoutRebuilder.ForceRebuildLayoutImmediate(m_ErrorText.rectTransform);
                 m_ErrorHighlight.SetActive(showHighlight);
             });
         }
