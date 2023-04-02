@@ -61,6 +61,7 @@ namespace Login
 
         private void PasswordProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
         {
+            ConfirmPasswordProp.Value = string.Empty;
             UpdateState();
         }
 
