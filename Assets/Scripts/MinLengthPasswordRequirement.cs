@@ -7,7 +7,7 @@
     public MinLengthPasswordRequirement(int minLength)
     {
         MinLength = minLength;
-        Description = $"Minimum {MinLength} characters";
+        Description = $"Minimum length of {MinLength} characters";
     }
         
     public bool IsMet(string password)

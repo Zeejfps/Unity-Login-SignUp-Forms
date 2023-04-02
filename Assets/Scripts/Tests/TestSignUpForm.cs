@@ -36,6 +36,8 @@ namespace Login
             {
                 new MinLengthPasswordRequirement(3),
                 new MinDigitsPasswordRequirement(1),
+                new MinUpperCaseCharactersPasswordRequirement(1),
+                new MinLowerCaseCharactersPasswordRequirement(1),
             };
             
             EmailProp.ValueChanged += EmailProp_OnValueChanged;

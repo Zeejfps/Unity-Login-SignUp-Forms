@@ -10,15 +10,15 @@ public sealed class MinDigitsPasswordRequirement : IPasswordRequirement
     {
         MinDigits = minDigits;
 
-        var numbersText = "numbers";
+        var charactersText = "characters";
         if (minDigits == 1)
-            numbersText = "number";
+            charactersText = "character";
         
-        Description = $"At least {MinDigits} {numbersText}";
+        Description = $"At least {MinDigits} number {charactersText}";
     }
     
     public bool IsMet(string password)
     {
-        return password.Count(c => char.IsDigit(c)) >= MinDigits;
+        return password.Count(char.IsDigit) >= MinDigits;
     }
 }

@@ -30,7 +30,7 @@ internal sealed class SignUpFormWidget : ISignUpFormWidget
         for (var i = 0; i < passwordRequirementsCount; i++)
         {
             var passwordRequirement = passwordRequirements[i];
-            PasswordRequirementWidgets[i] = new SignUpFormPasswordRequirementWidget(passwordRequirement);
+            PasswordRequirementWidgets[i] = new SignUpFormPasswordRequirementWidget(PasswordFieldWidget.TextInputWidget, passwordRequirement);
         }
     }
 }
