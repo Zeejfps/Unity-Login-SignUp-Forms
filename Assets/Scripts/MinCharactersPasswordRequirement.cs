@@ -5,7 +5,6 @@ using YADBF;
 public abstract class MinCharactersPasswordRequirement : IPasswordRequirement
 {
     public string Description { get; protected set; }
-    public ObservableProperty<bool> IsMetProperty { get; }
 
     protected int Min { get; }
     private Func<char, bool> Predicate { get; }

@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Login;
 using UnityEngine;
 using YADBF;
 
-namespace Login
+namespace Tests
 {
     public sealed class TestSignUpForm : ISignUpForm
     {
