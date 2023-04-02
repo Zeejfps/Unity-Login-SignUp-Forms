@@ -65,7 +65,7 @@ namespace Login
             var allRequirementsMet = true;
             foreach (var passwordRequirement in PasswordRequirements)
             {
-                if (!passwordRequirement.IsMet(currvalue))
+                if (!passwordRequirement.Validate(currvalue))
                 {
                     allRequirementsMet = false;
                     break;

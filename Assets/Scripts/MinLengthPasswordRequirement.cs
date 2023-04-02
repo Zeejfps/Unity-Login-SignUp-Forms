@@ -10,7 +10,7 @@
         Description = $"Minimum length of {MinLength} characters";
     }
         
-    public bool IsMet(string password)
+    public bool Validate(string password)
     {
         return password.Length >= MinLength;
     }

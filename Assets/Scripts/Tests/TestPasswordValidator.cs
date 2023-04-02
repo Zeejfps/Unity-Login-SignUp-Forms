@@ -15,7 +15,7 @@ namespace Login
         {
             foreach (var requirement in PasswordRequirements)
             {
-                if (!requirement.IsMet(password))
+                if (!requirement.Validate(password))
                     return new ValidationFailed(requirement);
             }
 

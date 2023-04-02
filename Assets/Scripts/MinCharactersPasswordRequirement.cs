@@ -16,7 +16,7 @@ public abstract class MinCharactersPasswordRequirement : IPasswordRequirement
         Predicate = predicate;
     }
     
-    public bool IsMet(string password)
+    public bool Validate(string password)
     {
         return password.Count(Predicate.Invoke) >= Min;
     }

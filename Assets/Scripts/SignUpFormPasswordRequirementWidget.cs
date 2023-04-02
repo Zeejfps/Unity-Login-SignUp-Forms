@@ -20,6 +20,6 @@ public sealed class SignUpFormPasswordRequirementWidget : IPasswordRequirementWi
 
     private void TextProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
     {
-        IsMet.Set(PasswordRequirement.IsMet(currvalue));
+        IsMet.Set(PasswordRequirement.Validate(currvalue));
     }
 }

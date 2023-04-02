@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Login;
+﻿using Login;
 using YADBF;
 
 public sealed class SignUpFormPasswordFieldWidget : IPasswordFieldWidget
