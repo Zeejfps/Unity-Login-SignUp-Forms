@@ -13,6 +13,15 @@ namespace Login
 
         private bool m_IsShowingPassword;
         
+        private RectTransform RectTransform { get; set; }
+
+        protected override void Awake()
+        {
+            RectTransform = GetComponent<RectTransform>();
+            base.Awake();
+        }
+
+        
         protected override void OnBindToModel(IPasswordFieldWidget model)
         {
             base.OnBindToModel(model);
@@ -22,9 +31,25 @@ namespace Login
             {
                 var showHighlight = !string.IsNullOrWhiteSpace(value);
                 m_ErrorText.SetText(value);
-                LayoutRebuilder.ForceRebuildLayoutImmediate(m_ErrorText.rectTransform);
                 m_ErrorHighlight.SetActive(showHighlight);
+                RebuildLayout();
             });
+        }
+
+        private void RebuildLayout()
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(m_ErrorText.rectTransform);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(RectTransform);
+
+            var parent = transform.parent;
+            if (parent == null)
+                return;
+        
+            var parentLayoutGroup = parent.GetComponentInParent<LayoutGroup>();
+            if (parentLayoutGroup == null)
+                return;
+        
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)parentLayoutGroup.transform);
         }
     }
 }
