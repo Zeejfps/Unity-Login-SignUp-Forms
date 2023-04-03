@@ -13,6 +13,7 @@ public sealed class SignUpFormWidgetControllerSubmittingFormState : SignUpFormWi
         PasswordInputWidget.IsInteractableProperty.Set(false);
         ConfirmPasswordInputWidget.IsInteractableProperty.Set(false);
         SubmitButtonWidget.IsInteractableProp.Set(false);
+        SubmitButtonWidget.IsLoadingProp.Set(true);
     }
 
     public override void OnExited()

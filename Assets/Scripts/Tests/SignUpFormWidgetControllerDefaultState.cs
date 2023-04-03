@@ -13,18 +13,14 @@
             PasswordInputWidget.IsInteractableProperty.Set(true);
             ConfirmPasswordInputWidget.IsInteractableProperty.Set(true);
             
-            SubmitButtonWidget.ActionProp.Set(Submit);
+            SubmitButtonWidget.ActionProp.Set(SignUpFormWidgetController.Submit);
             SubmitButtonWidget.IsInteractableProp.Set(true);
+            SubmitButtonWidget.IsLoadingProp.Set(false);
         }
 
         public override void OnExited()
         {
             
-        }
-
-        private void Submit()
-        {
-            SignUpFormWidgetController.StateMachine.State = new SignUpFormWidgetControllerSubmittingFormState(SignUpFormWidgetController);
         }
     }
 }

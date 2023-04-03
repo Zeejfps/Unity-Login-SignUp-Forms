@@ -113,11 +113,11 @@ namespace Tests
             SignUpFormWidget.SignUpButtonWidget.IsInteractableProp.Set(false);
         }
 
-        private async void Submit()
+        public async void Submit()
         {
             try
             {
-                //IsLoadingProp.Set(true);
+                StateMachine.State = new SignUpFormWidgetControllerSubmittingFormState(this);
                 await SignUpService.SignUpAsync(Email, Username, Password);
                 Submitted?.Invoke();
             }
@@ -127,7 +127,7 @@ namespace Tests
             }
             finally
             {
-                //IsLoadingProp.Set(false);
+                StateMachine.State = new SignUpFormWidgetControllerDefaultState(this);
             }
         }
     }
