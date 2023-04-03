@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using YADBF.Unity;
 
-public sealed class ListWidgetView : UGUIWidgetView<IListWidget>
+public sealed class UGUIListWidgetView : UGUIWidgetView<IListWidget>
 {
     [SerializeField] private RectTransform m_Container;
     [SerializeField] private View m_WidgetViewPrefab;
