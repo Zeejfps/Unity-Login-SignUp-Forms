@@ -31,7 +31,7 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
         SignUpFormWidget = new SignUpFormWidget(signUpService);
         SignUpFormTabWidget = new SignUpFormTabWidget(loginForm, SignUpFormWidget);
 
-        var signUpFormController = new SignUpFormController(signUpService, SignUpFormWidget);
+        var signUpFormController = new SignUpFormWidgetController(signUpService, SignUpFormWidget);
         LoginFormTabWidget = new LoginFormTabWidget(signUpFormController, LoginFormWidget);
 
         var tabGroup = new TabGroup();

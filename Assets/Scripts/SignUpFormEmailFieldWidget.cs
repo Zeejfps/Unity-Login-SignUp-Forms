@@ -7,12 +7,12 @@ internal sealed class SignUpFormEmailFieldWidget : ITextFieldWidget
     public ObservableProperty<string> ErrorTextProp { get; } = new();
     public ITextInputWidget TextInputWidget { get; }
 
-    private ISignUpFormController SignUpForm { get; }
+    private ISignUpFormWidgetController SignUpFormWidget { get; }
     
-    public SignUpFormEmailFieldWidget(ISignUpFormController signUpForm)
+    public SignUpFormEmailFieldWidget(ISignUpFormWidgetController signUpFormWidget)
     {
-        SignUpForm = signUpForm;
-        TextInputWidget = new SignUpFormEmailInputWidget(signUpForm);
+        SignUpFormWidget = signUpFormWidget;
+        TextInputWidget = new SignUpFormEmailInputWidget(signUpFormWidget);
         TextInputWidget.TextProp.ValueChanged += TextProp_OnValueChanged;
     }
     

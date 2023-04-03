@@ -9,8 +9,8 @@ internal sealed class SignUpFormUsernameFieldWidget : ITextFieldWidget
 
     public ITextInputWidget TextInputWidget { get; }
 
-    public SignUpFormUsernameFieldWidget(ISignUpFormController signUpForm)
+    public SignUpFormUsernameFieldWidget(ISignUpFormWidgetController signUpFormWidget)
     {
-        TextInputWidget = new SignUpFormUsernameInputWidget(signUpForm);
+        TextInputWidget = new SignUpFormUsernameInputWidget(signUpFormWidget);
     }
 }

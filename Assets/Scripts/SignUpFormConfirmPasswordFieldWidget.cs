@@ -8,12 +8,12 @@ internal sealed class SignUpFormConfirmPasswordFieldWidget : IPasswordFieldWidge
     public IToggleWidget ShowPasswordToggleWidget { get; }
     public ObservableProperty<string> ErrorTextProperty { get; } = new();
 
-    private ISignUpFormController SignUpForm { get; }
+    private ISignUpFormWidgetController SignUpFormWidget { get; }
     
-    public SignUpFormConfirmPasswordFieldWidget(ISignUpFormController signUpForm)
+    public SignUpFormConfirmPasswordFieldWidget(ISignUpFormWidgetController signUpFormWidget)
     {
-        SignUpForm = signUpForm;
-        TextInputWidget = new SignUpFormConfirmPasswordInputWidget(signUpForm);
+        SignUpFormWidget = signUpFormWidget;
+        TextInputWidget = new SignUpFormConfirmPasswordInputWidget(signUpFormWidget);
         ShowPasswordToggleWidget = new CharacterMaskToggleWidget(TextInputWidget);
         TextInputWidget.TextProp.ValueChanged += TextProp_OnValueChanged;
     }

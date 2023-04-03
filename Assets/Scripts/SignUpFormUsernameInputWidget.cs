@@ -2,7 +2,7 @@
 
 internal sealed class SignUpFormUsernameInputWidget : BaseTextInputWidget
 {
-    public SignUpFormUsernameInputWidget(ISignUpFormController signUpForm)
+    public SignUpFormUsernameInputWidget(ISignUpFormWidgetController signUpFormWidget)
     {
         // TextProp = signUpForm.UsernameProp;
         // IsInteractableProperty.Bind(signUpForm.IsLoadingProp, value => !value);

@@ -1,6 +1,6 @@
 internal sealed class SignUpFormEmailInputWidget : BaseTextInputWidget
 {
-    public SignUpFormEmailInputWidget(ISignUpFormController signUpForm)
+    public SignUpFormEmailInputWidget(ISignUpFormWidgetController signUpFormWidget)
     {
         // TextProp = signUpForm.EmailProp;
         // IsInteractableProperty.Bind(signUpForm.IsLoadingProp, value => !value);

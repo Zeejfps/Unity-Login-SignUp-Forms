@@ -6,10 +6,10 @@ internal sealed class LoginFormTabWidget : ITabWidget
     public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
     public ObservableProperty<bool> IsSelectedProp { get; } = new();
     
-    private ISignUpFormController SignUpManager { get; }
+    private ISignUpFormWidgetController SignUpManager { get; }
     private ILoginFormWidget LoginFormWidget { get; }
 
-    public LoginFormTabWidget(ISignUpFormController signUpManager, ILoginFormWidget loginFormWidget)
+    public LoginFormTabWidget(ISignUpFormWidgetController signUpManager, ILoginFormWidget loginFormWidget)
     {
         SignUpManager = signUpManager;
         LoginFormWidget = loginFormWidget;

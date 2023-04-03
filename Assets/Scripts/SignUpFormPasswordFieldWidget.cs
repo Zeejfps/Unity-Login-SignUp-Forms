@@ -11,12 +11,12 @@ public sealed class SignUpFormPasswordFieldWidget : IPasswordFieldWidget
 
     public ObservableProperty<string> ErrorTextProperty { get; } = new();
     
-    private ISignUpFormController SignUpForm { get; }
+    private ISignUpFormWidgetController SignUpFormWidget { get; }
 
-    public SignUpFormPasswordFieldWidget(ISignUpFormController signUpForm)
+    public SignUpFormPasswordFieldWidget(ISignUpFormWidgetController signUpFormWidget)
     {
-        SignUpForm = signUpForm;
-        TextInputWidget = new SignUpFormPasswordInputWidget(signUpForm);
+        SignUpFormWidget = signUpFormWidget;
+        TextInputWidget = new SignUpFormPasswordInputWidget(signUpFormWidget);
         ShowPasswordToggleWidget = new CharacterMaskToggleWidget(TextInputWidget);
         
         // SignUpForm.PasswordProp.ValueChanged += PasswordProp_OnValueChanged;

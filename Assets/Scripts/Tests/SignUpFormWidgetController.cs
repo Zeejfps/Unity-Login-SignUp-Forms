@@ -5,14 +5,15 @@ using YADBF;
 
 namespace Tests
 {
-    public sealed class SignUpFormController : ISignUpFormController
+    public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
     {
         public event Action Submitted;
 
         private IPasswordRequirement[] PasswordRequirements { get; }
         private IEmailValidator EmailValidator { get; }
         private ISignUpService SignUpService { get; }
-        private ISignUpFormWidget SignUpFormWidget { get; }
+        public ISignUpFormWidget SignUpFormWidget { get; }
+        public IStateMachine StateMachine { get; }
 
         private string Email => SignUpFormWidget.EmailFieldWidget.TextInputWidget.TextProp.Value;
         private string Username => SignUpFormWidget.UsernameFieldWidget.TextInputWidget.TextProp.Value;
@@ -29,22 +30,16 @@ namespace Tests
 
         private bool AreAllPasswordRequirementsMet { get; set; }
         
-        public SignUpFormController(ISignUpService signUpService, ISignUpFormWidget signUpFormWidget)
+        public SignUpFormWidgetController(ISignUpService signUpService, ISignUpFormWidget signUpFormWidget)
         {
             SignUpService = signUpService;
             SignUpFormWidget = signUpFormWidget;
             
             EmailValidator = new RegexEmailValidator();
-  
+            StateMachine = new SimpleStateMachine();
             PasswordRequirements = SignUpService.GetPasswordRequirements().ToArray();
-            
-            UpdateState();
-            
-            signUpFormWidget.SignUpButtonWidget.ActionProp.Set(Submit);
-            signUpFormWidget.EmailFieldWidget.TextInputWidget.TextProp.ValueChanged += EmailProp_OnValueChanged;
-            signUpFormWidget.UsernameFieldWidget.TextInputWidget.TextProp.ValueChanged += UsernameProp_OnValueChanged;
-            signUpFormWidget.PasswordFieldWidget.TextInputWidget.TextProp.ValueChanged += PasswordProp_OnValueChanged;
-            signUpFormWidget.ConfirmPasswordFieldWidget.TextInputWidget.TextProp.ValueChanged += ConfirmPassword_PropOnValueChanged;
+
+            StateMachine.State = new SignUpFormWidgetControllerDefaultState(this);
         }
 
         private void UsernameProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)

@@ -10,11 +10,11 @@ namespace Login
         public ObservableProperty<Action> ActionProp { get; } = new();
         public ObservableProperty<bool> IsLoadingProp { get; }
 
-        private ISignUpFormController SignUpForm { get; }
+        private ISignUpFormWidgetController SignUpFormWidget { get; }
         
-        public SignUpFormSignUpButton(ISignUpFormController signUpForm)
+        public SignUpFormSignUpButton(ISignUpFormWidgetController signUpFormWidget)
         {
-            SignUpForm = signUpForm;
+            SignUpFormWidget = signUpFormWidget;
             // IsLoadingProp = signUpForm.IsLoadingProp;
             //
             // signUpForm.SubmitActionProp.ValueChanged += SignUpActionProp_OnValueChanged;
