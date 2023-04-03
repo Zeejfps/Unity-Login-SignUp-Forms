@@ -43,7 +43,7 @@ public static class Z
         throw new Exception($"Could not instantiate object of type {type}");
     }
 
-    public static void RegisterScoped<TInterface, TConcrete>()
+    public static void RegisterScoped<TInterface, TConcrete>() where TConcrete : TInterface
     {
         var interfaceType = typeof(TInterface);
         try

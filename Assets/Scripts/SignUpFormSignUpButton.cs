@@ -10,15 +10,15 @@ namespace Login
         public ObservableProperty<Action> ActionProp { get; } = new();
         public ObservableProperty<bool> IsLoadingProp { get; }
 
-        private ISignUpForm SignUpForm { get; }
+        private ISignUpFormController SignUpForm { get; }
         
-        public SignUpFormSignUpButton(ISignUpForm signUpForm)
+        public SignUpFormSignUpButton(ISignUpFormController signUpForm)
         {
             SignUpForm = signUpForm;
-            IsLoadingProp = signUpForm.IsLoadingProp;
-            
-            signUpForm.SubmitActionProp.ValueChanged += SignUpActionProp_OnValueChanged;
-            signUpForm.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
+            // IsLoadingProp = signUpForm.IsLoadingProp;
+            //
+            // signUpForm.SubmitActionProp.ValueChanged += SignUpActionProp_OnValueChanged;
+            // signUpForm.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
             UpdateState();
         }
 
@@ -34,11 +34,11 @@ namespace Login
 
         private void UpdateState()
         {
-            var signUpAction = SignUpForm.SubmitActionProp.Value;
-            var isLoading = SignUpForm.IsLoadingProp.Value;
-            
-            ActionProp.Set(signUpAction);
-            IsInteractableProp.Set(signUpAction != null && !isLoading);
+            // var signUpAction = SignUpForm.SubmitActionProp.Value;
+            // var isLoading = SignUpForm.IsLoadingProp.Value;
+            //
+            // ActionProp.Set(signUpAction);
+            // IsInteractableProp.Set(signUpAction != null && !isLoading);
         }
     }
 }

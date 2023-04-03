@@ -1,4 +1,5 @@
 using Login;
+using Tests;
 using YADBF;
 
 public sealed class LoginSignUpWidget : ILoginSignUpWidget
@@ -14,7 +15,7 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
     
     public LoginSignUpWidget(
         ILoginForm loginForm, 
-        ISignUpForm signUpForm, 
+        ISignUpService signUpService,
         ISignUpConfirmationForm signUpConfirmationForm,
         IPopupManager popupManager)
     {
@@ -26,17 +27,19 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
             new PasswordFieldWidget(new LoginFormPasswordInputWidget(loginForm)),
             new LoginFormSubmitButton(loginForm));
         
-        LoginFormTabWidget = new LoginFormTabWidget(signUpForm, LoginFormWidget);
 
-        SignUpFormWidget = new SignUpFormWidget(signUpForm);
+        SignUpFormWidget = new SignUpFormWidget(signUpService);
         SignUpFormTabWidget = new SignUpFormTabWidget(loginForm, SignUpFormWidget);
+
+        var signUpFormController = new SignUpFormController(signUpService, SignUpFormWidget);
+        LoginFormTabWidget = new LoginFormTabWidget(signUpFormController, LoginFormWidget);
 
         var tabGroup = new TabGroup();
         tabGroup.AddTab(LoginFormTabWidget);
         tabGroup.AddTab(SignUpFormTabWidget);
         
         LoginFormTabWidget.IsSelectedProp.Set(true);
-        signUpForm.Submitted += SignUpForm_OnSubmitted;
+        signUpFormController.Submitted += SignUpForm_OnSubmitted;
         signUpConfirmationForm.Submitted += SignUpConfirmationForm_OnSubmitted;
     }
 

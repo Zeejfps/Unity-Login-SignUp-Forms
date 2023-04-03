@@ -1,9 +1,9 @@
 internal sealed class SignUpFormConfirmPasswordInputWidget : BaseTextInputWidget
 {
-    public SignUpFormConfirmPasswordInputWidget(ISignUpForm signUpForm)
+    public SignUpFormConfirmPasswordInputWidget(ISignUpFormController signUpForm)
     {
-        TextProp = signUpForm.ConfirmPasswordProp;
-        IsMaskingCharactersProperty.Set(true);
-        IsInteractableProperty.Bind(signUpForm.IsLoadingProp, value => !value);   
+        // TextProp = signUpForm.ConfirmPasswordProp;
+        // IsMaskingCharactersProperty.Set(true);
+        // IsInteractableProperty.Bind(signUpForm.IsLoadingProp, value => !value);   
     }
 }

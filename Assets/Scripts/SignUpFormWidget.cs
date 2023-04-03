@@ -1,4 +1,4 @@
-using Login;
+using System.Linq;
 using YADBF;
 
 internal sealed class SignUpFormWidget : ISignUpFormWidget
@@ -11,14 +11,14 @@ internal sealed class SignUpFormWidget : ISignUpFormWidget
     public IPasswordRequirementWidget[] PasswordRequirementWidgets { get; }
     public IButtonWidget SignUpButtonWidget { get; }
 
-    public SignUpFormWidget(ISignUpForm signUpForm) {
-        EmailFieldWidget = new SignUpFormEmailFieldWidget(signUpForm);
-        UsernameFieldWidget = new SignUpFormUsernameFieldWidget(signUpForm);
-        PasswordFieldWidget = new SignUpFormPasswordFieldWidget(signUpForm);
-        ConfirmPasswordFieldWidget = new SignUpFormConfirmPasswordFieldWidget(signUpForm);
-        SignUpButtonWidget = new SignUpFormSignUpButton(signUpForm);
+    public SignUpFormWidget(ISignUpService signUpService) {
+        EmailFieldWidget = new TextFieldWidget();
+        UsernameFieldWidget = new TextFieldWidget();
+        PasswordFieldWidget = new PasswordFieldWidget();
+        ConfirmPasswordFieldWidget = new PasswordFieldWidget();
+        SignUpButtonWidget = new ButtonWidget();
 
-        var passwordRequirements = signUpForm.PasswordRequirements;
+        var passwordRequirements = signUpService.GetPasswordRequirements().ToArray();
         var passwordRequirementsCount = passwordRequirements.Length;
         PasswordRequirementWidgets = new IPasswordRequirementWidget[passwordRequirementsCount];
         for (var i = 0; i < passwordRequirementsCount; i++)

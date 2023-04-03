@@ -8,9 +8,9 @@ internal sealed class SignUpFormConfirmPasswordFieldWidget : IPasswordFieldWidge
     public IToggleWidget ShowPasswordToggleWidget { get; }
     public ObservableProperty<string> ErrorTextProperty { get; } = new();
 
-    private ISignUpForm SignUpForm { get; }
+    private ISignUpFormController SignUpForm { get; }
     
-    public SignUpFormConfirmPasswordFieldWidget(ISignUpForm signUpForm)
+    public SignUpFormConfirmPasswordFieldWidget(ISignUpFormController signUpForm)
     {
         SignUpForm = signUpForm;
         TextInputWidget = new SignUpFormConfirmPasswordInputWidget(signUpForm);
@@ -20,13 +20,13 @@ internal sealed class SignUpFormConfirmPasswordFieldWidget : IPasswordFieldWidge
 
     private void TextProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
     {
-        var password = SignUpForm.PasswordProp.Value;
-        var confirmPassword = SignUpForm.ConfirmPasswordProp.Value;
-
-        var isMatching = password == confirmPassword;
-        if (isMatching)
-            ErrorTextProperty.Set(string.Empty);
-        else
-            ErrorTextProperty.Set("Passwords do not match");
+        // var password = SignUpForm.PasswordProp.Value;
+        // var confirmPassword = SignUpForm.ConfirmPasswordProp.Value;
+        //
+        // var isMatching = password == confirmPassword;
+        // if (isMatching)
+        //     ErrorTextProperty.Set(string.Empty);
+        // else
+        //     ErrorTextProperty.Set("Passwords do not match");
     }
 }

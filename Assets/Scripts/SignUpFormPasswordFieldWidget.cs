@@ -11,31 +11,31 @@ public sealed class SignUpFormPasswordFieldWidget : IPasswordFieldWidget
 
     public ObservableProperty<string> ErrorTextProperty { get; } = new();
     
-    private ISignUpForm SignUpForm { get; }
+    private ISignUpFormController SignUpForm { get; }
 
-    public SignUpFormPasswordFieldWidget(ISignUpForm signUpForm)
+    public SignUpFormPasswordFieldWidget(ISignUpFormController signUpForm)
     {
         SignUpForm = signUpForm;
         TextInputWidget = new SignUpFormPasswordInputWidget(signUpForm);
         ShowPasswordToggleWidget = new CharacterMaskToggleWidget(TextInputWidget);
         
-        SignUpForm.PasswordProp.ValueChanged += PasswordProp_OnValueChanged;
+        // SignUpForm.PasswordProp.ValueChanged += PasswordProp_OnValueChanged;
     }
 
     private void PasswordProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
     {
-        if (string.IsNullOrWhiteSpace(currvalue))
-        {
-            ErrorTextProperty.Set("Password is required");
-            return;
-        }
-
-        if (!SignUpForm.AreAllPasswordRequirementsMet)
-        {
-            ErrorTextProperty.Set("Password requirements are not met");
-            return;
-        }
-        
-        ErrorTextProperty.Set(string.Empty);
+        // if (string.IsNullOrWhiteSpace(currvalue))
+        // {
+        //     ErrorTextProperty.Set("Password is required");
+        //     return;
+        // }
+        //
+        // if (!SignUpForm.AreAllPasswordRequirementsMet)
+        // {
+        //     ErrorTextProperty.Set("Password requirements are not met");
+        //     return;
+        // }
+        //
+        // ErrorTextProperty.Set(string.Empty);
     }
 }
