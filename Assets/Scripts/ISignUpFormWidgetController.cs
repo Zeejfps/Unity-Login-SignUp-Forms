@@ -3,13 +3,20 @@ using System;
 public interface ISignUpFormWidgetController
 {
     event Action Submitted;
+    event Action EmailChanged;
+    event Action UsernameChanged;
+    event Action PasswordChanged;
+    event Action ConfirmPasswordChanged;
     
-    ISignUpFormWidget SignUpFormWidget { get; }
-    
+    string Email { get; }
+    string Username { get; }
+    string Password { get; }
     string ConfirmPassword { get; set; }
+    
     bool IsLoading { get; set; }
 
     void ValidateEmail();
+    void ValidateUsername();
     void ValidatePassword();
     void ValidateConfirmPassword();
 }
