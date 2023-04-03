@@ -2,7 +2,7 @@ using System;
 
 public interface ISignUpFormWidgetController
 {
-    event Action Submitted;
+    event Action FormSubmitted;
     event Action EmailChanged;
     event Action UsernameChanged;
     event Action PasswordChanged;

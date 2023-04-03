@@ -5,7 +5,7 @@ using YADBF;
 
 public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
 {
-    public event Action Submitted;
+    public event Action FormSubmitted;
     public event Action EmailChanged;
     public event Action UsernameChanged;
     public event Action PasswordChanged;
@@ -217,7 +217,7 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
         {
             StateMachine.State = new SignUpFormWidgetControllerSubmittingFormState(this);
             await SignUpService.SignUpAsync(Email, Username, Password);
-            Submitted?.Invoke();
+            FormSubmitted?.Invoke();
         }
         catch (Exception e)
         {

@@ -49,7 +49,7 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
         tabGroup.AddTab(SignUpFormTabWidget);
         
         LoginFormTabWidget.IsSelectedProp.Set(true);
-        signUpFormController.Submitted += SignUpForm_OnSubmitted;
+        signUpFormController.FormSubmitted += SignUpForm_OnSubmitted;
         signUpConfirmationForm.Submitted += SignUpConfirmationForm_OnSubmitted;
     }
 
