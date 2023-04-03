@@ -10,15 +10,7 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
     public event Action UsernameChanged;
     public event Action PasswordChanged;
     public event Action ConfirmPasswordChanged;
-
-    private ISignUpFormWidget SignUpFormWidget { get; }
-
-    private IPasswordRequirement[] PasswordRequirements { get; }
     
-    private IEmailValidator EmailValidator { get; }
-    private IPasswordValidator PasswordValidator { get; }
-    private ISignUpService SignUpService { get; }
-        
     public string Email => EmailInputWidget.TextProp.Value;
     public string Username => UsernameInputWidget.TextProp.Value;
     public string Password => PasswordInputWidget.TextProp.Value;
@@ -50,6 +42,12 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
     private IPasswordFieldWidget ConfirmPasswordFieldWidget => SignUpFormWidget.ConfirmPasswordFieldWidget;
     private IButtonWidget SubmitButtonWidget => SignUpFormWidget.SignUpButtonWidget;
         
+    private ISignUpFormWidget SignUpFormWidget { get; }
+    private IPasswordRequirement[] PasswordRequirements { get; }
+    private IEmailValidator EmailValidator { get; }
+    private IPasswordValidator PasswordValidator { get; }
+    private ISignUpService SignUpService { get; }
+
     private bool IsEmailValid { get; set; }
     private bool IsUsernameValid { get; set; }
     private bool IsPasswordValid { get; set; }
@@ -206,7 +204,11 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
 
     private void UpdateSubmitButtonState()
     {
-        SubmitButtonWidget.IsInteractableProp.Set(IsEmailValid && IsPasswordValid && IsConfirmPasswordValid && !IsLoading);
+        SubmitButtonWidget.IsInteractableProp.Set(IsEmailValid &&
+                                                  IsUsernameValid &&
+                                                  IsPasswordValid &&
+                                                  IsConfirmPasswordValid &&
+                                                  !IsLoading);
     }
 
     private async void SubmitForm()
