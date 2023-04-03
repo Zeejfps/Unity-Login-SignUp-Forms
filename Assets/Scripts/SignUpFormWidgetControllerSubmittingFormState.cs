@@ -8,12 +8,7 @@ public sealed class SignUpFormWidgetControllerSubmittingFormState : SignUpFormWi
 
     public override void OnEntered()
     {
-        EmailInputWidget.IsInteractableProperty.Set(false);
-        UsernameInputWidget.IsInteractableProperty.Set(false);
-        PasswordInputWidget.IsInteractableProperty.Set(false);
-        ConfirmPasswordInputWidget.IsInteractableProperty.Set(false);
-        SubmitButtonWidget.IsInteractableProp.Set(false);
-        SubmitButtonWidget.IsLoadingProp.Set(true);
+        SignUpFormWidgetController.IsLoading = true;
     }
 
     public override void OnExited()

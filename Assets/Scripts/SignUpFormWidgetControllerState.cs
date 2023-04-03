@@ -3,21 +3,22 @@
     public abstract class SignUpFormWidgetControllerState : IState
     {
         protected ISignUpFormWidgetController SignUpFormWidgetController { get; }
-
+        
+        
         protected ITextInputWidget EmailInputWidget =>
-            SignUpFormWidgetController.SignUpFormWidget.EmailFieldWidget.TextInputWidget;
-
-        protected ITextInputWidget UsernameInputWidget =>
-            SignUpFormWidgetController.SignUpFormWidget.UsernameFieldWidget.TextInputWidget;
+            EmailFieldWidget.TextInputWidget;
+        
+        protected ITextFieldWidget EmailFieldWidget =>
+            SignUpFormWidgetController.SignUpFormWidget.EmailFieldWidget;
+        
+        protected IPasswordFieldWidget PasswordFieldWidget =>
+            SignUpFormWidgetController.SignUpFormWidget.PasswordFieldWidget;
         
         protected ITextInputWidget PasswordInputWidget =>
-            SignUpFormWidgetController.SignUpFormWidget.PasswordFieldWidget.TextInputWidget;
+            PasswordFieldWidget.TextInputWidget;
         
         protected ITextInputWidget ConfirmPasswordInputWidget =>
             SignUpFormWidgetController.SignUpFormWidget.ConfirmPasswordFieldWidget.TextInputWidget;
-
-        protected IButtonWidget SubmitButtonWidget => 
-            SignUpFormWidgetController.SignUpFormWidget.SignUpButtonWidget;
         
         protected SignUpFormWidgetControllerState(ISignUpFormWidgetController signUpFormWidgetController)
         {
