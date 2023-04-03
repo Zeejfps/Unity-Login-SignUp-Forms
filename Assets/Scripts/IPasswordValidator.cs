@@ -1,4 +1,5 @@
 ﻿public interface IPasswordValidator
 {
-    IPasswordValidationResult Validate(string password);
+    IPasswordRequirement[] PasswordRequirements { get; }
+    bool Validate(string password);
 }

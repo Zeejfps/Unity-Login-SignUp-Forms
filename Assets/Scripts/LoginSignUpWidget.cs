@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Login;
 using Tests;
 using YADBF;
@@ -31,7 +32,16 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
         SignUpFormWidget = new SignUpFormWidget(signUpService);
         SignUpFormTabWidget = new SignUpFormTabWidget(loginForm, SignUpFormWidget);
 
-        var signUpFormController = new SignUpFormWidgetController(signUpService, SignUpFormWidget);
+        var emailValidator = new RegexEmailValidator();
+        var passwordValidator = new PasswordRequirementsValidator(new IPasswordRequirement[]
+        {
+            new MinLengthPasswordRequirement(3),
+            new MinDigitsPasswordRequirement(1),
+            new MinUpperCaseCharactersPasswordRequirement(1),
+            new MinLowerCaseCharactersPasswordRequirement(1),
+            new MinSpecialCharactersPasswordRequirement(1)
+        });
+        var signUpFormController = new SignUpFormWidgetController(signUpService, emailValidator, passwordValidator, SignUpFormWidget);
         LoginFormTabWidget = new LoginFormTabWidget(signUpFormController, LoginFormWidget);
 
         var tabGroup = new TabGroup();

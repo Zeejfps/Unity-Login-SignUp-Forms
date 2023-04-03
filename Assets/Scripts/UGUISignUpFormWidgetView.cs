@@ -10,8 +10,7 @@ namespace Login
         [SerializeField] private UGUIPasswordFieldWidgetView m_PasswordInputWidgetView;
         [SerializeField] private UGUIPasswordFieldWidgetView m_ConfirmPasswordInputWidgetView;
         [SerializeField] private UGUIButtonWidgetView m_SubmitButtonWidgetView;
-        [SerializeField] private int m_InsertionIndex;
-        [SerializeField] private View<IPasswordRequirementWidget> m_PasswordRequirementWidgetViewPrefab;
+        [SerializeField] private View<IListWidget> m_ListWidgetView;
         
         protected override void OnBindToModel(ISignUpFormWidget model)
         {
@@ -21,15 +20,7 @@ namespace Login
             m_PasswordInputWidgetView.Model = model.PasswordFieldWidget;
             m_ConfirmPasswordInputWidgetView.Model = model.ConfirmPasswordFieldWidget;
             m_SubmitButtonWidgetView.Model = model.SignUpButtonWidget;
-
-            var insertionIndex = m_InsertionIndex;
-            for (var i = 0; i < model.PasswordRequirementWidgets.Length; i++)
-            {
-                var siblingIndex = insertionIndex + i;
-                var view = Instantiate(m_PasswordRequirementWidgetViewPrefab, transform);
-                view.transform.SetSiblingIndex(siblingIndex);
-                view.Model = model.PasswordRequirementWidgets[i];
-            }
+            m_ListWidgetView.Model = model.PasswordRequirementsListWidget;
         }
     }
 }

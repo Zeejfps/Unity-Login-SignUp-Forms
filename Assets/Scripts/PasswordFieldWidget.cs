@@ -16,5 +16,6 @@ public sealed class PasswordFieldWidget : IPasswordFieldWidget
     public PasswordFieldWidget()
     {
         ShowPasswordToggleWidget = new CharacterMaskToggleWidget(TextInputWidget);
+        TextInputWidget.IsMaskingCharactersProperty.Set(true);
     }
 }

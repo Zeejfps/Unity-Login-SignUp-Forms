@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Tests;
 using UnityEngine;
 using YADBF;
@@ -12,10 +11,12 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
     public event Action PasswordChanged;
     public event Action ConfirmPasswordChanged;
 
-    public ISignUpFormWidget SignUpFormWidget { get; }
+    private ISignUpFormWidget SignUpFormWidget { get; }
 
     private IPasswordRequirement[] PasswordRequirements { get; }
+    
     private IEmailValidator EmailValidator { get; }
+    private IPasswordValidator PasswordValidator { get; }
     private ISignUpService SignUpService { get; }
         
     public string Email => EmailInputWidget.TextProp.Value;
@@ -56,21 +57,29 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
 
     private IStateMachine StateMachine { get; }
 
-    public SignUpFormWidgetController(ISignUpService signUpService, ISignUpFormWidget signUpFormWidget)
+    public SignUpFormWidgetController(
+        ISignUpService signUpService, 
+        IEmailValidator emailValidator, 
+        IPasswordValidator passwordValidator,
+        ISignUpFormWidget signUpFormWidget)
     {
         SignUpService = signUpService;
         SignUpFormWidget = signUpFormWidget;
             
-        EmailValidator = new RegexEmailValidator();
+        EmailValidator = emailValidator;
+        PasswordValidator = passwordValidator;
+        PasswordRequirements = PasswordValidator.PasswordRequirements;
         StateMachine = new SimpleStateMachine();
-        PasswordRequirements = SignUpService.GetPasswordRequirements().ToArray();
 
         SubmitButtonWidget.ActionProp.Set(SubmitForm);
         EmailInputWidget.TextProp.ValueChanged += EmailInputWidget_TextProp_OnValueChanged;
         UsernameInputWidget.TextProp.ValueChanged += UsernameInputWidget_TextProp_OnValueChanged;
         PasswordInputWidget.TextProp.ValueChanged += PasswordInputWidget_TextProp_OnValueChanged;
         ConfirmPasswordInputWidget.TextProp.ValueChanged += ConfirmPasswordInputWidget_TextProp_OnValueChanged;
-            
+
+        foreach (var passwordRequirement in PasswordValidator.PasswordRequirements)
+            SignUpFormWidget.PasswordRequirementsListWidget.Add(new SignUpFormPasswordRequirementWidget(PasswordInputWidget, passwordRequirement));
+
         StateMachine.State = new SignUpFormWidgetControllerDefaultState(this);
     }
 
@@ -139,23 +148,13 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
     {
         var password = Password;
         var isPasswordValid = true;
-        var allPasswordRequirementsMet = true;
-            
-        foreach (var passwordRequirement in PasswordRequirements)
-        {
-            if (!passwordRequirement.Validate(Password))
-            {
-                allPasswordRequirementsMet = false;
-                break;
-            }
-        }
-            
+        
         if (string.IsNullOrWhiteSpace(password))
         {
             PasswordFieldWidget.ErrorTextProperty.Set("Password is required");
             isPasswordValid = false;
         }
-        else if (!allPasswordRequirementsMet)
+        else if (!PasswordValidator.Validate(password))
         {
             PasswordFieldWidget.ErrorTextProperty.Set("Not all requirements met");
             isPasswordValid = false;
@@ -208,7 +207,6 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
     private void UpdateSubmitButtonState()
     {
         SubmitButtonWidget.IsInteractableProp.Set(IsEmailValid && IsPasswordValid && IsConfirmPasswordValid && !IsLoading);
-
     }
 
     private async void SubmitForm()
