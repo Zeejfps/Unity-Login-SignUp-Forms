@@ -27,9 +27,8 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
             loginForm,
             new PasswordFieldWidget(new LoginFormPasswordInputWidget(loginForm)),
             new LoginFormSubmitButton(loginForm));
-        
 
-        SignUpFormWidget = new SignUpFormWidget(signUpService);
+        SignUpFormWidget = new SignUpFormWidget();
         SignUpFormTabWidget = new SignUpFormTabWidget(loginForm, SignUpFormWidget);
 
         var emailValidator = new RegexEmailValidator();

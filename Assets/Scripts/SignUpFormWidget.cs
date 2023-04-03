@@ -10,7 +10,7 @@ internal sealed class SignUpFormWidget : ISignUpFormWidget
     public IListWidget PasswordRequirementsListWidget { get; }
     public IButtonWidget SignUpButtonWidget { get; }
 
-    public SignUpFormWidget(ISignUpService signUpService) {
+    public SignUpFormWidget() {
         EmailFieldWidget = new TextFieldWidget();
         UsernameFieldWidget = new TextFieldWidget();
         PasswordFieldWidget = new PasswordFieldWidget();
