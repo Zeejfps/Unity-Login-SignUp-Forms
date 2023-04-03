@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using Login;
 using UnityEngine;
 using YADBF;
 
@@ -21,18 +19,13 @@ namespace Tests
         public bool AreAllPasswordRequirementsMet { get; private set; }
 
         private IEmailValidator EmailValidator { get; }
-        private IPasswordValidator PasswordValidator { get; }
         private ISignUpService SignUpService { get; }
 
         public TestSignUpForm(ISignUpService signUpService)
         {
             SignUpService = signUpService;
             EmailValidator = new RegexEmailValidator();
-            PasswordValidator = new TestPasswordValidator(new List<IPasswordRequirement>
-            {
-                new MinLengthPasswordRequirement(3)
-            });
-
+  
             PasswordRequirements = SignUpService.GetPasswordRequirements().ToArray();
             
             EmailProp.ValueChanged += EmailProp_OnValueChanged;
@@ -85,6 +78,7 @@ namespace Tests
                 string.IsNullOrWhiteSpace(username) ||
                 string.IsNullOrWhiteSpace(password) ||
                 string.IsNullOrWhiteSpace(confirmPassword) ||
+                !AreAllPasswordRequirementsMet ||
                 EmailValidationResult != EmailValidationStatus.Valid ||
                 password != confirmPassword)
             {
