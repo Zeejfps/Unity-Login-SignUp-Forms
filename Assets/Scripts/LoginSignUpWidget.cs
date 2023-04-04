@@ -20,11 +20,11 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
         var emailValidator = new RegexEmailValidator();
         var passwordValidator = new PasswordRequirementsValidator(new IPasswordRequirement[]
         {
-            new MinLengthPasswordRequirement(8),
-            new MinDigitsPasswordRequirement(2),
+            new MinLengthPasswordRequirement(3),
+            new MinDigitsPasswordRequirement(1),
             new MinUpperCaseCharactersPasswordRequirement(1),
             new MinLowerCaseCharactersPasswordRequirement(1),
-            new MinSpecialCharactersPasswordRequirement(3)
+            new MinSpecialCharactersPasswordRequirement(1)
         });
         
         LoginFormWidget = new LoginFormWidget();

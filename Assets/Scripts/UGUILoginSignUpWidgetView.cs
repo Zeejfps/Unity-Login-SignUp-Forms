@@ -11,7 +11,8 @@ public sealed class UGUILoginSignUpWidgetView : UGUIWidgetView<ILoginSignUpWidge
     protected override void Awake()
     {
         base.Awake();
-        Model = Z.Get<ILoginSignUpWidget>();
+        var loginSignUpWidget = Z.Get<ILoginSignUpWidget>();
+        Model = loginSignUpWidget;
         Model.IsVisibleProp.Set(true);
     }
 
