@@ -10,7 +10,7 @@ public interface ISignUpFormWidgetController
     
     string Email { get; }
     string Username { get; }
-    string Password { get; }
+    string Password { get; set; }
     string ConfirmPassword { get; set; }
     
     bool IsLoading { get; set; }

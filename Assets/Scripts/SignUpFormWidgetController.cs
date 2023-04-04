@@ -13,7 +13,13 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
     
     public string Email => EmailInputWidget.TextProp.Value;
     public string Username => UsernameInputWidget.TextProp.Value;
-    public string Password => PasswordInputWidget.TextProp.Value;
+
+    public string Password
+    {
+        get => PasswordInputWidget.TextProp.Value;
+        set => PasswordInputWidget.TextProp.Value = value;
+    }
+    
     public string ConfirmPassword
     {
         get => ConfirmPasswordInputWidget.TextProp.Value;

@@ -1,12 +1,23 @@
 ﻿using System.Threading.Tasks;
+using Login;
 
 namespace Tests
 {
     public sealed class TestSignUpService : ISignUpService
     {
-        public Task SignUpAsync(string email, string username, string password)
+        private IPopupManager PopupService { get; }
+
+        public TestSignUpService(IPopupManager popupService)
         {
-            return Task.Delay(2000);
+            PopupService = popupService;
+        }
+
+        public async Task SignUpAsync(string email, string username, string password)
+        {
+            await Task.Delay(2000);
+
+            var test = new TestSignUpConfirmationForm();
+            await PopupService.ShowPopupAsync(new ConfirmSignUpPopupWidget(test));
         }
     }
 }

@@ -4,8 +4,17 @@ using YADBF;
 
 internal sealed class LoginFormWidgetController : ILoginFormWidgetController
 {
-    public string Email => EmailInputWidget.TextProp.Value;
-    public string Password => PasswordInputWidget.TextProp.Value;
+    public string Email
+    {
+        get => EmailInputWidget.TextProp.Value;
+        set => EmailInputWidget.TextProp.Value = value;
+    }
+
+    public string Password
+    {
+        get => PasswordInputWidget.TextProp.Value;
+        set => PasswordInputWidget.TextProp.Value = value;
+    }
 
     private bool m_IsLoading;
     public bool IsLoading

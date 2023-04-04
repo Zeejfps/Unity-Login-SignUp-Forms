@@ -6,9 +6,12 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
     public ObservableProperty<bool> IsVisibleProp { get; } = new();
     public ITabWidget LoginFormTabWidget { get; }
     public ITabWidget SignUpFormTabWidget { get; }
+    
     public ILoginFormWidget LoginFormWidget { get; }
     public ISignUpFormWidget SignUpFormWidget { get; }
 
+    private ILoginFormWidgetController LoginFormWidgetController { get; }
+    private ISignUpFormWidgetController SignUpFormWidgetController { get; }
     private IPopupManager PopupManager { get; }
     private ISignUpConfirmationForm SignUpConfirmationForm { get; }
     
@@ -32,42 +35,33 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
         });
         
         LoginFormWidget = new LoginFormWidget();
-        var loginFormWidgetController = new LoginFormWidgetController(loginService, emailValidator, LoginFormWidget);
+        LoginFormWidgetController = new LoginFormWidgetController(loginService, emailValidator, LoginFormWidget);
         
         SignUpFormWidget = new SignUpFormWidget();
-        SignUpFormTabWidget = new SignUpFormTabWidget(loginFormWidgetController, SignUpFormWidget);
+        SignUpFormTabWidget = new SignUpFormTabWidget(LoginFormWidgetController, SignUpFormWidget);
         
-        var signUpFormController = new SignUpFormWidgetController(signUpService, emailValidator, passwordValidator, SignUpFormWidget);
-        LoginFormTabWidget = new LoginFormTabWidget(signUpFormController, LoginFormWidget);
+        SignUpFormWidgetController = new SignUpFormWidgetController(signUpService, emailValidator, passwordValidator, SignUpFormWidget);
+        LoginFormTabWidget = new LoginFormTabWidget(SignUpFormWidgetController, LoginFormWidget);
 
         var tabGroup = new TabGroup();
         tabGroup.AddTab(LoginFormTabWidget);
         tabGroup.AddTab(SignUpFormTabWidget);
         
         LoginFormTabWidget.IsSelectedProp.Set(true);
-        signUpFormController.FormSubmitted += SignUpFormController_OnFormSubmitted;
-        signUpConfirmationForm.FormSubmitted += SignUpConfirmationFormController_OnFormSubmitted;
+        SignUpFormWidgetController.FormSubmitted += SignUpFormWidgetController_OnFormSubmitted;
     }
 
-    private void SignUpConfirmationFormController_OnFormSubmitted(ISignUpConfirmationForm form)
+    private void SignUpFormWidgetController_OnFormSubmitted()
     {
-        var signUpFormWidget = SignUpFormWidget;
-        var loginFormWidget = LoginFormWidget;
-        
-        var email = signUpFormWidget.EmailFieldWidget.TextInputWidget.TextProp.Value;
-        var password = signUpFormWidget.PasswordFieldWidget.TextInputWidget.TextProp.Value;
+        var email = SignUpFormWidgetController.Email;
+        var password = SignUpFormWidgetController.Password;
 
-        loginFormWidget.EmailFieldWidget.TextInputWidget.TextProp.Set(email);
-        loginFormWidget.PasswordFieldWidget.TextInputWidget.TextProp.Set(password);
+        LoginFormWidgetController.Email = email;
+        LoginFormWidgetController.Password = password;
 
-        signUpFormWidget.PasswordFieldWidget.TextInputWidget.TextProp.Set(string.Empty);
-        signUpFormWidget.ConfirmPasswordFieldWidget.TextInputWidget.TextProp.Set(string.Empty);
-        
+        SignUpFormWidgetController.Password = string.Empty;
+        SignUpFormWidgetController.ConfirmPassword = string.Empty;
+
         LoginFormTabWidget.IsSelectedProp.Set(true);
-    }
-
-    private async void SignUpFormController_OnFormSubmitted()
-    {
-        await PopupManager.ShowPopupAsync(new ConfirmSignUpPopupWidget(SignUpConfirmationForm));
     }
 }
