@@ -3,10 +3,8 @@ using UnityEngine;
 
 public sealed class UGUILoginSignUpWidgetView : UGUIWidgetView<ILoginSignUpWidget>
 {
-    [Header("Tabs")]
     [SerializeField] private UGUITabWidgetView m_LoginFormTabWidgetView;
     [SerializeField] private UGUITabWidgetView m_SignUpFormTabWidgetView;
-    [Header("Content")]
     [SerializeField] private UGUILoginFormWidgetView m_LoginFormWidgetView;
     [SerializeField] private UGUISignUpFormWidgetView m_SignUpFormWidgetView;
 

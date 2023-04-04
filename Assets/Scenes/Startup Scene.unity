@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 138245612}
   - component: {fileID: 138245614}
   m_Layer: 5
-  m_Name: Login / Sign Up Widget
+  m_Name: Login / Sign Up Page Widget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

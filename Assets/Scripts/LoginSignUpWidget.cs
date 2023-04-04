@@ -12,26 +12,19 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
 
     private ILoginFormWidgetController LoginFormWidgetController { get; }
     private ISignUpFormWidgetController SignUpFormWidgetController { get; }
-    private IPopupManager PopupManager { get; }
-    private ISignUpConfirmationForm SignUpConfirmationForm { get; }
     
     public LoginSignUpWidget(
         ILoginService loginService,
-        ISignUpService signUpService,
-        ISignUpConfirmationForm signUpConfirmationForm,
-        IPopupManager popupManager)
+        ISignUpService signUpService)
     {
-        SignUpConfirmationForm = signUpConfirmationForm;
-        PopupManager = popupManager;
-        
         var emailValidator = new RegexEmailValidator();
         var passwordValidator = new PasswordRequirementsValidator(new IPasswordRequirement[]
         {
-            new MinLengthPasswordRequirement(3),
-            new MinDigitsPasswordRequirement(1),
+            new MinLengthPasswordRequirement(8),
+            new MinDigitsPasswordRequirement(2),
             new MinUpperCaseCharactersPasswordRequirement(1),
             new MinLowerCaseCharactersPasswordRequirement(1),
-            new MinSpecialCharactersPasswordRequirement(1)
+            new MinSpecialCharactersPasswordRequirement(3)
         });
         
         LoginFormWidget = new LoginFormWidget();
@@ -46,22 +39,8 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
         var tabGroup = new TabGroup();
         tabGroup.AddTab(LoginFormTabWidget);
         tabGroup.AddTab(SignUpFormTabWidget);
-        
-        LoginFormTabWidget.IsSelectedProp.Set(true);
-        SignUpFormWidgetController.FormSubmitted += SignUpFormWidgetController_OnFormSubmitted;
-    }
 
-    private void SignUpFormWidgetController_OnFormSubmitted()
-    {
-        var email = SignUpFormWidgetController.Email;
-        var password = SignUpFormWidgetController.Password;
-
-        LoginFormWidgetController.Email = email;
-        LoginFormWidgetController.Password = password;
-
-        SignUpFormWidgetController.Password = string.Empty;
-        SignUpFormWidgetController.ConfirmPassword = string.Empty;
-
-        LoginFormTabWidget.IsSelectedProp.Set(true);
+        var controller = new LoginSignUpPageWidgetController(LoginFormWidgetController, SignUpFormWidgetController,
+            LoginFormTabWidget);
     }
 }
