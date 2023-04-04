@@ -21,12 +21,12 @@ public sealed class ConfirmSignUpPopupWidget : IConfirmSignUpPopupWidget
         CancelButtonWidget = new CancelConfirmSignUpButtonWidget(SignUpConfirmationForm, this);
         
         IsVisibleProp.ValueChanged += IsVisibleProp_OnValueChanged;
-        SignUpConfirmationForm.Submitted += SignUpConfirmation_OnConfirmed;
+        SignUpConfirmationForm.FormSubmitted += SignUpConfirmation_OnConfirmed;
     }
 
     private void SignUpConfirmation_OnConfirmed(ISignUpConfirmationForm form)
     {
-        form.Submitted -= SignUpConfirmation_OnConfirmed;
+        form.FormSubmitted -= SignUpConfirmation_OnConfirmed;
         IsVisibleProp.Set(false);
     }
 
@@ -35,7 +35,7 @@ public sealed class ConfirmSignUpPopupWidget : IConfirmSignUpPopupWidget
         if (isVisible)
             return;
         
-        SignUpConfirmationForm.Submitted -= SignUpConfirmation_OnConfirmed;
+        SignUpConfirmationForm.FormSubmitted -= SignUpConfirmation_OnConfirmed;
         SignUpConfirmationForm.Cancel();
         Closed?.Invoke(this);
     }

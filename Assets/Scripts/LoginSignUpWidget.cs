@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using Login;
-using Tests;
 using YADBF;
 
 public sealed class LoginSignUpWidget : ILoginSignUpWidget
@@ -47,11 +45,11 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
         tabGroup.AddTab(SignUpFormTabWidget);
         
         LoginFormTabWidget.IsSelectedProp.Set(true);
-        signUpFormController.FormSubmitted += SignUpForm_OnSubmitted;
-        signUpConfirmationForm.Submitted += SignUpConfirmationForm_OnSubmitted;
+        signUpFormController.FormSubmitted += SignUpFormController_OnFormSubmitted;
+        signUpConfirmationForm.FormSubmitted += SignUpConfirmationFormController_OnFormSubmitted;
     }
 
-    private void SignUpConfirmationForm_OnSubmitted(ISignUpConfirmationForm form)
+    private void SignUpConfirmationFormController_OnFormSubmitted(ISignUpConfirmationForm form)
     {
         var signUpFormWidget = SignUpFormWidget;
         var loginFormWidget = LoginFormWidget;
@@ -68,7 +66,7 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
         LoginFormTabWidget.IsSelectedProp.Set(true);
     }
 
-    private async void SignUpForm_OnSubmitted()
+    private async void SignUpFormController_OnFormSubmitted()
     {
         await PopupManager.ShowPopupAsync(new ConfirmSignUpPopupWidget(SignUpConfirmationForm));
     }

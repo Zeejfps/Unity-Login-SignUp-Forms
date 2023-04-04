@@ -8,7 +8,7 @@ namespace Login
 {
     public sealed class TestSignUpConfirmationForm : ISignUpConfirmationForm
     {
-        public event Action<ISignUpConfirmationForm> Submitted;
+        public event Action<ISignUpConfirmationForm> FormSubmitted;
         
         public ObservableProperty<bool> IsLoadingProp { get; } = new();
         public ObservableProperty<Action> ConfirmActionProp { get; } = new();
@@ -47,7 +47,7 @@ namespace Login
                 m_CancellationTokenSource = new CancellationTokenSource();
                 IsLoadingProp.Set(true);
                 await Task.Delay(3000, m_CancellationTokenSource.Token);
-                Submitted?.Invoke(this);
+                FormSubmitted?.Invoke(this);
             }
             catch (Exception e)
             {

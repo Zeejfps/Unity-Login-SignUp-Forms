@@ -5,7 +5,7 @@ namespace Login
 {
     public interface ISignUpConfirmationForm
     {
-        event Action<ISignUpConfirmationForm> Submitted;
+        event Action<ISignUpConfirmationForm> FormSubmitted;
         
         ObservableProperty<bool> IsLoadingProp { get; }
         ObservableProperty<Action> ConfirmActionProp { get; }
