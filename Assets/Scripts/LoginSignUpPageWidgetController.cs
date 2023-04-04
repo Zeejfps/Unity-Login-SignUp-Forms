@@ -35,34 +35,13 @@ public sealed class LoginSignUpPageWidgetController
         LoginFormWidgetController = new LoginFormWidgetController(loginService, emailValidator, LoginFormWidget);
         SignUpFormWidgetController = new SignUpFormWidgetController(signUpService, emailValidator, passwordValidator, SignUpFormWidget);
         
-        LoginFormTabWidget.IsSelectedProp.ValueChanged += LoginFormTabWidget_IsSelectedProp_OnValueChanged;
-        SignUpFormTabWidget.IsSelectedProp.ValueChanged += SignUpFormTabWidget_IsSelectedProp_OnValueChanged;
-        
         SignUpFormWidgetController.FormSubmitted += SignUpFormWidgetController_OnFormSubmitted;
         
-        var tabGroup = new TabGroup();
-        tabGroup.AddTab(LoginFormTabWidget);
-        tabGroup.AddTab(SignUpFormTabWidget);
+        var tabGroupController = new TabGroupController();
+        tabGroupController.LinkTabToContent(LoginFormTabWidget, LoginFormWidget);
+        tabGroupController.LinkTabToContent(SignUpFormTabWidget, SignUpFormWidget);
         
-        LoginFormTabWidget.IsSelectedProp.Set(true);
-    }
-
-    private void LoginFormTabWidget_IsSelectedProp_OnValueChanged(ObservableProperty<bool> property, bool prevvalue, bool isSelected)
-    {
-        if (isSelected)
-        {
-            LoginFormWidget.IsVisibleProp.Set(true);
-            SignUpFormWidget.IsVisibleProp.Set(false);
-        }
-    }
-
-    private void SignUpFormTabWidget_IsSelectedProp_OnValueChanged(ObservableProperty<bool> property, bool prevvalue, bool isSelected)
-    {
-        if (isSelected)
-        {
-            SignUpFormWidget.IsVisibleProp.Set(true);
-            LoginFormWidget.IsVisibleProp.Set(false);
-        }
+        LoginFormTabWidget.IsSelectedProp.Set(true);  
     }
 
     private void SignUpFormWidgetController_OnFormSubmitted()
