@@ -2,7 +2,7 @@
 {
     public LoginFormEmailTextInputWidget(ILoginFormWidgetController loginFormWidgetController)
     {
-        TextProp = loginFormWidgetController.EmailProp;
-        IsInteractableProperty.Bind(loginFormWidgetController.IsLoadingProp, value => !value);
+        // TextProp = loginFormWidgetController.EmailProp;
+        // IsInteractableProperty.Bind(loginFormWidgetController.IsLoadingProp, value => !value);
     }
 }

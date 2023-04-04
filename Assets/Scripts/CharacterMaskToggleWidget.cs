@@ -1,9 +1,12 @@
-﻿using YADBF;
+﻿using System;
+using YADBF;
 
 namespace Login
 {
     internal sealed class CharacterMaskToggleWidget : IToggleWidget
     {
+        public event Action<IToggleWidget> Clicked;
+        
         public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
         public ObservableProperty<bool> IsOnProp { get; } = new();
         public ObservableProperty<bool> IsInteractable { get; } = new();
@@ -21,6 +24,7 @@ namespace Login
         {
             TextInputWidget.IsMaskingCharactersProperty.Toggle();
             TextInputWidget.IsFocused.Set(true);
+            Clicked?.Invoke(this);
         }
     }
 }

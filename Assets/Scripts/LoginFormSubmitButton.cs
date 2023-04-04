@@ -15,9 +15,9 @@ namespace Login
         public LoginFormSubmitButton(ILoginFormWidgetController loginFormWidgetController)
         {
             LoginFormWidgetController = loginFormWidgetController;
-            IsLoadingProp = loginFormWidgetController.IsLoadingProp;
-            LoginFormWidgetController.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
-            LoginFormWidgetController.SubmitActionProp.ValueChanged += LoginActionProp_OnValueChanged;
+            // IsLoadingProp = loginFormWidgetController.IsLoadingProp;
+            // LoginFormWidgetController.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
+            // LoginFormWidgetController.SubmitActionProp.ValueChanged += LoginActionProp_OnValueChanged;
             UpdateState();
         }
 
@@ -33,11 +33,11 @@ namespace Login
 
         private void UpdateState()
         {
-            var loginAction = LoginFormWidgetController.SubmitActionProp.Value;
-            var isLoading = LoginFormWidgetController.IsLoadingProp.Value;
-            
-            ActionProp.Set(loginAction);
-            IsInteractableProp.Set(loginAction != null && !isLoading);
+            // var loginAction = LoginFormWidgetController.SubmitActionProp.Value;
+            // var isLoading = LoginFormWidgetController.IsLoadingProp.Value;
+            //
+            // ActionProp.Set(loginAction);
+            // IsInteractableProp.Set(loginAction != null && !isLoading);
         }
     }
 }

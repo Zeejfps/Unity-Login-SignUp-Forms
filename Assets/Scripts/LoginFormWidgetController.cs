@@ -6,6 +6,8 @@ using YADBF;
 
 internal sealed class LoginFormWidgetController : ILoginFormWidgetController
 {
+    public string Email { get; }
+
     public ObservableProperty<string> EmailProp { get; } = new();
     public ObservableProperty<string> PasswordProp { get; } = new();
     public ObservableProperty<bool> IsLoadingProp { get; } = new();
@@ -14,14 +16,20 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
     public bool IsRememberMeChecked { get; set; }
 
     private IPopupManager PopupManager { get; }
+    
+    private ILoginFormWidget LoginFormWidget { get; }
     private IEmailValidator EmailValidator { get; }
 
-    public LoginFormWidgetController(IPopupManager popupManager)
+    public LoginFormWidgetController(IEmailValidator emailValidator, ILoginFormWidget loginFormWidget)
     {
-        PopupManager = popupManager;
-        EmailValidator = new RegexEmailValidator();
+        //PopupManager = popupManager;
+        
+        EmailValidator = emailValidator;
+        LoginFormWidget = loginFormWidget;
+        
         EmailProp.ValueChanged += EmailProp_OnValueChanged;
         PasswordProp.ValueChanged += PasswordProp_OnValueChanged;
+        
         UpdateState();
     }
 

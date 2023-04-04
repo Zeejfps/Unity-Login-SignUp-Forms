@@ -18,21 +18,21 @@ internal sealed class LoginFormEmailFieldWidget : ITextFieldWidget
     
     private void Validate()
     {
-        var status = LoginFormWidgetController.IsEmailValid;
-        switch (status)
-        {
-            case EmailValidationStatus.Valid:
-                ErrorTextProp.Set(string.Empty);
-                break;
-            case EmailValidationStatus.Invalid:
-                ErrorTextProp.Set("Please enter a valid email");
-                break;
-            case EmailValidationStatus.Empty:
-                ErrorTextProp.Set("Email is required");
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+        // var status = LoginFormWidgetController.IsEmailValid;
+        // switch (status)
+        // {
+        //     case EmailValidationStatus.Valid:
+        //         ErrorTextProp.Set(string.Empty);
+        //         break;
+        //     case EmailValidationStatus.Invalid:
+        //         ErrorTextProp.Set("Please enter a valid email");
+        //         break;
+        //     case EmailValidationStatus.Empty:
+        //         ErrorTextProp.Set("Email is required");
+        //         break;
+        //     default:
+        //         throw new ArgumentOutOfRangeException();
+        // }
     }
 
     private void TextProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
