@@ -1,7 +1,7 @@
 using Login;
 using UnityEngine;
 
-public sealed class UGUILoginSignUpWidgetView : UGUIWidgetView<ILoginSignUpWidget>
+public sealed class UGUILoginSignUpWidgetView : UGUIWidgetView<ILoginSignUpPageWidget>
 {
     [SerializeField] private UGUITabWidgetView m_LoginFormTabWidgetView;
     [SerializeField] private UGUITabWidgetView m_SignUpFormTabWidgetView;
@@ -11,12 +11,18 @@ public sealed class UGUILoginSignUpWidgetView : UGUIWidgetView<ILoginSignUpWidge
     protected override void Awake()
     {
         base.Awake();
-        var loginSignUpWidget = Z.Get<ILoginSignUpWidget>();
-        Model = loginSignUpWidget;
+
+        var loginService = Z.Get<ILoginService>();
+        var signUpService = Z.Get<ISignUpService>();
+        var loginSignUpPageWidget = Z.Get<ILoginSignUpPageWidget>();
+
+        var controller = new LoginSignUpPageWidgetController(loginService, signUpService, loginSignUpPageWidget);
+        
+        Model = loginSignUpPageWidget;
         Model.IsVisibleProp.Set(true);
     }
 
-    protected override void OnBindToModel(ILoginSignUpWidget model)
+    protected override void OnBindToModel(ILoginSignUpPageWidget model)
     {
         base.OnBindToModel(model);
         m_LoginFormWidgetView.Model = model.LoginFormWidget;
