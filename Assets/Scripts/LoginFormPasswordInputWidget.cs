@@ -1,9 +1,9 @@
 internal sealed class LoginFormPasswordInputWidget : BaseTextInputWidget
 {
-    public LoginFormPasswordInputWidget(ILoginForm loginForm)
+    public LoginFormPasswordInputWidget(ILoginFormWidgetController loginFormWidgetController)
     {
-        TextProp = loginForm.PasswordProp;
+        TextProp = loginFormWidgetController.PasswordProp;
         IsMaskingCharactersProperty.Set(true);
-        IsInteractableProperty.Bind(loginForm.IsLoadingProp, value => !value);
+        IsInteractableProperty.Bind(loginFormWidgetController.IsLoadingProp, value => !value);
     }
 }

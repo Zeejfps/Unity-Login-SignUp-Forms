@@ -4,7 +4,7 @@ using Login;
 using UnityEngine;
 using YADBF;
 
-internal sealed class TestLoginForm : ILoginForm
+internal sealed class LoginFormWidgetController : ILoginFormWidgetController
 {
     public ObservableProperty<string> EmailProp { get; } = new();
     public ObservableProperty<string> PasswordProp { get; } = new();
@@ -16,7 +16,7 @@ internal sealed class TestLoginForm : ILoginForm
     private IPopupManager PopupManager { get; }
     private IEmailValidator EmailValidator { get; }
 
-    public TestLoginForm(IPopupManager popupManager)
+    public LoginFormWidgetController(IPopupManager popupManager)
     {
         PopupManager = popupManager;
         EmailValidator = new RegexEmailValidator();

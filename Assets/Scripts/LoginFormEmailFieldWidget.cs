@@ -7,18 +7,18 @@ internal sealed class LoginFormEmailFieldWidget : ITextFieldWidget
     public ObservableProperty<string> ErrorTextProp { get; } = new(string.Empty);
     public ITextInputWidget TextInputWidget { get; }
 
-    private ILoginForm LoginForm { get; }
+    private ILoginFormWidgetController LoginFormWidgetController { get; }
     
-    public LoginFormEmailFieldWidget(ILoginForm loginForm)
+    public LoginFormEmailFieldWidget(ILoginFormWidgetController loginFormWidgetController)
     {
-        LoginForm = loginForm;
-        TextInputWidget = new LoginFormEmailTextInputWidget(loginForm);
+        LoginFormWidgetController = loginFormWidgetController;
+        TextInputWidget = new LoginFormEmailTextInputWidget(loginFormWidgetController);
         TextInputWidget.TextProp.ValueChanged += TextProp_OnValueChanged;
     }
     
     private void Validate()
     {
-        var status = LoginForm.IsEmailValid;
+        var status = LoginFormWidgetController.IsEmailValid;
         switch (status)
         {
             case EmailValidationStatus.Valid:

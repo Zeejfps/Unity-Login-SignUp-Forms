@@ -6,12 +6,12 @@ internal sealed class SignUpFormTabWidget : ITabWidget
     public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
     public ObservableProperty<bool> IsSelectedProp { get; } = new();
 
-    private ILoginForm LoginForm { get; }
+    private ILoginFormWidgetController LoginFormWidgetController { get; }
     private ISignUpFormWidget SignUpFormWidget { get; }
     
-    public SignUpFormTabWidget(ILoginForm loginForm, ISignUpFormWidget signUpFormWidget)
+    public SignUpFormTabWidget(ILoginFormWidgetController loginFormWidgetController, ISignUpFormWidget signUpFormWidget)
     {
-        LoginForm = loginForm;
+        LoginFormWidgetController = loginFormWidgetController;
         SignUpFormWidget = signUpFormWidget;
         
         SignUpFormWidget.IsVisibleProp.Bind(IsSelectedProp);
@@ -23,7 +23,7 @@ internal sealed class SignUpFormTabWidget : ITabWidget
         if (IsSelectedProp.Value)
             return;
         
-        var email = LoginForm.EmailProp.Value;
+        var email = LoginFormWidgetController.EmailProp.Value;
         if (!string.IsNullOrWhiteSpace(email))
             SignUpFormWidget.EmailFieldWidget.TextInputWidget.TextProp.Set(email);
         

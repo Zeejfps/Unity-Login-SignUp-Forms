@@ -9,13 +9,13 @@ internal sealed class LoginFormWidget : ILoginFormWidget
     public IToggleWidget RememberMeToggleWidget { get; }
 
     public LoginFormWidget(
-        ILoginForm loginForm,
+        ILoginFormWidgetController loginFormWidgetController,
         IPasswordFieldWidget passwordInputWidget,
         IButtonWidget loginButtonWidget
     ) {
-        EmailFieldWidget = new LoginFormEmailFieldWidget(loginForm);
+        EmailFieldWidget = new LoginFormEmailFieldWidget(loginFormWidgetController);
         PasswordFieldWidget = passwordInputWidget;
         LoginButtonWidget = loginButtonWidget;
-        RememberMeToggleWidget = new LoginFormRememberMeToggleWidget(loginForm);
+        RememberMeToggleWidget = new LoginFormRememberMeToggleWidget(loginFormWidgetController);
     }
 }

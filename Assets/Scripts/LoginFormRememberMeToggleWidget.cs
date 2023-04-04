@@ -6,19 +6,19 @@ public sealed class LoginFormRememberMeToggleWidget : IToggleWidget
     public ObservableProperty<bool> IsOnProp { get; } = new(true);
     public ObservableProperty<bool> IsInteractable { get; } = new();
 
-    private ILoginForm LoginForm { get; }
+    private ILoginFormWidgetController LoginFormWidgetController { get; }
     
-    public LoginFormRememberMeToggleWidget(ILoginForm loginForm)
+    public LoginFormRememberMeToggleWidget(ILoginFormWidgetController loginFormWidgetController)
     {
-        LoginForm = loginForm;
+        LoginFormWidgetController = loginFormWidgetController;
         IsOnProp.ValueChanged += IsOnProp_OnValueChanged;
-        LoginForm.IsRememberMeChecked = IsOnProp.Value;
-        IsInteractable.Bind(loginForm.IsLoadingProp, value => !value);
+        LoginFormWidgetController.IsRememberMeChecked = IsOnProp.Value;
+        IsInteractable.Bind(loginFormWidgetController.IsLoadingProp, value => !value);
     }
 
     private void IsOnProp_OnValueChanged(ObservableProperty<bool> property, bool prevvalue, bool currvalue)
     {
-        LoginForm.IsRememberMeChecked = currvalue;
+        LoginFormWidgetController.IsRememberMeChecked = currvalue;
     }
 
     public void HandleClick()

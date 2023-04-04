@@ -10,14 +10,14 @@ namespace Login
         public ObservableProperty<Action> ActionProp { get; } = new();
         public ObservableProperty<bool> IsLoadingProp { get; } 
 
-        private ILoginForm LoginForm { get; }
+        private ILoginFormWidgetController LoginFormWidgetController { get; }
         
-        public LoginFormSubmitButton(ILoginForm loginForm)
+        public LoginFormSubmitButton(ILoginFormWidgetController loginFormWidgetController)
         {
-            LoginForm = loginForm;
-            IsLoadingProp = loginForm.IsLoadingProp;
-            LoginForm.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
-            LoginForm.SubmitActionProp.ValueChanged += LoginActionProp_OnValueChanged;
+            LoginFormWidgetController = loginFormWidgetController;
+            IsLoadingProp = loginFormWidgetController.IsLoadingProp;
+            LoginFormWidgetController.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
+            LoginFormWidgetController.SubmitActionProp.ValueChanged += LoginActionProp_OnValueChanged;
             UpdateState();
         }
 
@@ -33,8 +33,8 @@ namespace Login
 
         private void UpdateState()
         {
-            var loginAction = LoginForm.SubmitActionProp.Value;
-            var isLoading = LoginForm.IsLoadingProp.Value;
+            var loginAction = LoginFormWidgetController.SubmitActionProp.Value;
+            var isLoading = LoginFormWidgetController.IsLoadingProp.Value;
             
             ActionProp.Set(loginAction);
             IsInteractableProp.Set(loginAction != null && !isLoading);
