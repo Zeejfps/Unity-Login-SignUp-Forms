@@ -40,6 +40,10 @@ public sealed class LoginSignUpPageWidgetController
         
         SignUpFormWidgetController.FormSubmitted += SignUpFormWidgetController_OnFormSubmitted;
         
+        var tabGroup = new TabGroup();
+        tabGroup.AddTab(LoginFormTabWidget);
+        tabGroup.AddTab(SignUpFormTabWidget);
+        
         LoginFormTabWidget.IsSelectedProp.Set(true);
     }
 

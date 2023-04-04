@@ -16,9 +16,5 @@ public sealed class LoginSignUpWidget : ILoginSignUpPageWidget
         
         LoginFormTabWidget = new TabWidget();
         SignUpFormTabWidget = new TabWidget();
-
-        var tabGroup = new TabGroup();
-        tabGroup.AddTab(LoginFormTabWidget);
-        tabGroup.AddTab(SignUpFormTabWidget);
     }
 }
