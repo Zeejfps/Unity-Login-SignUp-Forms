@@ -1,5 +1,4 @@
 using System;
-using Login;
 using UnityEngine;
 using YADBF;
 
@@ -27,9 +26,7 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
     
     public bool IsEmailValid { get; private set; }
     public bool IsPasswordValid { get; private set; }
-
-    private IPopupManager PopupManager { get; }
-
+    
 
     private ITextInputWidget EmailInputWidget => EmailFieldWidget.TextInputWidget;
     private ITextFieldWidget EmailFieldWidget => LoginFormWidget.EmailFieldWidget;
@@ -44,8 +41,6 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
 
     public LoginFormWidgetController(ILoginService loginService, IEmailValidator emailValidator, ILoginFormWidget loginFormWidget)
     {
-        //PopupManager = popupManager;
-
         LoginService = loginService;
         EmailValidator = emailValidator;
         LoginFormWidget = loginFormWidget;
@@ -131,13 +126,7 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
             var password = Password;
 
             IsLoading = true;
-
             await LoginService.LoginAsync(email, password);
-            
-            var infoPopup = new BasicInfoPopupWidget();
-            infoPopup.TitleTextProp.Set("Invalid Credentials");
-            infoPopup.InfoTextProp.Set("Email and/or Password was incorrect");
-            await PopupManager.ShowPopupAsync(infoPopup);
         }
         catch (Exception e)
         {
