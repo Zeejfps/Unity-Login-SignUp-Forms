@@ -1,76 +1,139 @@
 using System;
-using System.Threading.Tasks;
 using Login;
 using UnityEngine;
 using YADBF;
 
 internal sealed class LoginFormWidgetController : ILoginFormWidgetController
 {
-    public string Email { get; }
+    public string Email => EmailInputWidget.TextProp.Value;
+    public string Password => PasswordInputWidget.TextProp.Value;
 
-    public ObservableProperty<string> EmailProp { get; } = new();
-    public ObservableProperty<string> PasswordProp { get; } = new();
-    public ObservableProperty<bool> IsLoadingProp { get; } = new();
-    public ObservableProperty<Action> SubmitActionProp { get; } = new();
-    public EmailValidationStatus IsEmailValid { get; private set; }
-    public bool IsRememberMeChecked { get; set; }
+    private bool m_IsLoading;
+    public bool IsLoading
+    {
+        get => m_IsLoading;
+        set
+        {
+            m_IsLoading = value;
+            OnIsLoadingStateChanged();
+        }
+    }
+
+    public bool IsRememberMeChecked
+    {
+        get => RememberMeToggleWidget.IsOnProp.Value;
+        set => RememberMeToggleWidget.IsOnProp.Value = value;
+    }
+    
+    public bool IsEmailValid { get; private set; }
+    public bool IsPasswordValid { get; private set; }
 
     private IPopupManager PopupManager { get; }
-    
-    private ILoginFormWidget LoginFormWidget { get; }
-    private IEmailValidator EmailValidator { get; }
 
-    public LoginFormWidgetController(IEmailValidator emailValidator, ILoginFormWidget loginFormWidget)
+
+    private ITextInputWidget EmailInputWidget => EmailFieldWidget.TextInputWidget;
+    private ITextFieldWidget EmailFieldWidget => LoginFormWidget.EmailFieldWidget;
+    private ITextInputWidget PasswordInputWidget => PasswordFieldWidget.TextInputWidget;
+    private IPasswordFieldWidget PasswordFieldWidget => LoginFormWidget.PasswordFieldWidget;
+    private IButtonWidget SubmitButtonWidget => LoginFormWidget.SubmitButtonWidget;
+    private IToggleWidget RememberMeToggleWidget => LoginFormWidget.RememberMeToggleWidget;
+    
+    private ILoginService LoginService { get; }
+    private IEmailValidator EmailValidator { get; }
+    private ILoginFormWidget LoginFormWidget { get; }
+
+    public LoginFormWidgetController(ILoginService loginService, IEmailValidator emailValidator, ILoginFormWidget loginFormWidget)
     {
         //PopupManager = popupManager;
-        
+
+        LoginService = loginService;
         EmailValidator = emailValidator;
         LoginFormWidget = loginFormWidget;
+        SubmitButtonWidget.ActionProp.Set(SubmitFormAsync);
         
-        EmailProp.ValueChanged += EmailProp_OnValueChanged;
-        PasswordProp.ValueChanged += PasswordProp_OnValueChanged;
+        IsLoading = false;
+        IsRememberMeChecked = true;
         
-        UpdateState();
+        EmailInputWidget.TextProp.ValueChanged += EmailInputWidget_TextProp_OnValueChanged;
+        PasswordInputWidget.TextProp.ValueChanged += PasswordInputWidget_TextProp_OnValueChanged;
+
+        UpdateSubmitButtonInteractionState();
     }
 
-    private void EmailProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
+    private void EmailInputWidget_TextProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
     {
-        IsEmailValid = EmailValidator.Validate(currvalue);
-        UpdateState();
+        ValidateEmail();
     }
 
-    private void PasswordProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
+    private void PasswordInputWidget_TextProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
     {
-        UpdateState();
+        ValidatePassword();
     }
 
-    private void UpdateState()
+    private void ValidateEmail()
     {
-        var email = EmailProp.Value;
-        var password = PasswordProp.Value;
-
-        if (string.IsNullOrEmpty(email) ||
-            string.IsNullOrEmpty(password) ||
-            IsEmailValid != EmailValidationStatus.Valid)
+        var isEmailValid = true;
+        var validationResult = EmailValidator.Validate(Email);
+        if (validationResult == EmailValidationStatus.Empty)
         {
-            SubmitActionProp.Set(null);
+            isEmailValid = false;
+            EmailFieldWidget.ErrorTextProp.Set("Email is required");
+        }
+        else if (validationResult == EmailValidationStatus.Invalid)
+        {
+            isEmailValid = false;
+            EmailFieldWidget.ErrorTextProp.Set("Invalid email");
         }
         else
         {
-            SubmitActionProp.Set(LoginAsync);
+            EmailFieldWidget.ErrorTextProp.Set(string.Empty);
         }
+
+        IsEmailValid = isEmailValid;
+        UpdateSubmitButtonInteractionState();
     }
 
-    private async void LoginAsync()
+    private void ValidatePassword()
+    {
+        IsPasswordValid = !string.IsNullOrWhiteSpace(Password);
+        if (!IsPasswordValid)
+        {
+            PasswordFieldWidget.ErrorTextProperty.Set("Password is required");
+        }
+        else
+        {
+            PasswordFieldWidget.ErrorTextProperty.Set(string.Empty);
+        }
+        
+        UpdateSubmitButtonInteractionState();
+    }
+
+    private void OnIsLoadingStateChanged()
+    {
+        var isLoading = IsLoading;
+        EmailInputWidget.IsInteractableProperty.Set(!isLoading);
+        PasswordInputWidget.IsInteractableProperty.Set(!isLoading);
+        RememberMeToggleWidget.IsInteractableProperty.Set(!isLoading);
+        SubmitButtonWidget.IsLoadingProp.Set(isLoading);
+        UpdateSubmitButtonInteractionState();
+    }
+
+    private void UpdateSubmitButtonInteractionState()
+    {
+        SubmitButtonWidget.IsInteractableProp.Set(!IsLoading && IsEmailValid && IsPasswordValid);
+    }
+
+    private async void SubmitFormAsync()
     {
         try
         {
-            var email = EmailProp.Value;
-            var password = PasswordProp.Value;
+            var email = Email;
+            var password = Password;
 
-            IsLoadingProp.Set(true);
+            IsLoading = true;
 
-            await Task.Delay(2000);
+            await LoginService.LoginAsync(email, password);
+            
             var infoPopup = new BasicInfoPopupWidget();
             infoPopup.TitleTextProp.Set("Invalid Credentials");
             infoPopup.InfoTextProp.Set("Email and/or Password was incorrect");
@@ -82,7 +145,7 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
         }
         finally
         {
-            IsLoadingProp.Set(false);
+            IsLoading = false;
         }
     }
 }

@@ -8,6 +8,7 @@ public class Initializer : MonoBehaviour
     private void Awake()
     {
         Z.RegisterSingleton<ISignUpService, TestSignUpService>();
+        Z.RegisterSingleton<ILoginService, TestLoginService>();
         Z.RegisterSingleton<IPopupManager, PopupManager>();
         
         Z.RegisterScoped<ILoginFormWidgetController, LoginFormWidgetController>();

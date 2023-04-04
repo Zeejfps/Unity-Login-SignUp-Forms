@@ -15,6 +15,7 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
     private ISignUpConfirmationForm SignUpConfirmationForm { get; }
     
     public LoginSignUpWidget(
+        ILoginService loginService,
         ISignUpService signUpService,
         ISignUpConfirmationForm signUpConfirmationForm,
         IPopupManager popupManager)
@@ -33,7 +34,7 @@ public sealed class LoginSignUpWidget : ILoginSignUpWidget
         });
         
         LoginFormWidget = new LoginFormWidget();
-        var loginFormWidgetController = new LoginFormWidgetController(emailValidator, LoginFormWidget);
+        var loginFormWidgetController = new LoginFormWidgetController(loginService, emailValidator, LoginFormWidget);
         
         SignUpFormWidget = new SignUpFormWidget();
         SignUpFormTabWidget = new SignUpFormTabWidget(loginFormWidgetController, SignUpFormWidget);

@@ -19,7 +19,7 @@ public sealed class UGUIToggleWidgetView : UGUIWidgetView<IToggleWidget>
             else
                 m_IconImage.sprite = m_OffIcon;
         });
-        Bind(model.IsInteractable, value => m_Button.interactable = value);
+        Bind(model.IsInteractableProperty, value => m_Button.interactable = value);
         
         m_Button.onClick.AddListener(Button_OnClicked);
     }

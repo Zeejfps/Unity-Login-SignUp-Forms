@@ -14,7 +14,7 @@ public sealed class UGUILoginFormWidgetView : UGUIWidgetView<ILoginFormWidget>
         base.OnBindToModel(model);
         m_EmailFieldWidgetView.Model = model.EmailFieldWidget;
         m_PasswordInputWidgetView.Model = model.PasswordFieldWidget;
-        m_LoginButtonWidgetView.Model = model.LoginButtonWidget;
+        m_LoginButtonWidgetView.Model = model.SubmitButtonWidget;
         m_RememberMeToggleWidgetView.Model = model.RememberMeToggleWidget;
     }
 }
