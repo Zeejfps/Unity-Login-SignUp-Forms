@@ -86,6 +86,15 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
 
         StateMachine.State = new SignUpFormWidgetControllerDefaultState(this);
     }
+    
+    public void Dispose()
+    {
+        EmailInputWidget.TextProp.ValueChanged -= EmailInputWidget_TextProp_OnValueChanged;
+        UsernameInputWidget.TextProp.ValueChanged -= UsernameInputWidget_TextProp_OnValueChanged;
+        PasswordInputWidget.TextProp.ValueChanged -= PasswordInputWidget_TextProp_OnValueChanged;
+        ConfirmPasswordInputWidget.TextProp.ValueChanged -= ConfirmPasswordInputWidget_TextProp_OnValueChanged;
+        StateMachine.State = null;
+    }
 
     private void EmailInputWidget_TextProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
     {
@@ -195,11 +204,6 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
 
         IsConfirmPasswordValid = isConfirmPasswordValid;
         UpdateSubmitButtonState();
-    }
-
-    public void Dispose()
-    {
-        StateMachine.State = null;
     }
 
     private void OnLoadingStateChanged()
