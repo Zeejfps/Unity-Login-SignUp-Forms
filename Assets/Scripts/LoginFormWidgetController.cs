@@ -63,6 +63,12 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
 
         UpdateSubmitButtonInteractionState();
     }
+    
+    public void Dispose()
+    {
+        EmailInputWidget.TextProp.ValueChanged -= EmailInputWidget_TextProp_OnValueChanged;
+        PasswordInputWidget.TextProp.ValueChanged -= PasswordInputWidget_TextProp_OnValueChanged;
+    }
 
     private void EmailInputWidget_TextProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
     {

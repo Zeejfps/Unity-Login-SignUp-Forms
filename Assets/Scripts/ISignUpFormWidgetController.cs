@@ -19,4 +19,6 @@ public interface ISignUpFormWidgetController
     void ValidateUsername();
     void ValidatePassword();
     void ValidateConfirmPassword();
+    
+    void Dispose();
 }

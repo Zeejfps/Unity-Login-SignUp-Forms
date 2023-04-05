@@ -1,6 +1,5 @@
 ﻿
 using Login;
-using YADBF;
 
 public sealed class LoginSignUpPageWidgetController
 {
@@ -12,6 +11,8 @@ public sealed class LoginSignUpPageWidgetController
     private ITabWidget LoginFormTabWidget { get; }
     private ITabWidget SignUpFormTabWidget { get; }
 
+    private ITabGroupController TabGroupController { get; }
+    
     public LoginSignUpPageWidgetController(
         ILoginService loginService,
         ISignUpService signUpService,
@@ -37,13 +38,20 @@ public sealed class LoginSignUpPageWidgetController
         
         SignUpFormWidgetController.FormSubmitted += SignUpFormWidgetController_OnFormSubmitted;
         
-        var tabGroupController = new TabGroupController();
-        tabGroupController.LinkTabToContent(LoginFormTabWidget, LoginFormWidget);
-        tabGroupController.LinkTabToContent(SignUpFormTabWidget, SignUpFormWidget);
+        TabGroupController = new TabGroupController();
+        TabGroupController.LinkTabToContent(LoginFormTabWidget, LoginFormWidget);
+        TabGroupController.LinkTabToContent(SignUpFormTabWidget, SignUpFormWidget);
         
         LoginFormTabWidget.IsSelectedProp.Set(true);  
     }
 
+    public void Dispose()
+    {
+        LoginFormWidgetController.Dispose();
+        SignUpFormWidgetController.Dispose();
+        TabGroupController.Dispose();
+    }
+    
     private void SignUpFormWidgetController_OnFormSubmitted()
     {
         var email = SignUpFormWidgetController.Email;

@@ -197,6 +197,11 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
         UpdateSubmitButtonState();
     }
 
+    public void Dispose()
+    {
+        StateMachine.State = null;
+    }
+
     private void OnLoadingStateChanged()
     {
         var isLoading = IsLoading;

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 using YADBF;
 
 public sealed class TabGroupController : ITabGroupController
@@ -11,6 +10,13 @@ public sealed class TabGroupController : ITabGroupController
         var tabToContentLink = new TabToContentLink(tabWidget, contentWidget);
         tabWidget.IsSelectedProp.ValueChanged += TabWidget_IsSelected_OnValueChanged;
         m_Links.Add(tabToContentLink);
+    }
+
+    public void Dispose()
+    {
+        foreach (var link in m_Links)
+            link.Dispose();
+        m_Links.Clear();
     }
 
     private void TabWidget_IsSelected_OnValueChanged(ObservableProperty<bool> property, bool wasSelected, bool isSelected)
@@ -39,6 +45,11 @@ sealed class TabToContentLink
         ContentWidget.IsVisibleProp.Set(TabWidget.IsSelectedProp.Value);
 
         TabWidget.IsSelectedProp.ValueChanged += IsSelectedProp_OnValueChanged;
+    }
+
+    public void Dispose()
+    {
+        TabWidget.IsSelectedProp.ValueChanged -= IsSelectedProp_OnValueChanged;
     }
 
     private void IsSelectedProp_OnValueChanged(ObservableProperty<bool> property, bool wasSelected, bool isSelected)
