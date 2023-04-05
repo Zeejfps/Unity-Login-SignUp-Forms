@@ -1,6 +1,6 @@
 using YADBF;
 
-public sealed class LoginSignUpWidget : ILoginSignUpPageWidget
+public sealed class LoginSignUpPageWidget : ILoginSignUpPageWidget
 {
     public ObservableProperty<bool> IsVisibleProp { get; } = new();
     public ITabWidget LoginFormTabWidget { get; }
@@ -9,7 +9,7 @@ public sealed class LoginSignUpWidget : ILoginSignUpPageWidget
     public ILoginFormWidget LoginFormWidget { get; }
     public ISignUpFormWidget SignUpFormWidget { get; }
     
-    public LoginSignUpWidget() {
+    public LoginSignUpPageWidget() {
 
         LoginFormWidget = new LoginFormWidget();
         SignUpFormWidget = new SignUpFormWidget();
