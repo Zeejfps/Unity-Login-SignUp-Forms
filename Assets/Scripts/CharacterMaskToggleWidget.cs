@@ -23,7 +23,7 @@ namespace Login
         public void HandleClick()
         {
             TextInputWidget.IsMaskingCharactersProperty.Toggle();
-            TextInputWidget.IsFocused.Set(true);
+            TextInputWidget.IsFocusedProperty.Set(true);
             Clicked?.Invoke(this);
         }
     }

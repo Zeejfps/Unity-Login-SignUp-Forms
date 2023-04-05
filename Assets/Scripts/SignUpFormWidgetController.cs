@@ -60,6 +60,7 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
     private bool IsConfirmPasswordValid { get; set; }
 
     private IStateMachine StateMachine { get; }
+    private IFocusController FocusController { get; }
 
     public SignUpFormWidgetController(
         ISignUpService signUpService, 
@@ -76,6 +77,7 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
         StateMachine = new SimpleStateMachine();
 
         SubmitButtonWidget.ActionProp.Set(SubmitForm);
+        SignUpFormWidget.IsVisibleProp.ValueChanged += SignUpFormWidget_IsVisibleProp_OnValueChanged;
         EmailInputWidget.TextProp.ValueChanged += EmailInputWidget_TextProp_OnValueChanged;
         UsernameInputWidget.TextProp.ValueChanged += UsernameInputWidget_TextProp_OnValueChanged;
         PasswordInputWidget.TextProp.ValueChanged += PasswordInputWidget_TextProp_OnValueChanged;
@@ -85,15 +87,29 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
             SignUpFormWidget.PasswordRequirementsListWidget.Add(new SignUpFormPasswordRequirementWidget(PasswordInputWidget, passwordRequirement));
 
         StateMachine.State = new SignUpFormWidgetControllerDefaultState(this);
+
+        FocusController = new FocusController();
+        FocusController.Add(EmailInputWidget);
+        FocusController.Add(UsernameInputWidget);
     }
-    
+
     public void Dispose()
     {
+        FocusController.Dispose();
+        SignUpFormWidget.IsVisibleProp.ValueChanged -= SignUpFormWidget_IsVisibleProp_OnValueChanged;
         EmailInputWidget.TextProp.ValueChanged -= EmailInputWidget_TextProp_OnValueChanged;
         UsernameInputWidget.TextProp.ValueChanged -= UsernameInputWidget_TextProp_OnValueChanged;
         PasswordInputWidget.TextProp.ValueChanged -= PasswordInputWidget_TextProp_OnValueChanged;
         ConfirmPasswordInputWidget.TextProp.ValueChanged -= ConfirmPasswordInputWidget_TextProp_OnValueChanged;
         StateMachine.State = null;
+    }
+
+    private void SignUpFormWidget_IsVisibleProp_OnValueChanged(ObservableProperty<bool> property, bool wasFocused, bool isFocused)
+    {
+        if (isFocused)
+            FocusController.FocusFirstWidget();
+        // else
+        //     FocusController.ClearFocus();
     }
 
     private void EmailInputWidget_TextProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)

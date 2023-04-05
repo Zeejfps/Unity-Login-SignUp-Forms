@@ -1,8 +1,7 @@
 using YADBF;
 
-public interface ITextInputWidget : IWidget
+public interface ITextInputWidget : IWidget, IFocusable
 {
-    ObservableProperty<bool> IsFocused { get; }
     ObservableProperty<string> TextProp { get; }
     ObservableProperty<bool> IsInteractableProperty { get; }
     ObservableProperty<bool> IsMaskingCharactersProperty { get; }

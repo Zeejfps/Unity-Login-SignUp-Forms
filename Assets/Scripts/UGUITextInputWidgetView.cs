@@ -1,6 +1,9 @@
+using System.Collections;
 using Login;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using YADBF;
 
 public sealed class UGUITextInputWidgetView : UGUIWidgetView<ITextInputWidget>
 {
@@ -14,13 +17,20 @@ public sealed class UGUITextInputWidgetView : UGUIWidgetView<ITextInputWidget>
         m_CachedContentType = m_InputField.contentType;
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        if (Model != null && Model.IsFocusedProperty.IsTrue())
+            Focus();
+    }
+
     protected override void OnBindToModel(ITextInputWidget model)
     {
         base.OnBindToModel(model);
         Bind(model.TextProp, m_InputField.SetTextWithoutNotify);
         Bind(model.IsInteractableProperty, UpdateInteractableState);
         Bind(model.IsMaskingCharactersProperty, UpdateCharacterMaskingState);
-        Bind(model.IsFocused, UpdateFocusedState);
+        Bind(model.IsFocusedProperty, UpdateFocusedState);
         
         m_InputField.onSelect.AddListener(InputField_OnSelected);
         m_InputField.onDeselect.AddListener(InputField_OnDeselected);
@@ -30,17 +40,24 @@ public sealed class UGUITextInputWidgetView : UGUIWidgetView<ITextInputWidget>
     private void UpdateFocusedState(bool isFocused)
     {
         if (isFocused)
-            m_InputField.Select();
+            Focus();
+    }
+
+    private void Focus()
+    {
+        if (!EventSystem.current.alreadySelecting)
+            EventSystem.current.SetSelectedGameObject(m_InputField.gameObject);
+        m_InputField.ActivateInputField();
     }
 
     private void InputField_OnSelected(string value)
     {
-        Model.IsFocused.Set(true);
+        Model.IsFocusedProperty.Set(true);
     }
     
     private void InputField_OnDeselected(string value)
     {
-        Model.IsFocused.Set(false);
+        Model.IsFocusedProperty.Set(false);
     }
 
     protected override void OnUnbindFromModel(ITextInputWidget model)
