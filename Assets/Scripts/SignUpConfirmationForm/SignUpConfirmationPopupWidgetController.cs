@@ -9,15 +9,25 @@ namespace SignUpConfirmationForm
 {
     public sealed class SignUpConfirmationPopupWidgetController : ISignUpConfirmationPopupWidgetController
     {
-        public event Action<ISignUpConfirmationPopupWidgetController> FormSubmitted;
-
-
         public string ConfirmationCode => ConfirmationCodeTextInputWidget.TextProp.Value;
 
         private ISignUpConfirmationPopupWidget SignUpConfirmationPopupWidget { get; }
         private ITextInputWidget ConfirmationCodeTextInputWidget => SignUpConfirmationPopupWidget.CodeInputWidget;
         private IButtonWidget ConfirmButtonWidget => SignUpConfirmationPopupWidget.ConfirmButtonWidget;
         private IButtonWidget CancelButtonWidget => SignUpConfirmationPopupWidget.CancelButtonWidget;
+
+        private bool m_IsLoading;
+        private bool IsLoading
+        {
+            get => m_IsLoading;
+            set
+            {
+                m_IsLoading = value;
+                CancelButtonWidget.IsInteractableProperty.Set(!m_IsLoading);
+                ConfirmationCodeTextInputWidget.IsInteractableProperty.Set(!m_IsLoading);
+                UpdateConfirmationButtonInteractionState();
+            }
+        }
         
         private CancellationTokenSource m_CancellationTokenSource;
 
@@ -27,10 +37,9 @@ namespace SignUpConfirmationForm
 
             CancelButtonWidget.ActionProp.Set(Cancel);
             ConfirmButtonWidget.ActionProp.Set(Submit);
-            
-            ConfirmationCodeTextInputWidget.IsInteractableProperty.Set(true);
+
             CancelButtonWidget.IsInteractableProperty.Set(true);
-            
+            ConfirmationCodeTextInputWidget.IsInteractableProperty.Set(true);
             ConfirmationCodeTextInputWidget.TextProp.ValueChanged += ConfirmationCodeTextInputWidget_TextProp_OnValueChanged;
             
             UpdateConfirmationButtonInteractionState();
@@ -60,7 +69,7 @@ namespace SignUpConfirmationForm
         private void UpdateConfirmationButtonInteractionState()
         {
             var confirmationCode = ConfirmationCode;
-            if (string.IsNullOrEmpty(confirmationCode))
+            if (string.IsNullOrEmpty(confirmationCode) || IsLoading)
                 ConfirmButtonWidget.IsInteractableProperty.Set(false);
             else
                 ConfirmButtonWidget.IsInteractableProperty.Set(true);
@@ -70,10 +79,10 @@ namespace SignUpConfirmationForm
         {
             try
             {
+                m_CancellationTokenSource?.Cancel();
                 m_CancellationTokenSource = new CancellationTokenSource();
-                //IsLoadingProp.Set(true);
+                IsLoading = true;
                 await Task.Delay(3000, m_CancellationTokenSource.Token);
-                FormSubmitted?.Invoke(this);
                 SignUpConfirmationPopupWidget.IsVisibleProp.Set(false);
             }
             catch (Exception e)
@@ -82,7 +91,7 @@ namespace SignUpConfirmationForm
             }
             finally
             {
-                //IsLoadingProp.Set(false);
+                IsLoading = false;
             }
         }
     }
