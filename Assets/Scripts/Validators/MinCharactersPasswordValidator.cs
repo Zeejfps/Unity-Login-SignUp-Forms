@@ -3,14 +3,14 @@ using System.Linq;
 
 namespace Validators
 {
-    public abstract class MinCharactersPasswordRequirement : IPasswordRequirement
+    public abstract class MinCharactersPasswordValidator : IPasswordValidator
     {
         public string Description { get; protected set; }
 
         protected int Min { get; }
         private Func<char, bool> Predicate { get; }
 
-        protected MinCharactersPasswordRequirement(int min, Func<char, bool> predicate)
+        protected MinCharactersPasswordValidator(int min, Func<char, bool> predicate)
         {
             Min = min;
             Predicate = predicate;

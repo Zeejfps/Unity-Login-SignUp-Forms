@@ -1,8 +1,8 @@
 ﻿namespace Validators
 {
-    public sealed class MinLowerCaseCharactersPasswordRequirement : MinCharactersPasswordRequirement
+    public sealed class MinLowerCaseCharactersPasswordValidator : MinCharactersPasswordValidator
     {
-        public MinLowerCaseCharactersPasswordRequirement(int minLowerChaseCharacters) : base(minLowerChaseCharacters, char.IsLower)
+        public MinLowerCaseCharactersPasswordValidator(int minLowerChaseCharacters) : base(minLowerChaseCharacters, char.IsLower)
         {
             var charactersText = "characters";
             if (minLowerChaseCharacters == 1)

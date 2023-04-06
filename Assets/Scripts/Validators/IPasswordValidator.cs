@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace Validators
+﻿namespace Validators
 {
     public interface IPasswordValidator
     {
-        IReadOnlyList<IPasswordRequirement> PasswordRequirements { get; }
+        string Description { get; }
+        bool Validate(string password);
     }
 }

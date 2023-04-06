@@ -56,7 +56,7 @@ namespace SignUpForm
         
         private ISignUpFormWidget SignUpFormWidget { get; }
         private IEmailValidator EmailValidator { get; }
-        private IPasswordValidator PasswordValidator { get; }
+        private IPasswordValidator[] PasswordValidators { get; }
         private ISignUpService SignUpService { get; }
 
         private bool IsEmailValid { get; set; }
@@ -70,14 +70,14 @@ namespace SignUpForm
         public SignUpFormWidgetController(
             ISignUpService signUpService, 
             IEmailValidator emailValidator, 
-            IPasswordValidator passwordValidator,
+            IPasswordValidator[] passwordValidators,
             ISignUpFormWidget signUpFormWidget)
         {
             SignUpService = signUpService;
             SignUpFormWidget = signUpFormWidget;
             
             EmailValidator = emailValidator;
-            PasswordValidator = passwordValidator;
+            PasswordValidators = passwordValidators;
             StateMachine = new SimpleStateMachine();
 
             SubmitButtonWidget.ActionProp.Set(SubmitForm);
@@ -87,7 +87,7 @@ namespace SignUpForm
             PasswordInputWidget.TextProp.ValueChanged += PasswordInputWidget_TextProp_OnValueChanged;
             ConfirmPasswordInputWidget.TextProp.ValueChanged += ConfirmPasswordInputWidget_TextProp_OnValueChanged;
 
-            foreach (var passwordRequirement in PasswordValidator.PasswordRequirements)
+            foreach (var passwordRequirement in PasswordValidators)
             {
                 var widget = new PasswordRequirementWidget();
                 widget.Description.Set(passwordRequirement.Description);
@@ -220,8 +220,8 @@ namespace SignUpForm
         private bool ValidateAllPasswordRequirements(string password)
         {
             var allRequirementsValid = true;
-            var passwordRequirements = PasswordValidator.PasswordRequirements;
-            for (var i = 0; i < passwordRequirements.Count; i++)
+            var passwordRequirements = PasswordValidators;
+            for (var i = 0; i < passwordRequirements.Length; i++)
             {
                 var requirement = passwordRequirements[i];
                 var requirementWidget = SignUpFormWidget.PasswordRequirementsListWidget.Items[i];

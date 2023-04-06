@@ -1,8 +1,8 @@
 ﻿namespace Validators
 {
-    public sealed class MinDigitsPasswordRequirement : MinCharactersPasswordRequirement
+    public sealed class MinDigitsPasswordValidator : MinCharactersPasswordValidator
     {
-        public MinDigitsPasswordRequirement(int minDigits) : base(minDigits, char.IsDigit)
+        public MinDigitsPasswordValidator(int minDigits) : base(minDigits, char.IsDigit)
         {
             var charactersText = "characters";
             if (minDigits == 1)

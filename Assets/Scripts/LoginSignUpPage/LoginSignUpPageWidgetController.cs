@@ -7,11 +7,6 @@ using Validators;
 
 namespace LoginSignUpPage
 {
-    public interface ILoginSignUpPageWidgetController : IWidgetController
-    {
-    
-    }
-
     public sealed class LoginSignUpPageWidgetController : ILoginSignUpPageWidgetController
     {
         private ILoginFormWidgetController LoginFormWidgetController { get; }
@@ -35,17 +30,17 @@ namespace LoginSignUpPage
             SignUpFormTabWidget = loginSignUpPageWidget.SignUpFormTabWidget;
         
             var emailValidator = new RegexEmailValidator();
-            var passwordValidator = new PasswordRequirementsValidator(new IPasswordRequirement[]
+            var passwordValidators = new IPasswordValidator[]
             {
-                new MinLengthPasswordRequirement(3),
-                new MinDigitsPasswordRequirement(1),
-                new MinUpperCaseCharactersPasswordRequirement(1),
-                new MinLowerCaseCharactersPasswordRequirement(1),
-                new MinSpecialCharactersPasswordRequirement(1)
-            });
+                new MinLengthPasswordValidator(3),
+                new MinDigitsPasswordValidator(1),
+                new MinUpperCaseCharactersPasswordValidator(1),
+                new MinLowerCaseCharactersPasswordValidator(1),
+                new MinSpecialCharactersPasswordValidator(1)
+            };
         
             LoginFormWidgetController = new LoginFormWidgetController(loginService, emailValidator, LoginFormWidget);
-            SignUpFormWidgetController = new SignUpFormWidgetController(signUpService, emailValidator, passwordValidator, SignUpFormWidget);
+            SignUpFormWidgetController = new SignUpFormWidgetController(signUpService, emailValidator, passwordValidators, SignUpFormWidget);
         
             SignUpFormWidgetController.FormSubmitted += SignUpFormWidgetController_OnFormSubmitted;
         
