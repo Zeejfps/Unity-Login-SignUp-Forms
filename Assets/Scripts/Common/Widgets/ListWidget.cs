@@ -7,7 +7,7 @@ namespace Common.Widgets
 {
     public sealed class ListWidget<T> : IListWidget<T> where T : IWidget
     {
-        public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
+        public ObservableProperty<bool> IsVisibleProperty { get; } = new(true);
     
         private readonly List<T> m_Items = new();
 
@@ -44,7 +44,7 @@ namespace Common.Widgets
     {
         public event Action<object> ItemAdded;
 
-        public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
+        public ObservableProperty<bool> IsVisibleProperty { get; } = new(true);
 
         public IList Items => m_Items;
 

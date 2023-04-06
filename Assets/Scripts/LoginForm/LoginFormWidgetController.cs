@@ -78,7 +78,7 @@ namespace LoginForm
             IsLoading = false;
             IsRememberMeChecked = true;
         
-            LoginFormWidget.IsVisibleProp.ValueChanged += LoginFormWidget_IsVisibleProp_OnValueChanged;
+            LoginFormWidget.IsVisibleProperty.ValueChanged += LoginFormWidget_IsVisibleProp_OnValueChanged;
             EmailInputWidget.TextProp.ValueChanged += EmailInputWidget_TextProp_OnValueChanged;
             PasswordInputWidget.TextProp.ValueChanged += PasswordInputWidget_TextProp_OnValueChanged;
 
@@ -87,7 +87,7 @@ namespace LoginForm
 
         public bool ProcessInputEvent(InputEvent inputEvent)
         {
-            if (LoginFormWidget.IsVisibleProp.IsFalse())
+            if (LoginFormWidget.IsVisibleProperty.IsFalse())
                 return false;
 
             if (FocusController.ProcessInputEvent(inputEvent))
@@ -104,7 +104,7 @@ namespace LoginForm
 
         public void Dispose()
         {
-            LoginFormWidget.IsVisibleProp.ValueChanged -= LoginFormWidget_IsVisibleProp_OnValueChanged;
+            LoginFormWidget.IsVisibleProperty.ValueChanged -= LoginFormWidget_IsVisibleProp_OnValueChanged;
             EmailInputWidget.TextProp.ValueChanged -= EmailInputWidget_TextProp_OnValueChanged;
             PasswordInputWidget.TextProp.ValueChanged -= PasswordInputWidget_TextProp_OnValueChanged;
         }

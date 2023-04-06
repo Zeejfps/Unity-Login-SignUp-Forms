@@ -5,7 +5,7 @@ namespace Common.Widgets
 {
     public sealed class ActionPropertyButtonWidget : IButtonWidget
     {
-        public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
+        public ObservableProperty<bool> IsVisibleProperty { get; } = new(true);
         public ObservableProperty<Action> ActionProp { get; }
         public ObservableProperty<bool> IsLoadingProp { get; } = new();
         public ObservableProperty<bool> IsFocusedProperty { get; } = new();

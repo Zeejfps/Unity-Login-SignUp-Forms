@@ -45,7 +45,7 @@ namespace Common.Controllers
         {
             TabWidget = tabWidget;
             ContentWidget = contentWidget;
-            ContentWidget.IsVisibleProp.Set(TabWidget.IsSelectedProp.Value);
+            ContentWidget.IsVisibleProperty.Set(TabWidget.IsSelectedProp.Value);
 
             TabWidget.IsSelectedProp.ValueChanged += IsSelectedProp_OnValueChanged;
         }
@@ -58,9 +58,9 @@ namespace Common.Controllers
         private void IsSelectedProp_OnValueChanged(ObservableProperty<bool> property, bool wasSelected, bool isSelected)
         {
             if (isSelected)
-                ContentWidget.IsVisibleProp.Set(true);
+                ContentWidget.IsVisibleProperty.Set(true);
             else
-                ContentWidget.IsVisibleProp.Set(false);
+                ContentWidget.IsVisibleProperty.Set(false);
         }
     }
 }

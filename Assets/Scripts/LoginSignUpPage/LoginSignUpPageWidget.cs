@@ -7,7 +7,7 @@ namespace LoginSignUpPage
 {
     public sealed class LoginSignUpPageWidget : ILoginSignUpPageWidget
     {
-        public ObservableProperty<bool> IsVisibleProp { get; } = new();
+        public ObservableProperty<bool> IsVisibleProperty { get; } = new();
         public ITabWidget LoginFormTabWidget { get; }
         public ITabWidget SignUpFormTabWidget { get; }
     

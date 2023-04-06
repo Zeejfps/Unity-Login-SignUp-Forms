@@ -1,6 +1,6 @@
 ﻿using YADBF;
 
-public interface IInteractable
+public interface IInteractableWidget
 {
     ObservableProperty<bool> IsFocusedProperty { get; }
     ObservableProperty<bool> IsInteractableProperty { get; }

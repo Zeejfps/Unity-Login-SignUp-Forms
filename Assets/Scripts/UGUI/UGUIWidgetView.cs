@@ -13,7 +13,7 @@ namespace UGUI
         protected override void OnBindToModel(TWidget model)
         {
             base.OnBindToModel(model);
-            Bind(model.IsVisibleProp, gameObject.SetActive);
+            Bind(model.IsVisibleProperty, gameObject.SetActive);
         }
 
         protected override void Reset()

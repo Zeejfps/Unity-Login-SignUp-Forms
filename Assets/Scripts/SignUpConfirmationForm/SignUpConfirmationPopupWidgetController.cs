@@ -64,7 +64,7 @@ namespace SignUpConfirmationForm
 
         private void Cancel()
         {
-            SignUpConfirmationPopupWidget.IsVisibleProp.Set(false);
+            SignUpConfirmationPopupWidget.IsVisibleProperty.Set(false);
             m_CancellationTokenSource?.Cancel();
             Canceled?.Invoke();
         }
@@ -91,7 +91,7 @@ namespace SignUpConfirmationForm
                 m_CancellationTokenSource = new CancellationTokenSource();
                 IsLoading = true;
                 await SignUpConfirmationService.ConfirmSignUp(ConfirmationCode, m_CancellationTokenSource.Token);
-                SignUpConfirmationPopupWidget.IsVisibleProp.Set(false);
+                SignUpConfirmationPopupWidget.IsVisibleProperty.Set(false);
                 Confirmed?.Invoke();
             }
             catch (Exception e)

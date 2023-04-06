@@ -11,17 +11,17 @@ namespace Common.Widgets
         public ObservableProperty<string> TitleTextProp { get; } = new();
         public ObservableProperty<string> InfoTextProp { get; } = new();
         public ObservableProperty<Action> OkActionProp { get; } = new();
-        public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
+        public ObservableProperty<bool> IsVisibleProperty { get; } = new(true);
 
         public BasicInfoPopupWidget()
         {
             OkActionProp.Set(Close);
-            IsVisibleProp.ValueChanged += IsVisibleProp_OnValueChanged;
+            IsVisibleProperty.ValueChanged += IsVisibleProp_OnValueChanged;
         }
 
         private void Close()
         {
-            IsVisibleProp.Set(false);
+            IsVisibleProperty.Set(false);
         }
 
         private void IsVisibleProp_OnValueChanged(ObservableProperty<bool> property, bool prevvalue, bool currvalue)

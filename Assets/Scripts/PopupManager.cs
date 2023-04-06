@@ -11,8 +11,8 @@ namespace Login
         {
             var tcs = new TaskCompletionSource<bool>();
 
-            popupWidget.IsVisibleProp.Set(true);
-            popupWidget.IsVisibleProp.ValueChanged += (property, wasVisible, isVisible) =>
+            popupWidget.IsVisibleProperty.Set(true);
+            popupWidget.IsVisibleProperty.ValueChanged += (property, wasVisible, isVisible) =>
             {
                 if (!isVisible)
                     tcs.SetResult(true);

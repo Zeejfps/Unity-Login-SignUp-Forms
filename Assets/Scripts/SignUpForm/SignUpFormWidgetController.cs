@@ -81,7 +81,7 @@ namespace SignUpForm
             StateMachine = new SimpleStateMachine();
 
             SubmitButtonWidget.ActionProp.Set(SubmitForm);
-            SignUpFormWidget.IsVisibleProp.ValueChanged += SignUpFormWidget_IsVisibleProp_OnValueChanged;
+            SignUpFormWidget.IsVisibleProperty.ValueChanged += SignUpFormWidget_IsVisibleProp_OnValueChanged;
             EmailInputWidget.TextProp.ValueChanged += EmailInputWidget_TextProp_OnValueChanged;
             UsernameInputWidget.TextProp.ValueChanged += UsernameInputWidget_TextProp_OnValueChanged;
             PasswordInputWidget.TextProp.ValueChanged += PasswordInputWidget_TextProp_OnValueChanged;
@@ -110,7 +110,7 @@ namespace SignUpForm
         public void Dispose()
         {
             FocusController.Dispose();
-            SignUpFormWidget.IsVisibleProp.ValueChanged -= SignUpFormWidget_IsVisibleProp_OnValueChanged;
+            SignUpFormWidget.IsVisibleProperty.ValueChanged -= SignUpFormWidget_IsVisibleProp_OnValueChanged;
             EmailInputWidget.TextProp.ValueChanged -= EmailInputWidget_TextProp_OnValueChanged;
             UsernameInputWidget.TextProp.ValueChanged -= UsernameInputWidget_TextProp_OnValueChanged;
             PasswordInputWidget.TextProp.ValueChanged -= PasswordInputWidget_TextProp_OnValueChanged;
@@ -120,7 +120,7 @@ namespace SignUpForm
 
         public bool ProcessInputEvent(InputEvent inputEvent)
         {
-            if (SignUpFormWidget.IsVisibleProp.IsFalse())
+            if (SignUpFormWidget.IsVisibleProperty.IsFalse())
                 return false;
         
             return FocusController.ProcessInputEvent(inputEvent);

@@ -8,7 +8,7 @@ namespace SignUpConfirmationForm
         public ITextInputWidget CodeInputWidget { get; }
         public IButtonWidget ConfirmButtonWidget { get; }
         public IButtonWidget CancelButtonWidget { get; }
-        public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
+        public ObservableProperty<bool> IsVisibleProperty { get; } = new(true);
         
         public SignUpConfirmationPopupWidget()
         {

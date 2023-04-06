@@ -7,8 +7,8 @@ namespace Common.Controllers
     {
         public event FocusChangedHandler FocusChanged;
 
-        private IInteractable m_FocusedWidget;
-        public IInteractable FocusedWidget
+        private IInteractableWidget m_FocusedWidget;
+        public IInteractableWidget FocusedWidget
         {
             get => m_FocusedWidget;
             private set
@@ -82,13 +82,13 @@ namespace Common.Controllers
             m_FocusedWidgetIndex = -1;
         }
 
-        public void Add(IInteractable focusable)
+        public void Add(IInteractableWidget focusable)
         {
             var index = m_FocusListeners.Count;
             m_FocusListeners.Add(new FocusListener(index, focusable, this));
         }
 
-        public void Remove(IInteractable focusable)
+        public void Remove(IInteractableWidget focusable)
         {
             if (m_FocusListeners.Count == 0)
                 return;
@@ -136,11 +136,11 @@ namespace Common.Controllers
         private sealed class FocusListener
         {
             public int Index { get; }
-            public IInteractable FocusableWidget { get; }
+            public IInteractableWidget FocusableWidget { get; }
             private FocusController FocusController { get; }
             public bool CanBeFocused => FocusableWidget.IsInteractableProperty.Value;
         
-            public FocusListener(int index, IInteractable focusableWidget, FocusController focusController)
+            public FocusListener(int index, IInteractableWidget focusableWidget, FocusController focusController)
             {
                 Index = index;
                 FocusableWidget = focusableWidget;

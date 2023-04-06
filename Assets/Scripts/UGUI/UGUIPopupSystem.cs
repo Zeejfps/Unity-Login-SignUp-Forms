@@ -52,7 +52,7 @@ namespace UGUI
             m_PopupView = Instantiate(prefab, transform);
             m_PopupView.TrySetViewModel(widget);
 
-            widget.IsVisibleProp.ValueChanged += PopupWidget_IsVisibleProp_OnValueChanged;
+            widget.IsVisibleProperty.ValueChanged += PopupWidget_IsVisibleProp_OnValueChanged;
         }
 
         private void HidePopup()
@@ -63,7 +63,7 @@ namespace UGUI
             m_ScreenDimmer.SetActive(false);
 
             var popup = (IPopupWidget)m_PopupView.GetModel();
-            popup.IsVisibleProp.ValueChanged -= PopupWidget_IsVisibleProp_OnValueChanged;
+            popup.IsVisibleProperty.ValueChanged -= PopupWidget_IsVisibleProp_OnValueChanged;
         
             var go = m_PopupView.gameObject;
             go.SetActive(false);

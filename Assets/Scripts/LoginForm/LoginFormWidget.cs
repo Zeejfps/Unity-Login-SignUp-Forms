@@ -5,7 +5,7 @@ namespace LoginForm
 {
     internal sealed class LoginFormWidget : ILoginFormWidget
     {
-        public ObservableProperty<bool> IsVisibleProp { get; } = new();
+        public ObservableProperty<bool> IsVisibleProperty { get; } = new();
         public ITextFieldWidget EmailFieldWidget { get; }
         public IPasswordFieldWidget PasswordFieldWidget { get; }
         public IButtonWidget SubmitButtonWidget { get; }

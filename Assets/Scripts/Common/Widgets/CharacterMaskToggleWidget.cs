@@ -7,7 +7,7 @@ namespace Common.Widgets
     {
         public event Action<IToggleWidget> Clicked;
         
-        public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
+        public ObservableProperty<bool> IsVisibleProperty { get; } = new(true);
         public ObservableProperty<bool> IsOnProp { get; } = new();
         public ObservableProperty<bool> IsFocusedProperty { get; } = new();
         public ObservableProperty<bool> IsInteractableProperty { get; } = new();

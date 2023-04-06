@@ -5,7 +5,7 @@ namespace Common.Widgets
     public sealed class TabWidget : ITabWidget
     {
         public ObservableProperty<bool> IsSelectedProp { get; } = new();
-        public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
+        public ObservableProperty<bool> IsVisibleProperty { get; } = new(true);
 
         public void HandleClick()
         {

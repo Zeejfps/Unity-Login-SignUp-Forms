@@ -24,7 +24,7 @@ namespace UGUI
             Controller = new LoginSignUpPageWidgetController(loginService, signUpService, loginSignUpPageWidget);
         
             Model = loginSignUpPageWidget;
-            Model.IsVisibleProp.Set(true);
+            Model.IsVisibleProperty.Set(true);
         }
 
         protected override void OnBindToModel(ILoginSignUpPageWidget model)
