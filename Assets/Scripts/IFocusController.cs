@@ -9,9 +9,10 @@ public interface IFocusController : IWidgetController
     bool CanCycle { get; set; }
     
     void FocusFirstWidget();
-    void FocusNext();
-    void FocusPrev();
+    void FocusNext(int skip = 0);
+    void FocusPrev(int skip = 0);
     void ClearFocus();
 
     void Add(IFocusable focusable);
+    void Remove(IFocusable focusable);
 }

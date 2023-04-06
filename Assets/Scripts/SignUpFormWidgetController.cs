@@ -96,6 +96,7 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
         FocusController.Add(UsernameInputWidget);
         FocusController.Add(PasswordInputWidget);
         FocusController.Add(ConfirmPasswordInputWidget);
+        FocusController.Add(SubmitButtonWidget);
     }
 
     public void Dispose()
@@ -121,8 +122,6 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
     {
         if (isFocused)
             FocusController.FocusFirstWidget();
-        // else
-        //     FocusController.ClearFocus();
     }
 
     private void EmailInputWidget_TextProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)

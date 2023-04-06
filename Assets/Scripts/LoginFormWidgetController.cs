@@ -65,10 +65,12 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
         FocusController.Add(EmailInputWidget);
         FocusController.Add(PasswordInputWidget);
         FocusController.Add(SubmitButtonWidget);
+        FocusController.FocusFirstWidget();
         
         IsLoading = false;
         IsRememberMeChecked = true;
         
+        LoginFormWidget.IsVisibleProp.ValueChanged += LoginFormWidget_IsVisibleProp_OnValueChanged;
         EmailInputWidget.TextProp.ValueChanged += EmailInputWidget_TextProp_OnValueChanged;
         PasswordInputWidget.TextProp.ValueChanged += PasswordInputWidget_TextProp_OnValueChanged;
 
@@ -87,6 +89,12 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
     {
         EmailInputWidget.TextProp.ValueChanged -= EmailInputWidget_TextProp_OnValueChanged;
         PasswordInputWidget.TextProp.ValueChanged -= PasswordInputWidget_TextProp_OnValueChanged;
+    }
+
+    private void LoginFormWidget_IsVisibleProp_OnValueChanged(ObservableProperty<bool> property, bool prevvalue, bool isVisible)
+    {
+        if (isVisible)
+            FocusController.FocusFirstWidget();
     }
 
     private void EmailInputWidget_TextProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
@@ -149,7 +157,13 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
 
     private void UpdateSubmitButtonInteractionState()
     {
-        SubmitButtonWidget.IsInteractableProp.Set(!IsLoading && IsEmailValid && IsPasswordValid);
+        var canBeInteractedWith = !IsLoading && IsEmailValid && IsPasswordValid;
+        SubmitButtonWidget.IsInteractableProp.Set(canBeInteractedWith);
+        
+        // if (canBeInteractedWith)
+        //     FocusController.Add(SubmitButtonWidget);
+        // else
+        //     FocusController.Remove(SubmitButtonWidget);
     }
 
     private async void SubmitFormAsync()

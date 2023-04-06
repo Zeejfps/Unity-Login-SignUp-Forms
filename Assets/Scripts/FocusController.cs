@@ -40,26 +40,41 @@ public sealed class FocusController : IFocusController
         m_FocusListeners[0].Focus();
     }
 
-    public void FocusNext()
+    public void FocusNext(int skip = 0)
     {
         if (m_FocusListeners.Count == 0)
             return;
         
-        var nextIndex = m_FocusedWidgetIndex + 1;
+        var nextIndex = m_FocusedWidgetIndex + 1 + skip;
         if (nextIndex >= m_FocusListeners.Count)
             nextIndex = CanCycle ? 0 : m_FocusedWidgetIndex;
-        m_FocusListeners[nextIndex].Focus();
+        
+        if (nextIndex == m_FocusedWidgetIndex)
+            return;
+        
+        if (m_FocusListeners[nextIndex].CanBeFocused)
+            m_FocusListeners[nextIndex].Focus();
+        else
+            FocusNext(++skip);
     }
 
-    public void FocusPrev()
+    public void FocusPrev(int skip = 0)
     {
         if (m_FocusListeners.Count == 0)
             return;
         
-        var nextIndex = m_FocusedWidgetIndex - 1;
+        var nextIndex = m_FocusedWidgetIndex - 1 - skip;
         if (nextIndex < 0)
             nextIndex = CanCycle ? m_FocusListeners.Count - 1 : 0;
-        m_FocusListeners[nextIndex].Focus();
+        
+        if (nextIndex == m_FocusedWidgetIndex)
+            return;
+
+        var listener = m_FocusListeners[nextIndex];
+        if (listener.CanBeFocused)
+            listener.Focus();
+        else
+            FocusPrev(++skip);
     }
 
     public void ClearFocus()
@@ -72,6 +87,27 @@ public sealed class FocusController : IFocusController
     {
         var index = m_FocusListeners.Count;
         m_FocusListeners.Add(new FocusListener(index, focusable, this));
+    }
+
+    public void Remove(IFocusable focusable)
+    {
+        if (m_FocusListeners.Count == 0)
+            return;
+        
+        var index = -1;
+        foreach (var focusListener in m_FocusListeners)
+        {
+            index++;
+            if (focusListener.FocusableWidget == focusable)
+                break;
+        }
+
+        if (index >= 0 && index < m_FocusListeners.Count)
+        {
+            var listener = m_FocusListeners[index];
+            listener.Dispose();
+            m_FocusListeners.RemoveAt(index);
+        }
     }
 
     public bool ProcessInputEvent(InputEvent inputEvent)
@@ -103,6 +139,7 @@ public sealed class FocusController : IFocusController
         public int Index { get; }
         public IFocusable FocusableWidget { get; }
         private FocusController FocusController { get; }
+        public bool CanBeFocused => FocusableWidget.CanBeFocusedProperty.Value;
 
 
         public FocusListener(int index, IFocusable focusableWidget, FocusController focusController)
@@ -116,12 +153,19 @@ public sealed class FocusController : IFocusController
         public void Dispose()
         {
             FocusableWidget.IsFocusedProperty.ValueChanged -= IsFocusedProperty_OnValueChanged;
+            if (FocusController.FocusedWidget == FocusableWidget) Unfocus();
         }
 
         public void Focus()
         {
             FocusController.FocusedWidget = FocusableWidget;
             FocusController.m_FocusedWidgetIndex = Index;
+        }
+
+        public void Unfocus()
+        {
+            FocusController.FocusedWidget = null;
+            FocusController.m_FocusedWidgetIndex = -1;
         }
         
         private void IsFocusedProperty_OnValueChanged(ObservableProperty<bool> property, bool wasFocused, bool isFocused)
@@ -132,8 +176,7 @@ public sealed class FocusController : IFocusController
             }
             else if (FocusController.FocusedWidget == FocusableWidget)
             {
-                FocusController.FocusedWidget = null;
-                FocusController.m_FocusedWidgetIndex = -1;
+                Unfocus();
             }
         }
     }

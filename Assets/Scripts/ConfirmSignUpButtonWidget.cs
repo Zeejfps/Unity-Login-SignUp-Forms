@@ -41,5 +41,6 @@ namespace Login
         }
 
         public ObservableProperty<bool> IsFocusedProperty { get; } = new();
+        public ObservableProperty<bool> CanBeFocusedProperty { get; } = new();
     }
 }
