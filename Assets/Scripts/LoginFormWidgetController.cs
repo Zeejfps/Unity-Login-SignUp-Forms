@@ -36,7 +36,9 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
     
     public bool IsEmailValid { get; private set; }
     public bool IsPasswordValid { get; private set; }
-    
+
+
+    private bool CanSubmitForm => !IsLoading && IsEmailValid && IsPasswordValid;
 
     private ITextInputWidget EmailInputWidget => EmailFieldWidget.TextInputWidget;
     private ITextFieldWidget EmailFieldWidget => LoginFormWidget.EmailFieldWidget;
@@ -56,7 +58,7 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
         LoginService = loginService;
         EmailValidator = emailValidator;
         LoginFormWidget = loginFormWidget;
-        SubmitButtonWidget.ActionProp.Set(SubmitFormAsync);
+        SubmitButtonWidget.ActionProp.Set(SubmitForm);
 
         FocusController = new FocusController
         {
@@ -82,8 +84,17 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
     {
         if (LoginFormWidget.IsVisibleProp.IsFalse())
             return false;
-        
-        return FocusController.ProcessInputEvent(inputEvent);
+
+        if (FocusController.ProcessInputEvent(inputEvent))
+            return true;
+
+        if (inputEvent == InputEvent.Submit && FocusController.FocusedWidget == PasswordInputWidget)
+        {
+            ValidateAndSubmitForm();
+            return true;
+        }
+
+        return false;
     }
 
     public void Dispose()
@@ -108,6 +119,15 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
         ValidatePassword();
     }
 
+    private void ValidateAndSubmitForm()
+    {
+        ValidateEmail();
+        ValidatePassword();
+        
+        if (CanSubmitForm)
+            SubmitForm();
+    }
+    
     private void ValidateEmail()
     {
         var isEmailValid = true;
@@ -158,16 +178,11 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
 
     private void UpdateSubmitButtonInteractionState()
     {
-        var canBeInteractedWith = !IsLoading && IsEmailValid && IsPasswordValid;
-        SubmitButtonWidget.IsInteractableProperty.Set(canBeInteractedWith);
-        
-        // if (canBeInteractedWith)
-        //     FocusController.Add(SubmitButtonWidget);
-        // else
-        //     FocusController.Remove(SubmitButtonWidget);
+        var canSubmitForm = CanSubmitForm;
+        SubmitButtonWidget.IsInteractableProperty.Set(canSubmitForm);
     }
 
-    private async void SubmitFormAsync()
+    private async void SubmitForm()
     {
         try
         {

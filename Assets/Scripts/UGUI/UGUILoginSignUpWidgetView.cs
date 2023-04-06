@@ -40,6 +40,8 @@ namespace UGUI
                 Controller.ProcessInputEvent(InputEvent.FocusNext);
             else if (Input.GetKeyDown(KeyCode.Tab) && Input.GetKey(KeyCode.LeftShift))
                 Controller.ProcessInputEvent(InputEvent.FocusPrevious);
+            else if (Input.GetKeyDown(KeyCode.Return))
+                Controller.ProcessInputEvent(InputEvent.Submit);
         }
 
         protected override void OnDestroy()

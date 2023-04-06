@@ -1,5 +1,6 @@
 ﻿public enum InputEvent
 {
     FocusNext,
-    FocusPrevious
+    FocusPrevious,
+    Submit,
 }
