@@ -14,7 +14,7 @@ namespace Login
         protected override void OnBindToModel(IButtonWidget model)
         {
             base.OnBindToModel(model);
-            Bind(model.IsInteractableProp, value => m_Button.interactable = value);
+            Bind(model.IsInteractableProperty, value => m_Button.interactable = value);
             Bind(model.IsLoadingProp, UpdateIsLoadingState);
             Bind(model.IsFocusedProperty, UpdateFocusState);
             m_Button.onClick.AddListener(Button_OnClicked);

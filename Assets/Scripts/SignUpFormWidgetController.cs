@@ -60,7 +60,7 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
     private bool IsConfirmPasswordValid { get; set; }
 
     private IStateMachine StateMachine { get; }
-    private IFocusController FocusController { get; }
+    private IWidgetFocusController FocusController { get; }
 
     public SignUpFormWidgetController(
         ISignUpService signUpService, 
@@ -247,7 +247,7 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
 
     private void UpdateSubmitButtonState()
     {
-        SubmitButtonWidget.IsInteractableProp.Set(IsEmailValid &&
+        SubmitButtonWidget.IsInteractableProperty.Set(IsEmailValid &&
                                                   IsUsernameValid &&
                                                   IsPasswordValid &&
                                                   IsConfirmPasswordValid &&

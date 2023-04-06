@@ -49,7 +49,7 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
     private IEmailValidator EmailValidator { get; }
     private ILoginFormWidget LoginFormWidget { get; }
     
-    private IFocusController FocusController { get; }
+    private IWidgetFocusController FocusController { get; }
 
     public LoginFormWidgetController(ILoginService loginService, IEmailValidator emailValidator, ILoginFormWidget loginFormWidget)
     {
@@ -158,7 +158,7 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
     private void UpdateSubmitButtonInteractionState()
     {
         var canBeInteractedWith = !IsLoading && IsEmailValid && IsPasswordValid;
-        SubmitButtonWidget.IsInteractableProp.Set(canBeInteractedWith);
+        SubmitButtonWidget.IsInteractableProperty.Set(canBeInteractedWith);
         
         // if (canBeInteractedWith)
         //     FocusController.Add(SubmitButtonWidget);

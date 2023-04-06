@@ -8,10 +8,10 @@ public sealed class ButtonWidget : IButtonWidget
     public ObservableProperty<Action> ActionProp { get; } = new();
     public ObservableProperty<bool> IsLoadingProp { get; } = new();
     public ObservableProperty<bool> IsFocusedProperty { get; } = new();
-    public ObservableProperty<bool> CanBeFocusedProperty { get; }
+    public ObservableProperty<bool> IsInteractableProperty { get; }
 
     public ButtonWidget()
     {
-        CanBeFocusedProperty = IsInteractableProp;
+        IsInteractableProperty = IsInteractableProp;
     }
 }

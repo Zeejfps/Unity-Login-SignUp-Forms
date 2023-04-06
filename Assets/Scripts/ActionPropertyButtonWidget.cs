@@ -8,7 +8,7 @@ public sealed class ActionPropertyButtonWidget : IButtonWidget
     public ObservableProperty<Action> ActionProp { get; }
     public ObservableProperty<bool> IsLoadingProp { get; } = new();
     public ObservableProperty<bool> IsFocusedProperty { get; } = new();
-    public ObservableProperty<bool> CanBeFocusedProperty { get; } = new(true);
+    public ObservableProperty<bool> IsInteractableProperty { get; } = new(true);
 
     public ActionPropertyButtonWidget(ObservableProperty<Action> actionProp)
     {

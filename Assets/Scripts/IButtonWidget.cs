@@ -1,9 +1,8 @@
 using System;
 using YADBF;
 
-public interface IButtonWidget : IWidget, IFocusable
+public interface IButtonWidget : IWidget, IInteractable
 {
-    ObservableProperty<bool> IsInteractableProp { get; }
     ObservableProperty<Action> ActionProp { get; }
     ObservableProperty<bool> IsLoadingProp { get; }
 }

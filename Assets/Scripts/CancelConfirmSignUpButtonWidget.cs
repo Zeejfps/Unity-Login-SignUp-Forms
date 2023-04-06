@@ -40,5 +40,5 @@ public sealed class CancelConfirmSignUpButtonWidget : IButtonWidget
     }
 
     public ObservableProperty<bool> IsFocusedProperty { get; } = new();
-    public ObservableProperty<bool> CanBeFocusedProperty { get; } = new();
+    public ObservableProperty<bool> IsInteractableProperty { get; } = new();
 }

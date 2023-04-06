@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using YADBF;
 
-public sealed class FocusController : IFocusController
+public sealed class FocusController : IWidgetFocusController
 {
     public event FocusChangedHandler FocusChanged;
 
-    private IFocusable m_FocusedWidget;
-    public IFocusable FocusedWidget
+    private IInteractable m_FocusedWidget;
+    public IInteractable FocusedWidget
     {
         get => m_FocusedWidget;
         private set
@@ -83,13 +83,13 @@ public sealed class FocusController : IFocusController
         m_FocusedWidgetIndex = -1;
     }
 
-    public void Add(IFocusable focusable)
+    public void Add(IInteractable focusable)
     {
         var index = m_FocusListeners.Count;
         m_FocusListeners.Add(new FocusListener(index, focusable, this));
     }
 
-    public void Remove(IFocusable focusable)
+    public void Remove(IInteractable focusable)
     {
         if (m_FocusListeners.Count == 0)
             return;
@@ -137,12 +137,12 @@ public sealed class FocusController : IFocusController
     private sealed class FocusListener
     {
         public int Index { get; }
-        public IFocusable FocusableWidget { get; }
+        public IInteractable FocusableWidget { get; }
         private FocusController FocusController { get; }
-        public bool CanBeFocused => FocusableWidget.CanBeFocusedProperty.Value;
+        public bool CanBeFocused => FocusableWidget.IsInteractableProperty.Value;
 
 
-        public FocusListener(int index, IFocusable focusableWidget, FocusController focusController)
+        public FocusListener(int index, IInteractable focusableWidget, FocusController focusController)
         {
             Index = index;
             FocusableWidget = focusableWidget;
