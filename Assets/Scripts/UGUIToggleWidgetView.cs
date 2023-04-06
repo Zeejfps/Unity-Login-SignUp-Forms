@@ -1,5 +1,6 @@
 using Login;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public sealed class UGUIToggleWidgetView : UGUIWidgetView<IToggleWidget>
@@ -20,6 +21,7 @@ public sealed class UGUIToggleWidgetView : UGUIWidgetView<IToggleWidget>
                 m_IconImage.sprite = m_OffIcon;
         });
         Bind(model.IsInteractableProperty, value => m_Button.interactable = value);
+        Bind(model.IsFocusedProperty, UpdateFocusState);
         
         m_Button.onClick.AddListener(Button_OnClicked);
     }
@@ -28,6 +30,12 @@ public sealed class UGUIToggleWidgetView : UGUIWidgetView<IToggleWidget>
     {
         m_Button.onClick.RemoveListener(Button_OnClicked);
         base.OnUnbindFromModel(model);
+    }
+
+    private void UpdateFocusState(bool isFocused)
+    {
+        if (EventSystem.current != null && !EventSystem.current.alreadySelecting)
+            EventSystem.current.SetSelectedGameObject(m_Button.gameObject);
     }
 
     private void Button_OnClicked()

@@ -1,9 +1,8 @@
 using YADBF;
 
-public interface IToggleWidget : IWidget
+public interface IToggleWidget : IWidget, IInteractable
 {
     ObservableProperty<bool> IsOnProp { get; }
-    ObservableProperty<bool> IsInteractableProperty { get; }
     
     void HandleClick();
 }

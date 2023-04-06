@@ -9,6 +9,7 @@ namespace Login
         
         public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
         public ObservableProperty<bool> IsOnProp { get; } = new();
+        public ObservableProperty<bool> IsFocusedProperty { get; } = new();
         public ObservableProperty<bool> IsInteractableProperty { get; } = new();
 
         private ITextInputWidget TextInputWidget { get; }

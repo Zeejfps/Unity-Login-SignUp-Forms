@@ -64,6 +64,7 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
         };
         FocusController.Add(EmailInputWidget);
         FocusController.Add(PasswordInputWidget);
+        FocusController.Add(RememberMeToggleWidget);
         FocusController.Add(SubmitButtonWidget);
         FocusController.FocusFirstWidget();
         
