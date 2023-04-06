@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 using YADBF;
 
 public sealed class FocusController : IWidgetFocusController
@@ -45,10 +46,7 @@ public sealed class FocusController : IWidgetFocusController
         if (m_FocusListeners.Count == 0)
             return;
         
-        var nextIndex = m_FocusedWidgetIndex + 1 + skip;
-        if (nextIndex >= m_FocusListeners.Count)
-            nextIndex = CanCycle ? 0 : m_FocusedWidgetIndex;
-        
+        var nextIndex = (m_FocusedWidgetIndex + 1 + skip) % m_FocusListeners.Count;
         if (nextIndex == m_FocusedWidgetIndex)
             return;
         
@@ -63,9 +61,9 @@ public sealed class FocusController : IWidgetFocusController
         if (m_FocusListeners.Count == 0)
             return;
         
-        var nextIndex = m_FocusedWidgetIndex - 1 - skip;
+        var nextIndex = (m_FocusedWidgetIndex - 1 - skip) % m_FocusListeners.Count;
         if (nextIndex < 0)
-            nextIndex = CanCycle ? m_FocusListeners.Count - 1 : 0;
+            nextIndex = m_FocusListeners.Count + nextIndex;
         
         if (nextIndex == m_FocusedWidgetIndex)
             return;
@@ -140,8 +138,7 @@ public sealed class FocusController : IWidgetFocusController
         public IInteractable FocusableWidget { get; }
         private FocusController FocusController { get; }
         public bool CanBeFocused => FocusableWidget.IsInteractableProperty.Value;
-
-
+        
         public FocusListener(int index, IInteractable focusableWidget, FocusController focusController)
         {
             Index = index;

@@ -36,8 +36,10 @@ namespace UGUI
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if (Input.GetKeyDown(KeyCode.Tab) && !Input.GetKey(KeyCode.LeftShift))
                 Controller.ProcessInputEvent(InputEvent.FocusNext);
+            else if (Input.GetKeyDown(KeyCode.Tab) && Input.GetKey(KeyCode.LeftShift))
+                Controller.ProcessInputEvent(InputEvent.FocusPrevious);
         }
 
         protected override void OnDestroy()
