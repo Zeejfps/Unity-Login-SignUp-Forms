@@ -1,6 +1,6 @@
+using Common.Widgets;
 using Login;
 using UnityEngine;
-using Widgets;
 
 namespace UGUI
 {

@@ -1,7 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-public interface ISignUpService
+namespace Services
 {
-    Task<bool> SignUpAsync(string email, string username, string password, CancellationToken cancellationToken = default);
+    public interface ISignUpService
+    {
+        Task<bool> SignUpAsync(string email, string username, string password, CancellationToken cancellationToken = default);
+    }
 }

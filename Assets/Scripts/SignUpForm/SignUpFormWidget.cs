@@ -1,22 +1,25 @@
-using Widgets;
+using Common.Widgets;
 using YADBF;
 
-internal sealed class SignUpFormWidget : ISignUpFormWidget
+namespace SignUpForm
 {
-    public ObservableProperty<bool> IsVisibleProp { get; } = new();
-    public ITextFieldWidget EmailFieldWidget { get; }
-    public ITextFieldWidget UsernameFieldWidget { get; }
-    public IPasswordFieldWidget PasswordFieldWidget { get; }
-    public IPasswordFieldWidget ConfirmPasswordFieldWidget { get; }
-    public IListWidget<IPasswordRequirementWidget> PasswordRequirementsListWidget { get; }
-    public IButtonWidget SignUpButtonWidget { get; }
+    internal sealed class SignUpFormWidget : ISignUpFormWidget
+    {
+        public ObservableProperty<bool> IsVisibleProp { get; } = new();
+        public ITextFieldWidget EmailFieldWidget { get; }
+        public ITextFieldWidget UsernameFieldWidget { get; }
+        public IPasswordFieldWidget PasswordFieldWidget { get; }
+        public IPasswordFieldWidget ConfirmPasswordFieldWidget { get; }
+        public IListWidget<IPasswordRequirementWidget> PasswordRequirementsListWidget { get; }
+        public IButtonWidget SignUpButtonWidget { get; }
 
-    public SignUpFormWidget() {
-        EmailFieldWidget = new TextFieldWidget();
-        UsernameFieldWidget = new TextFieldWidget();
-        PasswordFieldWidget = new PasswordFieldWidget();
-        ConfirmPasswordFieldWidget = new PasswordFieldWidget();
-        PasswordRequirementsListWidget = new ListWidget<IPasswordRequirementWidget>();
-        SignUpButtonWidget = new ButtonWidget();
+        public SignUpFormWidget() {
+            EmailFieldWidget = new TextFieldWidget();
+            UsernameFieldWidget = new TextFieldWidget();
+            PasswordFieldWidget = new PasswordFieldWidget();
+            ConfirmPasswordFieldWidget = new PasswordFieldWidget();
+            PasswordRequirementsListWidget = new ListWidget<IPasswordRequirementWidget>();
+            SignUpButtonWidget = new ButtonWidget();
+        }
     }
 }

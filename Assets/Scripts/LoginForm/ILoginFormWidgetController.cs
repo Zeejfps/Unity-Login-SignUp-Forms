@@ -1,5 +1,10 @@
-﻿public interface ILoginFormWidgetController : IWidgetController
+﻿using Common.Controllers;
+
+namespace LoginForm
 {
-    public string Email { get; set; }
-    public string Password { get; set; }
+    public interface ILoginFormWidgetController : IWidgetController
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
 }

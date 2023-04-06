@@ -1,7 +1,7 @@
 ﻿using System;
 using YADBF;
 
-namespace Widgets
+namespace Common.Widgets
 {
     public sealed class ActionPropertyButtonWidget : IButtonWidget
     {

@@ -1,5 +1,9 @@
 using Login;
+using LoginForm;
+using LoginSignUpPage;
+using Services;
 using SignUpConfirmationForm;
+using SignUpForm;
 using Tests;
 using UnityEngine;
 

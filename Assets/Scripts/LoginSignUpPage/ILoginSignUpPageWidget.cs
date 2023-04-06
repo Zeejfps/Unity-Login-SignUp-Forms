@@ -1,7 +1,14 @@
-public interface ILoginSignUpPageWidget : IWidget
+using Common.Widgets;
+using LoginForm;
+using SignUpForm;
+
+namespace LoginSignUpPage
 {
-    ILoginFormWidget LoginFormWidget { get; }
-    ISignUpFormWidget SignUpFormWidget { get; }
-    ITabWidget LoginFormTabWidget { get; }
-    ITabWidget SignUpFormTabWidget { get; }
+    public interface ILoginSignUpPageWidget : IWidget
+    {
+        ILoginFormWidget LoginFormWidget { get; }
+        ISignUpFormWidget SignUpFormWidget { get; }
+        ITabWidget LoginFormTabWidget { get; }
+        ITabWidget SignUpFormTabWidget { get; }
+    }
 }

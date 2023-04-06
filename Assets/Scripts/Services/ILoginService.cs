@@ -1,6 +1,9 @@
 ﻿using System.Threading.Tasks;
 
-public interface ILoginService
+namespace Services
 {
-    Task LoginAsync(string email, string password);
+    public interface ILoginService
+    {
+        Task LoginAsync(string email, string password);
+    }
 }

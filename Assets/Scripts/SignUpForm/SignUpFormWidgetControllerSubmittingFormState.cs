@@ -1,18 +1,19 @@
-﻿using Tests;
-
-public sealed class SignUpFormWidgetControllerSubmittingFormState : SignUpFormWidgetControllerState
+﻿namespace SignUpForm
 {
-    public SignUpFormWidgetControllerSubmittingFormState(ISignUpFormWidgetController signUpFormWidgetController) : base(signUpFormWidgetController)
+    public sealed class SignUpFormWidgetControllerSubmittingFormState : SignUpFormWidgetControllerState
     {
-    }
+        public SignUpFormWidgetControllerSubmittingFormState(ISignUpFormWidgetController signUpFormWidgetController) : base(signUpFormWidgetController)
+        {
+        }
 
-    public override void OnEntered()
-    {
-        SignUpFormWidgetController.IsLoading = true;
-    }
+        public override void OnEntered()
+        {
+            SignUpFormWidgetController.IsLoading = true;
+        }
 
-    public override void OnExited()
-    {
+        public override void OnExited()
+        {
         
+        }
     }
 }

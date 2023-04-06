@@ -1,9 +1,14 @@
-public interface ISignUpFormWidget : IWidget
+using Common.Widgets;
+
+namespace SignUpForm
 {
-    ITextFieldWidget EmailFieldWidget { get; }
-    ITextFieldWidget UsernameFieldWidget { get; }
-    IPasswordFieldWidget PasswordFieldWidget { get; }
-    IPasswordFieldWidget ConfirmPasswordFieldWidget { get; }
-    IListWidget<IPasswordRequirementWidget> PasswordRequirementsListWidget { get; }
-    IButtonWidget SignUpButtonWidget { get; }
+    public interface ISignUpFormWidget : IWidget
+    {
+        ITextFieldWidget EmailFieldWidget { get; }
+        ITextFieldWidget UsernameFieldWidget { get; }
+        IPasswordFieldWidget PasswordFieldWidget { get; }
+        IPasswordFieldWidget ConfirmPasswordFieldWidget { get; }
+        IListWidget<IPasswordRequirementWidget> PasswordRequirementsListWidget { get; }
+        IButtonWidget SignUpButtonWidget { get; }
+    }
 }

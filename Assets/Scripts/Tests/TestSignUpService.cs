@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Login;
+using Services;
 using SignUpConfirmationForm;
 
 namespace Tests

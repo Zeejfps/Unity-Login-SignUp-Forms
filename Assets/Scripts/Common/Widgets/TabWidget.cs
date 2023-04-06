@@ -1,6 +1,6 @@
 using YADBF;
 
-namespace Widgets
+namespace Common.Widgets
 {
     public sealed class TabWidget : ITabWidget
     {

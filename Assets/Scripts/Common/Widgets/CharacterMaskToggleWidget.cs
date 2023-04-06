@@ -1,7 +1,7 @@
 ﻿using System;
 using YADBF;
 
-namespace Widgets
+namespace Common.Widgets
 {
     internal sealed class CharacterMaskToggleWidget : IToggleWidget
     {

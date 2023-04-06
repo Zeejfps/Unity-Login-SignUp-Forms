@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Common.Widgets;
 using UnityEngine;
 
 namespace UGUI

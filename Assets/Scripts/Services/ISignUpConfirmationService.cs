@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace SignUpConfirmationForm
+namespace Services
 {
     public interface ISignUpConfirmationService
     {

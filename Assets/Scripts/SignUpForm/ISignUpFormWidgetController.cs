@@ -1,22 +1,26 @@
 using System;
+using Common.Controllers;
 
-public interface ISignUpFormWidgetController : IWidgetController
+namespace SignUpForm
 {
-    event Action FormSubmitted;
-    event Action EmailChanged;
-    event Action UsernameChanged;
-    event Action PasswordChanged;
-    event Action ConfirmPasswordChanged;
+    public interface ISignUpFormWidgetController : IWidgetController
+    {
+        event Action FormSubmitted;
+        event Action EmailChanged;
+        event Action UsernameChanged;
+        event Action PasswordChanged;
+        event Action ConfirmPasswordChanged;
     
-    string Email { get; }
-    string Username { get; }
-    string Password { get; set; }
-    string ConfirmPassword { get; set; }
+        string Email { get; }
+        string Username { get; }
+        string Password { get; set; }
+        string ConfirmPassword { get; set; }
     
-    bool IsLoading { get; set; }
+        bool IsLoading { get; set; }
     
-    void ValidateEmail();
-    void ValidateUsername();
-    void ValidatePassword();
-    void ValidateConfirmPassword();
+        void ValidateEmail();
+        void ValidateUsername();
+        void ValidatePassword();
+        void ValidateConfirmPassword();
+    }
 }

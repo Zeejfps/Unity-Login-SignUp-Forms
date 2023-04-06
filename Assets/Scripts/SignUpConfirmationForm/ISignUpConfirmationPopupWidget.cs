@@ -1,4 +1,5 @@
-﻿using Login;
+﻿using Common.Widgets;
+using Login;
 
 namespace SignUpConfirmationForm
 {

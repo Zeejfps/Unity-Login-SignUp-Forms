@@ -1,4 +1,4 @@
-﻿using Widgets;
+﻿using Common.Widgets;
 using YADBF;
 
 namespace SignUpConfirmationForm
