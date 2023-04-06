@@ -5,7 +5,6 @@ using YADBF;
 public sealed class CancelConfirmSignUpButtonWidget : IButtonWidget
 {
     public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
-    public ObservableProperty<bool> IsInteractableProp { get; } = new();
     public ObservableProperty<Action> ActionProp { get; } = new();
     public ObservableProperty<bool> IsLoadingProp { get; } = new();
 
@@ -36,7 +35,7 @@ public sealed class CancelConfirmSignUpButtonWidget : IButtonWidget
     private void UpdateState()
     {
         var isLoading = SignUpConfirmationForm.IsLoadingProp.Value;
-        IsInteractableProp.Set(!isLoading);
+        IsInteractableProperty.Set(!isLoading);
     }
 
     public ObservableProperty<bool> IsFocusedProperty { get; } = new();
