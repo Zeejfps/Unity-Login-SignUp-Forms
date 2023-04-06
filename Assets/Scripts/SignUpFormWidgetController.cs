@@ -219,7 +219,7 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
         for (var i = 0; i < passwordRequirements.Count; i++)
         {
             var requirement = passwordRequirements[i];
-            var requirementWidget = (IPasswordRequirementWidget)SignUpFormWidget.PasswordRequirementsListWidget.Items[i];
+            var requirementWidget = SignUpFormWidget.PasswordRequirementsListWidget.Items[i];
             var isRequirementValid = requirement.Validate(password);
             requirementWidget.IsMet.Set(isRequirementValid);
             allRequirementsValid &= isRequirementValid;

@@ -4,6 +4,6 @@ public interface ISignUpFormWidget : IWidget
     ITextFieldWidget UsernameFieldWidget { get; }
     IPasswordFieldWidget PasswordFieldWidget { get; }
     IPasswordFieldWidget ConfirmPasswordFieldWidget { get; }
-    IListWidget PasswordRequirementsListWidget { get; }
+    IListWidget<IPasswordRequirementWidget> PasswordRequirementsListWidget { get; }
     IButtonWidget SignUpButtonWidget { get; }
 }
