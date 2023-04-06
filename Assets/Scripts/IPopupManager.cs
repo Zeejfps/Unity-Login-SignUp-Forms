@@ -11,6 +11,7 @@ namespace Login
     public interface IPopupManager
     {
         ObservableProperty<IPopupWidget> PopupWidgetProp { get; }
+
         Task ShowPopupAsync(IPopupWidget popupWidget);
     }
 }

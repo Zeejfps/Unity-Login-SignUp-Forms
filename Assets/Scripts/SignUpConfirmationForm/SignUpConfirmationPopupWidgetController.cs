@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Threading;
-using System.Threading.Tasks;
-using Login;
 using UnityEngine;
 using YADBF;
 
@@ -9,6 +7,9 @@ namespace SignUpConfirmationForm
 {
     public sealed class SignUpConfirmationPopupWidgetController : ISignUpConfirmationPopupWidgetController
     {
+        public event Action Confirmed;
+        public event Action Canceled;
+        
         public string ConfirmationCode => ConfirmationCodeTextInputWidget.TextProp.Value;
 
         private ISignUpConfirmationPopupWidget SignUpConfirmationPopupWidget { get; }
@@ -40,7 +41,7 @@ namespace SignUpConfirmationForm
             SignUpConfirmationPopupWidget = signUpConfirmationPopupWidget;
 
             CancelButtonWidget.ActionProp.Set(Cancel);
-            ConfirmButtonWidget.ActionProp.Set(Submit);
+            ConfirmButtonWidget.ActionProp.Set(Confirm);
 
             CancelButtonWidget.IsInteractableProperty.Set(true);
             ConfirmationCodeTextInputWidget.IsInteractableProperty.Set(true);
@@ -61,8 +62,9 @@ namespace SignUpConfirmationForm
 
         private void Cancel()
         {
-            m_CancellationTokenSource?.Cancel();
             SignUpConfirmationPopupWidget.IsVisibleProp.Set(false);
+            m_CancellationTokenSource?.Cancel();
+            Canceled?.Invoke();
         }
 
         private void ConfirmationCodeTextInputWidget_TextProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
@@ -79,7 +81,7 @@ namespace SignUpConfirmationForm
                 ConfirmButtonWidget.IsInteractableProperty.Set(true);
         }
 
-        private async void Submit()
+        private async void Confirm()
         {
             try
             {
@@ -88,6 +90,7 @@ namespace SignUpConfirmationForm
                 IsLoading = true;
                 await SignUpConfirmationService.ConfirmSignUp(ConfirmationCode, m_CancellationTokenSource.Token);
                 SignUpConfirmationPopupWidget.IsVisibleProp.Set(false);
+                Confirmed?.Invoke();
             }
             catch (Exception e)
             {

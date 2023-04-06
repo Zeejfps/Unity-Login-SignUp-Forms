@@ -260,8 +260,8 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
         try
         {
             StateMachine.State = new SignUpFormWidgetControllerSubmittingFormState(this);
-            await SignUpService.SignUpAsync(Email, Username, Password);
-            FormSubmitted?.Invoke();
+            var success = await SignUpService.SignUpAsync(Email, Username, Password);
+            if (success) FormSubmitted?.Invoke();
         }
         catch (Exception e)
         {

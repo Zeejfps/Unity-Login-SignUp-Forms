@@ -14,16 +14,35 @@ namespace Tests
             PopupService = popupService;
         }
 
-        public async Task SignUpAsync(string email, string username, string password, CancellationToken cancellationToken = default)
+        public async Task<bool> SignUpAsync(string email, string username, string password, CancellationToken cancellationToken = default)
         {
-            await Task.Delay(2000, cancellationToken);
-            
             var popupWidget = new SignUpConfirmationPopupWidget();
             var controller = new SignUpConfirmationPopupWidgetController(new TestSignUpConfirmationService(), popupWidget);
             
-            await PopupService.ShowPopupAsync(popupWidget);
+            var tcs = new TaskCompletionSource<bool>();
 
-            controller.Dispose();
+            controller.Confirmed += () =>
+            {
+                tcs.SetResult(true);
+            };
+            
+            controller.Canceled += () =>
+            {
+                tcs.SetResult(false);
+            };
+
+            try
+            {
+                await Task.Delay(2000, cancellationToken);
+                
+                await PopupService.ShowPopupAsync(popupWidget);
+
+                return await tcs.Task;
+            }
+            finally
+            {
+                controller.Dispose();
+            }
         }
     }
 }
