@@ -7,7 +7,7 @@ public static class Z
 {
     private static readonly Dictionary<Type, IFactory> s_TypeToFactoryDictionary = new();
 
-    public static T New<T>()
+    private static T New<T>()
     {
         var type = typeof(T);
         return (T)New(type);
@@ -48,7 +48,7 @@ public static class Z
         var interfaceType = typeof(TInterface);
         try
         {
-            s_TypeToFactoryDictionary.Add(interfaceType, new FuncFactory<TConcrete>(New<TConcrete>));
+            s_TypeToFactoryDictionary.Add(interfaceType, new ScopedFactory<TConcrete>());
         }
         catch (ArgumentException)
         {
@@ -76,32 +76,25 @@ public static class Z
             return (T)factory.Create();
         return default;
     }
-}
-
-internal sealed class SingletonFactory<T> : IFactory
-{
-    private T m_Singleton;
     
-    public object Create()
+    private sealed class SingletonFactory<T> : IFactory
     {
-        if (m_Singleton == null)
-            m_Singleton = Z.New<T>();
-        return m_Singleton;
+        private T m_Singleton;
+    
+        public object Create()
+        {
+            if (m_Singleton == null)
+                m_Singleton = New<T>();
+            return m_Singleton;
+        }
     }
-}
-
-internal sealed class FuncFactory<T> : IFactory
-{
-    private readonly Func<T> m_Func;
-
-    public FuncFactory(Func<T> func)
+    
+    private sealed class ScopedFactory<T> : IFactory
     {
-        m_Func = func;
-    }
-
-    public object Create()
-    {
-        return m_Func.Invoke();
+        public object Create()
+        {
+            return New<T>();
+        }
     }
 }
 
