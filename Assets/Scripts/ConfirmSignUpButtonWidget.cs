@@ -39,5 +39,7 @@ namespace Login
             IsInteractableProp.Set(confirmAction != null && !isLoading);
             ActionProp.Set(confirmAction);
         }
+
+        public ObservableProperty<bool> IsFocusedProperty { get; } = new();
     }
 }

@@ -1,7 +1,13 @@
 ﻿
 using Login;
+using YADBF;
 
-public sealed class LoginSignUpPageWidgetController
+public interface ILoginSignUpPageWidgetController : IWidgetController
+{
+    
+}
+
+public sealed class LoginSignUpPageWidgetController : ILoginSignUpPageWidgetController
 {
     private ILoginFormWidgetController LoginFormWidgetController { get; }
     private ISignUpFormWidgetController SignUpFormWidgetController { get; }
@@ -43,6 +49,17 @@ public sealed class LoginSignUpPageWidgetController
         TabGroupController.LinkTabToContent(SignUpFormTabWidget, SignUpFormWidget);
         
         LoginFormTabWidget.IsSelectedProp.Set(true);  
+    }
+
+    public bool ProcessInputEvent(InputEvent inputEvent)
+    {
+        if (LoginFormWidgetController.ProcessInputEvent(inputEvent)) 
+            return true;
+        
+        if (SignUpFormWidgetController.ProcessInputEvent(inputEvent))
+            return true;
+
+        return false;
     }
 
     public void Dispose()

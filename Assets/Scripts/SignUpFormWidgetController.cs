@@ -88,9 +88,14 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
 
         StateMachine.State = new SignUpFormWidgetControllerDefaultState(this);
 
-        FocusController = new FocusController();
+        FocusController = new FocusController
+        {
+            CanCycle = true
+        };
         FocusController.Add(EmailInputWidget);
         FocusController.Add(UsernameInputWidget);
+        FocusController.Add(PasswordInputWidget);
+        FocusController.Add(ConfirmPasswordInputWidget);
     }
 
     public void Dispose()
@@ -102,6 +107,14 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
         PasswordInputWidget.TextProp.ValueChanged -= PasswordInputWidget_TextProp_OnValueChanged;
         ConfirmPasswordInputWidget.TextProp.ValueChanged -= ConfirmPasswordInputWidget_TextProp_OnValueChanged;
         StateMachine.State = null;
+    }
+
+    public bool ProcessInputEvent(InputEvent inputEvent)
+    {
+        if (SignUpFormWidget.IsVisibleProp.IsFalse())
+            return false;
+        
+        return FocusController.ProcessInputEvent(inputEvent);
     }
 
     private void SignUpFormWidget_IsVisibleProp_OnValueChanged(ObservableProperty<bool> property, bool wasFocused, bool isFocused)

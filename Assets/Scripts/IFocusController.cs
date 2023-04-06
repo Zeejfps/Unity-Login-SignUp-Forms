@@ -1,12 +1,12 @@
-﻿using System;
+﻿public delegate void FocusChangedHandler(IFocusable prevFocused, IFocusable currFocused);
 
-public delegate void FocusChangedHandler(IFocusable prevFocused, IFocusable currFocused);
-
-public interface IFocusController
+public interface IFocusController : IWidgetController
 {
     event FocusChangedHandler FocusChanged;
 
     IFocusable FocusedWidget { get; }
+    
+    bool CanCycle { get; set; }
     
     void FocusFirstWidget();
     void FocusNext();
@@ -14,6 +14,4 @@ public interface IFocusController
     void ClearFocus();
 
     void Add(IFocusable focusable);
-
-    void Dispose();
 }

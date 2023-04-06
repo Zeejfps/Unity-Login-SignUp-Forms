@@ -1,3 +1,4 @@
+using System;
 using Login;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public sealed class UGUILoginSignUpWidgetView : UGUIWidgetView<ILoginSignUpPageW
     [SerializeField] private UGUILoginFormWidgetView m_LoginFormWidgetView;
     [SerializeField] private UGUISignUpFormWidgetView m_SignUpFormWidgetView;
 
+    private LoginSignUpPageWidgetController Controller { get; set; }
+    
     protected override void Awake()
     {
         base.Awake();
@@ -16,7 +19,7 @@ public sealed class UGUILoginSignUpWidgetView : UGUIWidgetView<ILoginSignUpPageW
         var signUpService = Z.Get<ISignUpService>();
         var loginSignUpPageWidget = Z.Get<ILoginSignUpPageWidget>();
 
-        var controller = new LoginSignUpPageWidgetController(loginService, signUpService, loginSignUpPageWidget);
+        Controller = new LoginSignUpPageWidgetController(loginService, signUpService, loginSignUpPageWidget);
         
         Model = loginSignUpPageWidget;
         Model.IsVisibleProp.Set(true);
@@ -29,5 +32,18 @@ public sealed class UGUILoginSignUpWidgetView : UGUIWidgetView<ILoginSignUpPageW
         m_SignUpFormWidgetView.Model = model.SignUpFormWidget;
         m_LoginFormTabWidgetView.Model = model.LoginFormTabWidget;
         m_SignUpFormTabWidgetView.Model = model.SignUpFormTabWidget;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+            Controller.ProcessInputEvent(InputEvent.FocusNext);
+    }
+
+    protected override void OnDestroy()
+    {
+        Controller.Dispose();
+        Controller = null;
+        base.OnDestroy();
     }
 }

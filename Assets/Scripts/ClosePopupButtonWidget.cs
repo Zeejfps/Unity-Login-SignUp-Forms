@@ -8,6 +8,7 @@ internal sealed class ClosePopupButtonWidget : IButtonWidget
     public ObservableProperty<bool> IsInteractableProp { get; } = new(true);
     public ObservableProperty<Action> ActionProp { get; } = new();
     public ObservableProperty<bool> IsLoadingProp { get; } = new();
+    public ObservableProperty<bool> IsFocusedProperty { get; } = new();
 
     private IPopupWidget PopupWidget { get; }
     
@@ -21,4 +22,5 @@ internal sealed class ClosePopupButtonWidget : IButtonWidget
     {
         PopupWidget.IsVisibleProp.Set(false);
     }
+
 }

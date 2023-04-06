@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Login
@@ -15,6 +16,7 @@ namespace Login
             base.OnBindToModel(model);
             Bind(model.IsInteractableProp, value => m_Button.interactable = value);
             Bind(model.IsLoadingProp, UpdateIsLoadingState);
+            Bind(model.IsFocusedProperty, UpdateFocusState);
             m_Button.onClick.AddListener(Button_OnClicked);
         }
 
@@ -22,6 +24,12 @@ namespace Login
         {
             m_ButtonLabel.gameObject.SetActive(!isLoading);
             m_LoadingIndicatorWidgetView.SetActive(isLoading);
+        }
+        
+        private void UpdateFocusState(bool isFocused)
+        {
+            if (EventSystem.current != null && !EventSystem.current.alreadySelecting)
+                EventSystem.current.SetSelectedGameObject(m_Button.gameObject);
         }
 
         protected override void OnUnbindFromModel(IButtonWidget model)

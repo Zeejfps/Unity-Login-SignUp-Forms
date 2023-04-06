@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 using YADBF;
 
 internal sealed class LoginFormWidgetController : ILoginFormWidgetController
@@ -47,6 +48,8 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
     private ILoginService LoginService { get; }
     private IEmailValidator EmailValidator { get; }
     private ILoginFormWidget LoginFormWidget { get; }
+    
+    private IFocusController FocusController { get; }
 
     public LoginFormWidgetController(ILoginService loginService, IEmailValidator emailValidator, ILoginFormWidget loginFormWidget)
     {
@@ -54,6 +57,14 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
         EmailValidator = emailValidator;
         LoginFormWidget = loginFormWidget;
         SubmitButtonWidget.ActionProp.Set(SubmitFormAsync);
+
+        FocusController = new FocusController
+        {
+            CanCycle = true
+        };
+        FocusController.Add(EmailInputWidget);
+        FocusController.Add(PasswordInputWidget);
+        FocusController.Add(SubmitButtonWidget);
         
         IsLoading = false;
         IsRememberMeChecked = true;
@@ -63,7 +74,15 @@ internal sealed class LoginFormWidgetController : ILoginFormWidgetController
 
         UpdateSubmitButtonInteractionState();
     }
-    
+
+    public bool ProcessInputEvent(InputEvent inputEvent)
+    {
+        if (LoginFormWidget.IsVisibleProp.IsFalse())
+            return false;
+        
+        return FocusController.ProcessInputEvent(inputEvent);
+    }
+
     public void Dispose()
     {
         EmailInputWidget.TextProp.ValueChanged -= EmailInputWidget_TextProp_OnValueChanged;

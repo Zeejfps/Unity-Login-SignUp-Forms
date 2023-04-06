@@ -38,4 +38,6 @@ public sealed class CancelConfirmSignUpButtonWidget : IButtonWidget
         var isLoading = SignUpConfirmationForm.IsLoadingProp.Value;
         IsInteractableProp.Set(!isLoading);
     }
+
+    public ObservableProperty<bool> IsFocusedProperty { get; } = new();
 }

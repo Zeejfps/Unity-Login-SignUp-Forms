@@ -1,6 +1,6 @@
 using System;
 
-public interface ISignUpFormWidgetController
+public interface ISignUpFormWidgetController : IWidgetController
 {
     event Action FormSubmitted;
     event Action EmailChanged;
@@ -14,11 +14,9 @@ public interface ISignUpFormWidgetController
     string ConfirmPassword { get; set; }
     
     bool IsLoading { get; set; }
-
+    
     void ValidateEmail();
     void ValidateUsername();
     void ValidatePassword();
     void ValidateConfirmPassword();
-    
-    void Dispose();
 }
