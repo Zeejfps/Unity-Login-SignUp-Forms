@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5808030529608013135}
   - component: {fileID: 5808030529608013134}
   - component: {fileID: 5808030529608013120}
-  - component: {fileID: 8348626589801380383}
   m_Layer: 5
   m_Name: Popup Content Text (TMP)
   m_TagString: Untagged
@@ -151,22 +150,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &8348626589801380383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5808030529608013132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d8cde908d7bae243a5c2bc2a087c260, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PropertyBindingSettings:
-    m_View: {fileID: 0}
-    m_PropertyName: InfoTextProp
-    m_PropertyTypeName: YADBF.ObservableProperty`1[[System.String, mscorlib, Version=4.0.0.0,
-      Culture=neutral, PublicKeyToken=b77a5c561934e089]], YADBF, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  m_Text: {fileID: 5808030529608013134}
