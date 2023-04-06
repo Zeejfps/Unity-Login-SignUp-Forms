@@ -3,7 +3,7 @@ using Common.Controllers;
 using Common.Widgets;
 using Services;
 using UnityEngine;
-using Validation;
+using Validators;
 using YADBF;
 
 namespace LoginForm
@@ -104,6 +104,7 @@ namespace LoginForm
 
         public void Dispose()
         {
+            LoginFormWidget.IsVisibleProp.ValueChanged -= LoginFormWidget_IsVisibleProp_OnValueChanged;
             EmailInputWidget.TextProp.ValueChanged -= EmailInputWidget_TextProp_OnValueChanged;
             PasswordInputWidget.TextProp.ValueChanged -= PasswordInputWidget_TextProp_OnValueChanged;
         }

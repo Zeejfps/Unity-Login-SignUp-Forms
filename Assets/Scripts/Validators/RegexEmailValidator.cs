@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace Validation
+namespace Validators
 {
     public sealed class RegexEmailValidator : IEmailValidator
     {

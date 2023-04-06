@@ -1,4 +1,4 @@
-﻿namespace Validation
+﻿namespace Validators
 {
     public sealed class MinLengthPasswordRequirement : IPasswordRequirement
     {

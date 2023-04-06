@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Validation
+namespace Validators
 {
     public sealed class PasswordRequirementsValidator : IPasswordValidator
     {

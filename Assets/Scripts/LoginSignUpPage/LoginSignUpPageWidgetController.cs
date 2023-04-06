@@ -3,7 +3,7 @@ using Common.Widgets;
 using LoginForm;
 using Services;
 using SignUpForm;
-using Validation;
+using Validators;
 
 namespace LoginSignUpPage
 {

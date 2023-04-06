@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Validation
+namespace Validators
 {
     public abstract class MinCharactersPasswordRequirement : IPasswordRequirement
     {
