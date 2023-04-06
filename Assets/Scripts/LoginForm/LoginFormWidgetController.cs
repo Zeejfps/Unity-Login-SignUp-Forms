@@ -59,6 +59,7 @@ namespace LoginForm
     
         private IPopupManager PopupService { get; }
         private IWidgetFocusController FocusController { get; }
+        private IInfoPopupWidgetController InfoPopupWidgetController { get; }
 
         public LoginFormWidgetController(
             IPopupManager popupService,
@@ -72,6 +73,7 @@ namespace LoginForm
             LoginFormWidget = loginFormWidget;
             SubmitButtonWidget.ActionProp.Set(SubmitForm);
 
+            InfoPopupWidgetController = new InfoPopupWidgetController(PopupService);
             FocusController = new FocusController
             {
                 CanCycle = true
@@ -205,13 +207,7 @@ namespace LoginForm
                 IsLoading = true;
                 var result = await LoginService.LoginAsync(email, password);
                 if (result != LoginResult.Success)
-                {
-                    var infoPopup = new InfoPopupWidget();
-                    infoPopup.TitleTextProp.Set("Login Error");
-                    infoPopup.InfoTextProp.Set("Invalid Email and / or Password");
-
-                    await DefaultInfoPopupWidgetController.ShowAndWaitUntilClosed(PopupService, infoPopup);
-                }
+                    await InfoPopupWidgetController.ShowAndWaitUntilClosed("Login Error", "Invalid Email and / or Password");
             }
             catch (Exception e)
             {

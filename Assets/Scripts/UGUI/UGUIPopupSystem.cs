@@ -29,15 +29,13 @@ namespace UGUI
 
         private void PopupWidgetProp_OnValueChanged(ObservableProperty<IPopupWidget> property, IPopupWidget prevvalue, IPopupWidget currvalue)
         {
-            HidePopup();
+            DestroyPopup();
             if (currvalue != null)
-                ShowPopup(currvalue);
+                CreateAndShowPopup(currvalue);
         }
 
-        private void ShowPopup(IPopupWidget widget)
+        private void CreateAndShowPopup(IPopupWidget widget)
         {
-            m_ScreenDimmer.SetActive(true);
-
             View prefab = null;
             switch (widget)
             {
@@ -53,28 +51,47 @@ namespace UGUI
             m_PopupView.TrySetViewModel(widget);
 
             widget.IsVisibleProperty.ValueChanged += PopupWidget_IsVisibleProp_OnValueChanged;
+            
+            ShowPopup();
         }
 
-        private void HidePopup()
+        private void DestroyPopup()
         {
             if (m_PopupView == null)
                 return;
-
-            m_ScreenDimmer.SetActive(false);
-
+            
             var popup = (IPopupWidget)m_PopupView.GetModel();
             popup.IsVisibleProperty.ValueChanged -= PopupWidget_IsVisibleProp_OnValueChanged;
-        
+            
+            HidePopup();
+            
             var go = m_PopupView.gameObject;
-            go.SetActive(false);
             Destroy(go);
             m_PopupView = null;
         }
 
+        private void ShowPopup()
+        {
+            m_ScreenDimmer.SetActive(true);
+            m_PopupView.gameObject.SetActive(true);
+        }
+
+        private void HidePopup()
+        {
+            m_ScreenDimmer.SetActive(false);
+            m_PopupView.gameObject.SetActive(false);
+        }
+        
         private void PopupWidget_IsVisibleProp_OnValueChanged(ObservableProperty<bool> property, bool prevvalue, bool isVisible)
         {
-            if (!isVisible)
+            if (isVisible)
+            {
+                ShowPopup();
+            }
+            else
+            {
                 HidePopup();
+            }
         }
     }
 }
