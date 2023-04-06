@@ -1,6 +1,7 @@
 using System;
 using Tests;
 using UnityEngine;
+using Validation;
 using YADBF;
 
 public sealed class SignUpFormWidgetController : ISignUpFormWidgetController

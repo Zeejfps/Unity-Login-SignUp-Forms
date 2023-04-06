@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Login;
+using Widgets;
 
 namespace Tests
 {

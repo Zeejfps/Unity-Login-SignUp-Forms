@@ -1,3 +1,4 @@
+using Widgets;
 using YADBF;
 
 public sealed class LoginSignUpPageWidget : ILoginSignUpPageWidget

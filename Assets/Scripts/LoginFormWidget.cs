@@ -1,3 +1,4 @@
+using Widgets;
 using YADBF;
 
 internal sealed class LoginFormWidget : ILoginFormWidget

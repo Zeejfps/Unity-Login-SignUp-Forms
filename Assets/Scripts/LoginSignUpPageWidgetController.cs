@@ -1,5 +1,6 @@
 ﻿
 using Login;
+using Validation;
 using YADBF;
 
 public interface ILoginSignUpPageWidgetController : IWidgetController
