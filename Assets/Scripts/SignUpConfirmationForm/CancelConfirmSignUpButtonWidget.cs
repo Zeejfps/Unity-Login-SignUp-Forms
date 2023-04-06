@@ -10,15 +10,15 @@ namespace SignUpConfirmationForm
         public ObservableProperty<Action> ActionProp { get; } = new();
         public ObservableProperty<bool> IsLoadingProp { get; } = new();
 
-        private ISignUpConfirmationFormWidgetController SignUpConfirmationForm { get; }
+        private ISignUpConfirmationPopupWidgetController SignUpConfirmationForm { get; }
         private IPopupWidget PopupWidget { get; }
     
-        public CancelConfirmSignUpButtonWidget(ISignUpConfirmationFormWidgetController signUpConfirmationForm, IPopupWidget popupWidget)
+        public CancelConfirmSignUpButtonWidget(ISignUpConfirmationPopupWidgetController signUpConfirmationForm, IPopupWidget popupWidget)
         {
             SignUpConfirmationForm = signUpConfirmationForm;
             PopupWidget = popupWidget;
         
-            SignUpConfirmationForm.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
+            // SignUpConfirmationForm.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
             ActionProp.Set(Cancel);
 
             UpdateState();
@@ -36,8 +36,8 @@ namespace SignUpConfirmationForm
 
         private void UpdateState()
         {
-            var isLoading = SignUpConfirmationForm.IsLoadingProp.Value;
-            IsInteractableProperty.Set(!isLoading);
+            // var isLoading = SignUpConfirmationForm.IsLoadingProp.Value;
+            // IsInteractableProperty.Set(!isLoading);
         }
 
         public ObservableProperty<bool> IsFocusedProperty { get; } = new();

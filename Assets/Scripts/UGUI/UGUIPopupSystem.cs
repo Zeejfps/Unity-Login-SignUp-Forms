@@ -40,7 +40,7 @@ namespace UGUI
             View prefab = null;
             switch (widget)
             {
-                case IConfirmSignUpPopupWidget:
+                case ISignUpConfirmationPopupWidget:
                     prefab = m_ConfirmationPopupWidgetViewPrefab;
                     break;
                 case IInfoPopupWidget:

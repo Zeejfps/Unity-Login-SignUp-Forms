@@ -2,6 +2,6 @@
 {
     public interface ISignUpConfirmationFactory
     {
-        ISignUpConfirmationFormWidgetController Create();
+        ISignUpConfirmationPopupWidgetController Create();
     }
 }

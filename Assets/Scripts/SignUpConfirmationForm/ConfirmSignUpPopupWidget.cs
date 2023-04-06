@@ -1,45 +1,21 @@
-﻿using System;
-using Login;
+﻿using Login;
+using Widgets;
 using YADBF;
 
 namespace SignUpConfirmationForm
 {
-    public sealed class ConfirmSignUpPopupWidget : IConfirmSignUpPopupWidget
+    public sealed class SignUpConfirmationPopupWidget : ISignUpConfirmationPopupWidget
     {
-        public event Action<IPopupWidget> Closed;
-
         public ITextInputWidget CodeInputWidget { get; }
         public IButtonWidget ConfirmButtonWidget { get; }
         public IButtonWidget CancelButtonWidget { get; }
         public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
         
-        private ISignUpConfirmationFormWidgetController SignUpConfirmationForm { get; }
-
-        public ConfirmSignUpPopupWidget(ISignUpConfirmationFormWidgetController signUpConfirmationForm)
+        public SignUpConfirmationPopupWidget()
         {
-            SignUpConfirmationForm = signUpConfirmationForm;
-            CodeInputWidget = new ConfirmationCodeInputWidget(SignUpConfirmationForm);
-            ConfirmButtonWidget = new ConfirmSignUpButtonWidget(SignUpConfirmationForm);
-            CancelButtonWidget = new CancelConfirmSignUpButtonWidget(SignUpConfirmationForm, this);
-        
-            IsVisibleProp.ValueChanged += IsVisibleProp_OnValueChanged;
-            SignUpConfirmationForm.FormSubmitted += SignUpConfirmation_OnConfirmed;
-        }
-
-        private void SignUpConfirmation_OnConfirmed(ISignUpConfirmationFormWidgetController form)
-        {
-            form.FormSubmitted -= SignUpConfirmation_OnConfirmed;
-            IsVisibleProp.Set(false);
-        }
-
-        private void IsVisibleProp_OnValueChanged(ObservableProperty<bool> property, bool prevvalue, bool isVisible)
-        {
-            if (isVisible)
-                return;
-        
-            SignUpConfirmationForm.FormSubmitted -= SignUpConfirmation_OnConfirmed;
-            SignUpConfirmationForm.Cancel();
-            Closed?.Invoke(this);
+            CodeInputWidget = new TextInputWidget();
+            ConfirmButtonWidget = new ButtonWidget();
+            CancelButtonWidget = new ButtonWidget();
         }
     }
 }

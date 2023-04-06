@@ -6,7 +6,6 @@ namespace Login
 {
     public interface IPopupWidget : IWidget
     {
-        event Action<IPopupWidget> Closed;
     }
     
     public interface IPopupManager

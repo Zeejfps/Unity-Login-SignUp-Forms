@@ -4,14 +4,14 @@ namespace SignUpConfirmationForm
 {
     public sealed class ConfirmationCodeInputWidget : BaseTextInputWidget
     {
-        private ISignUpConfirmationFormWidgetController SignUpConfirmationForm { get; }
+        private ISignUpConfirmationPopupWidgetController SignUpConfirmationForm { get; }
     
-        public ConfirmationCodeInputWidget(ISignUpConfirmationFormWidgetController signUpConfirmationForm)
+        public ConfirmationCodeInputWidget(ISignUpConfirmationPopupWidgetController signUpConfirmationForm)
         {
             SignUpConfirmationForm = signUpConfirmationForm;
-            SignUpConfirmationForm.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
-
-            TextProp = signUpConfirmationForm.ConfirmationCodeTextProp;
+            // SignUpConfirmationForm.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;
+            //
+            // TextProp = signUpConfirmationForm.ConfirmationCodeTextProp;
         
             UpdateState();
         }
@@ -23,8 +23,8 @@ namespace SignUpConfirmationForm
 
         private void UpdateState()
         {
-            var isLoading = SignUpConfirmationForm.IsLoadingProp.Value;
-            IsInteractableProperty.Set(!isLoading);
+            // var isLoading = SignUpConfirmationForm.IsLoadingProp.Value;
+            // IsInteractableProperty.Set(!isLoading);
         }
     }
 }

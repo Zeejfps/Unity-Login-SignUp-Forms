@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Login;
 using SignUpConfirmationForm;
-using Widgets;
 
 namespace Tests
 {
@@ -18,8 +17,10 @@ namespace Tests
         {
             await Task.Delay(2000);
 
-            var test = new SignUpConfirmationFormWidgetController();
-            await PopupService.ShowPopupAsync(new ConfirmSignUpPopupWidget(test));
+            var popupWidget = new SignUpConfirmationPopupWidget();
+            var controller = new SignUpConfirmationPopupWidgetController(popupWidget);
+            await PopupService.ShowPopupAsync(popupWidget);
+            controller.Dispose();
         }
     }
 }
