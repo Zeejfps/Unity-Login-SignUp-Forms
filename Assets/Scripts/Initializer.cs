@@ -1,4 +1,5 @@
 using Login;
+using SignUpConfirmationForm;
 using Tests;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ public class Initializer : MonoBehaviour
         
         Z.RegisterScoped<ILoginFormWidgetController, LoginFormWidgetController>();
         Z.RegisterScoped<ISignUpFormWidgetController, SignUpFormWidgetController>();
-        Z.RegisterScoped<ISignUpConfirmationForm, TestSignUpConfirmationForm>();
+        Z.RegisterScoped<ISignUpConfirmationFormWidgetController, SignUpConfirmationFormWidgetController>();
         Z.RegisterScoped<ILoginSignUpPageWidget, LoginSignUpPageWidget>();
         Z.RegisterScoped<ILoginFormWidget, LoginFormWidget>();
         Z.RegisterScoped<ISignUpFormWidget, SignUpFormWidget>();

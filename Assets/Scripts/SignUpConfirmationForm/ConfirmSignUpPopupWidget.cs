@@ -2,7 +2,7 @@
 using Login;
 using YADBF;
 
-namespace Widgets
+namespace SignUpConfirmationForm
 {
     public sealed class ConfirmSignUpPopupWidget : IConfirmSignUpPopupWidget
     {
@@ -13,9 +13,9 @@ namespace Widgets
         public IButtonWidget CancelButtonWidget { get; }
         public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
         
-        private ISignUpConfirmationForm SignUpConfirmationForm { get; }
+        private ISignUpConfirmationFormWidgetController SignUpConfirmationForm { get; }
 
-        public ConfirmSignUpPopupWidget(ISignUpConfirmationForm signUpConfirmationForm)
+        public ConfirmSignUpPopupWidget(ISignUpConfirmationFormWidgetController signUpConfirmationForm)
         {
             SignUpConfirmationForm = signUpConfirmationForm;
             CodeInputWidget = new ConfirmationCodeInputWidget(SignUpConfirmationForm);
@@ -26,7 +26,7 @@ namespace Widgets
             SignUpConfirmationForm.FormSubmitted += SignUpConfirmation_OnConfirmed;
         }
 
-        private void SignUpConfirmation_OnConfirmed(ISignUpConfirmationForm form)
+        private void SignUpConfirmation_OnConfirmed(ISignUpConfirmationFormWidgetController form)
         {
             form.FormSubmitted -= SignUpConfirmation_OnConfirmed;
             IsVisibleProp.Set(false);

@@ -1,6 +1,6 @@
 ﻿using YADBF;
 
-namespace Widgets
+namespace SignUpConfirmationForm
 {
     public abstract class BaseTextInputWidget : ITextInputWidget
     {

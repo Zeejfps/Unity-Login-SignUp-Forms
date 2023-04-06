@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 using UnityEngine;
 using YADBF;
 
-namespace Login
+namespace SignUpConfirmationForm
 {
-    public sealed class TestSignUpConfirmationForm : ISignUpConfirmationForm
+    public sealed class SignUpConfirmationFormWidgetController : ISignUpConfirmationFormWidgetController
     {
-        public event Action<ISignUpConfirmationForm> FormSubmitted;
+        public event Action<ISignUpConfirmationFormWidgetController> FormSubmitted;
         
         public ObservableProperty<bool> IsLoadingProp { get; } = new();
         public ObservableProperty<Action> ConfirmActionProp { get; } = new();
@@ -21,7 +21,7 @@ namespace Login
             m_CancellationTokenSource?.Cancel();
         }
 
-        public TestSignUpConfirmationForm()
+        public SignUpConfirmationFormWidgetController()
         {
             ConfirmationCodeTextProp.ValueChanged += ConfirmationCodeTextProp_OnValueChanged;
         }

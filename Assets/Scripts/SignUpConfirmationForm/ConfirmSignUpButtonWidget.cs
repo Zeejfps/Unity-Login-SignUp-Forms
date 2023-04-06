@@ -1,8 +1,7 @@
 ﻿using System;
-using Login;
 using YADBF;
 
-namespace Widgets
+namespace SignUpConfirmationForm
 {
     public sealed class ConfirmSignUpButtonWidget : IButtonWidget
     {
@@ -11,9 +10,9 @@ namespace Widgets
         public ObservableProperty<Action> ActionProp { get; } = new();
         public ObservableProperty<bool> IsLoadingProp { get; }
 
-        private ISignUpConfirmationForm SignUpConfirmationForm { get; }
+        private ISignUpConfirmationFormWidgetController SignUpConfirmationForm { get; }
         
-        public ConfirmSignUpButtonWidget(ISignUpConfirmationForm signUpConfirmationForm)
+        public ConfirmSignUpButtonWidget(ISignUpConfirmationFormWidgetController signUpConfirmationForm)
         {
             SignUpConfirmationForm = signUpConfirmationForm;
             IsLoadingProp = signUpConfirmationForm.IsLoadingProp;

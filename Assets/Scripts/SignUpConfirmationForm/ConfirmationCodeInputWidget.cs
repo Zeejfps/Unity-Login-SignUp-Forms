@@ -1,13 +1,12 @@
-﻿using Login;
-using YADBF;
+﻿using YADBF;
 
-namespace Widgets
+namespace SignUpConfirmationForm
 {
     public sealed class ConfirmationCodeInputWidget : BaseTextInputWidget
     {
-        private ISignUpConfirmationForm SignUpConfirmationForm { get; }
+        private ISignUpConfirmationFormWidgetController SignUpConfirmationForm { get; }
     
-        public ConfirmationCodeInputWidget(ISignUpConfirmationForm signUpConfirmationForm)
+        public ConfirmationCodeInputWidget(ISignUpConfirmationFormWidgetController signUpConfirmationForm)
         {
             SignUpConfirmationForm = signUpConfirmationForm;
             SignUpConfirmationForm.IsLoadingProp.ValueChanged += IsLoadingProp_OnValueChanged;

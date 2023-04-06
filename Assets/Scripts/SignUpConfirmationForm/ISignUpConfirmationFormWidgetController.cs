@@ -1,11 +1,11 @@
 ﻿using System;
 using YADBF;
 
-namespace Login
+namespace SignUpConfirmationForm
 {
-    public interface ISignUpConfirmationForm
+    public interface ISignUpConfirmationFormWidgetController
     {
-        event Action<ISignUpConfirmationForm> FormSubmitted;
+        event Action<ISignUpConfirmationFormWidgetController> FormSubmitted;
         
         ObservableProperty<bool> IsLoadingProp { get; }
         ObservableProperty<Action> ConfirmActionProp { get; }

@@ -2,7 +2,7 @@
 using Login;
 using YADBF;
 
-namespace Widgets
+namespace SignUpConfirmationForm
 {
     public sealed class CancelConfirmSignUpButtonWidget : IButtonWidget
     {
@@ -10,10 +10,10 @@ namespace Widgets
         public ObservableProperty<Action> ActionProp { get; } = new();
         public ObservableProperty<bool> IsLoadingProp { get; } = new();
 
-        private ISignUpConfirmationForm SignUpConfirmationForm { get; }
+        private ISignUpConfirmationFormWidgetController SignUpConfirmationForm { get; }
         private IPopupWidget PopupWidget { get; }
     
-        public CancelConfirmSignUpButtonWidget(ISignUpConfirmationForm signUpConfirmationForm, IPopupWidget popupWidget)
+        public CancelConfirmSignUpButtonWidget(ISignUpConfirmationFormWidgetController signUpConfirmationForm, IPopupWidget popupWidget)
         {
             SignUpConfirmationForm = signUpConfirmationForm;
             PopupWidget = popupWidget;

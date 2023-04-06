@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace Login
+namespace SignUpConfirmationForm
 {
-    public interface IConfirmSignUpService
+    public interface ISignUpConfirmationService
     {
         Task ConfirmSignUp(string confirmationCode, CancellationToken cancellationToken = default);
     }
