@@ -203,7 +203,7 @@ namespace SignUpForm
                 PasswordFieldWidget.ErrorTextProperty.Set("Password is required");
                 isPasswordValid = false;
             }
-            else if (!ValidateAllPasswordRequirements(password))
+            else if (!CheckAllPasswordRequirements(password))
             {
                 PasswordFieldWidget.ErrorTextProperty.Set("Not all requirements met");
                 isPasswordValid = false;
@@ -217,7 +217,7 @@ namespace SignUpForm
             UpdateSubmitButtonState();
         }
 
-        private bool ValidateAllPasswordRequirements(string password)
+        private bool CheckAllPasswordRequirements(string password)
         {
             var allRequirementsValid = true;
             var passwordRequirements = PasswordValidators;

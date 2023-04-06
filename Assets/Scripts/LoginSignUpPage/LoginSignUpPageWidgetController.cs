@@ -1,5 +1,6 @@
 ﻿using Common.Controllers;
 using Common.Widgets;
+using Login;
 using LoginForm;
 using Services;
 using SignUpForm;
@@ -20,6 +21,7 @@ namespace LoginSignUpPage
         private ITabGroupController TabGroupController { get; }
     
         public LoginSignUpPageWidgetController(
+            IPopupManager popupService,
             ILoginService loginService,
             ISignUpService signUpService,
             ILoginSignUpPageWidget loginSignUpPageWidget
@@ -39,7 +41,7 @@ namespace LoginSignUpPage
                 new MinSpecialCharactersPasswordValidator(1)
             };
         
-            LoginFormWidgetController = new LoginFormWidgetController(loginService, emailValidator, LoginFormWidget);
+            LoginFormWidgetController = new LoginFormWidgetController(popupService, loginService, emailValidator, LoginFormWidget);
             SignUpFormWidgetController = new SignUpFormWidgetController(signUpService, emailValidator, passwordValidators, SignUpFormWidget);
         
             SignUpFormWidgetController.FormSubmitted += SignUpFormWidgetController_OnFormSubmitted;

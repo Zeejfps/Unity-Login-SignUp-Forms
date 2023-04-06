@@ -24,7 +24,7 @@ namespace UGUI
                 m_ContentText.text = value;
                 
             });
-            m_ButtonWidgetView.Model = new ActionPropertyButtonWidget(model.OkActionProp);
+            m_ButtonWidgetView.Model = model.OkButtonWidget;
         }
     }
 }

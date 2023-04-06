@@ -1,3 +1,4 @@
+using Login;
 using LoginSignUpPage;
 using Services;
 using UnityEngine;
@@ -19,9 +20,10 @@ namespace UGUI
 
             var loginService = Z.Get<ILoginService>();
             var signUpService = Z.Get<ISignUpService>();
+            var popupService = Z.Get<IPopupManager>();
             var loginSignUpPageWidget = Z.Get<ILoginSignUpPageWidget>();
 
-            Controller = new LoginSignUpPageWidgetController(loginService, signUpService, loginSignUpPageWidget);
+            Controller = new LoginSignUpPageWidgetController(popupService, loginService, signUpService, loginSignUpPageWidget);
         
             Model = loginSignUpPageWidget;
             Model.IsVisibleProperty.Set(true);

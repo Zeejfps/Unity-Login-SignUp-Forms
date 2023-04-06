@@ -1,4 +1,5 @@
 using System;
+using Common.Widgets;
 using YADBF;
 
 namespace Login
@@ -7,6 +8,6 @@ namespace Login
     {
         ObservableProperty<string> TitleTextProp { get; }
         ObservableProperty<string> InfoTextProp { get; }
-        ObservableProperty<Action> OkActionProp { get; }
+        IButtonWidget OkButtonWidget { get; }
     }
 }

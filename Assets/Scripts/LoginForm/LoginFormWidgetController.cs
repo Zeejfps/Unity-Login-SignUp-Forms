@@ -1,6 +1,7 @@
 using System;
 using Common.Controllers;
 using Common.Widgets;
+using Login;
 using Services;
 using UnityEngine;
 using Validators;
@@ -56,10 +57,16 @@ namespace LoginForm
         private IEmailValidator EmailValidator { get; }
         private ILoginFormWidget LoginFormWidget { get; }
     
+        private IPopupManager PopupService { get; }
         private IWidgetFocusController FocusController { get; }
 
-        public LoginFormWidgetController(ILoginService loginService, IEmailValidator emailValidator, ILoginFormWidget loginFormWidget)
+        public LoginFormWidgetController(
+            IPopupManager popupService,
+            ILoginService loginService, 
+            IEmailValidator emailValidator,
+            ILoginFormWidget loginFormWidget)
         {
+            PopupService = popupService;
             LoginService = loginService;
             EmailValidator = emailValidator;
             LoginFormWidget = loginFormWidget;
@@ -196,7 +203,15 @@ namespace LoginForm
                 var password = Password;
 
                 IsLoading = true;
-                await LoginService.LoginAsync(email, password);
+                var result = await LoginService.LoginAsync(email, password);
+                if (result != LoginResult.Success)
+                {
+                    var infoPopup = new InfoPopupWidget();
+                    infoPopup.TitleTextProp.Set("Login Error");
+                    infoPopup.InfoTextProp.Set("Invalid Email and / or Password");
+
+                    await DefaultInfoPopupWidgetController.ShowAndWaitUntilClosed(PopupService, infoPopup);
+                }
             }
             catch (Exception e)
             {
