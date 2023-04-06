@@ -1,4 +1,6 @@
-﻿namespace Login
+﻿using Login;
+
+namespace SignUpConfirmationForm
 {
     public interface ISignUpConfirmationPopupWidget : IPopupWidget
     {

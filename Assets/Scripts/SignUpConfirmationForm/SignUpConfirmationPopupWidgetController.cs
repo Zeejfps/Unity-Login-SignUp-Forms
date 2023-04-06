@@ -23,16 +23,20 @@ namespace SignUpConfirmationForm
             set
             {
                 m_IsLoading = value;
+                ConfirmButtonWidget.IsLoadingProp.Set(m_IsLoading);
                 CancelButtonWidget.IsInteractableProperty.Set(!m_IsLoading);
                 ConfirmationCodeTextInputWidget.IsInteractableProperty.Set(!m_IsLoading);
                 UpdateConfirmationButtonInteractionState();
             }
         }
         
+        private ISignUpConfirmationService SignUpConfirmationService { get; }
+        
         private CancellationTokenSource m_CancellationTokenSource;
 
-        public SignUpConfirmationPopupWidgetController(ISignUpConfirmationPopupWidget signUpConfirmationPopupWidget)
+        public SignUpConfirmationPopupWidgetController(ISignUpConfirmationService signUpConfirmationService, ISignUpConfirmationPopupWidget signUpConfirmationPopupWidget)
         {
+            SignUpConfirmationService = signUpConfirmationService;
             SignUpConfirmationPopupWidget = signUpConfirmationPopupWidget;
 
             CancelButtonWidget.ActionProp.Set(Cancel);
@@ -82,7 +86,7 @@ namespace SignUpConfirmationForm
                 m_CancellationTokenSource?.Cancel();
                 m_CancellationTokenSource = new CancellationTokenSource();
                 IsLoading = true;
-                await Task.Delay(3000, m_CancellationTokenSource.Token);
+                await SignUpConfirmationService.ConfirmSignUp(ConfirmationCode, m_CancellationTokenSource.Token);
                 SignUpConfirmationPopupWidget.IsVisibleProp.Set(false);
             }
             catch (Exception e)

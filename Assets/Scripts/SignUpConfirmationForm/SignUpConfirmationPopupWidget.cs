@@ -1,5 +1,4 @@
-﻿using Login;
-using Widgets;
+﻿using Widgets;
 using YADBF;
 
 namespace SignUpConfirmationForm
