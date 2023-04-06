@@ -8,9 +8,9 @@ internal sealed class ListWidget : IListWidget
 
     public ObservableProperty<bool> IsVisibleProp { get; } = new(true);
 
-    public IEnumerable<object> Items => m_Items;
+    public IReadOnlyList<object> Items => m_Items;
 
-    private readonly IList<object> m_Items = new List<object>();
+    private readonly List<object> m_Items = new();
 
     public void Add(object itemWidget)
     {

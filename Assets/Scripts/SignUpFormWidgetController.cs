@@ -50,7 +50,6 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
     private IButtonWidget SubmitButtonWidget => SignUpFormWidget.SignUpButtonWidget;
         
     private ISignUpFormWidget SignUpFormWidget { get; }
-    private IPasswordRequirement[] PasswordRequirements { get; }
     private IEmailValidator EmailValidator { get; }
     private IPasswordValidator PasswordValidator { get; }
     private ISignUpService SignUpService { get; }
@@ -74,7 +73,6 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
             
         EmailValidator = emailValidator;
         PasswordValidator = passwordValidator;
-        PasswordRequirements = PasswordValidator.PasswordRequirements;
         StateMachine = new SimpleStateMachine();
 
         SubmitButtonWidget.ActionProp.Set(SubmitForm);
@@ -85,7 +83,11 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
         ConfirmPasswordInputWidget.TextProp.ValueChanged += ConfirmPasswordInputWidget_TextProp_OnValueChanged;
 
         foreach (var passwordRequirement in PasswordValidator.PasswordRequirements)
-            SignUpFormWidget.PasswordRequirementsListWidget.Add(new SignUpFormPasswordRequirementWidget(PasswordInputWidget, passwordRequirement));
+        {
+            var widget = new PasswordRequirementWidget();
+            widget.Description.Set(passwordRequirement.Description);
+            SignUpFormWidget.PasswordRequirementsListWidget.Add(widget);
+        }
 
         StateMachine.State = new SignUpFormWidgetControllerDefaultState(this);
 
@@ -196,7 +198,7 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
             PasswordFieldWidget.ErrorTextProperty.Set("Password is required");
             isPasswordValid = false;
         }
-        else if (!PasswordValidator.Validate(password))
+        else if (!ValidateAllPasswordRequirements(password))
         {
             PasswordFieldWidget.ErrorTextProperty.Set("Not all requirements met");
             isPasswordValid = false;
@@ -208,6 +210,22 @@ public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
 
         IsPasswordValid = isPasswordValid;
         UpdateSubmitButtonState();
+    }
+
+    private bool ValidateAllPasswordRequirements(string password)
+    {
+        var allRequirementsValid = true;
+        var passwordRequirements = PasswordValidator.PasswordRequirements;
+        for (var i = 0; i < passwordRequirements.Count; i++)
+        {
+            var requirement = passwordRequirements[i];
+            var requirementWidget = (IPasswordRequirementWidget)SignUpFormWidget.PasswordRequirementsListWidget.Items[i];
+            var isRequirementValid = requirement.Validate(password);
+            requirementWidget.IsMet.Set(isRequirementValid);
+            allRequirementsValid &= isRequirementValid;
+        }
+
+        return allRequirementsValid;
     }
 
     public void ValidateConfirmPassword()

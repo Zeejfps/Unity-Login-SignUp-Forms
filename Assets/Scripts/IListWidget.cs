@@ -9,7 +9,7 @@ public interface IListWidget<TItemWidget> : IListWidget where TItemWidget : IWid
 public interface IListWidget : IWidget
 {
     event Action<object> ItemAdded;
-    IEnumerable<object> Items { get; }
+    IReadOnlyList<object> Items { get; }
 
     void Add(object itemWidget);
 }

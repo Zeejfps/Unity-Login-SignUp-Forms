@@ -1,5 +1,6 @@
-﻿public interface IPasswordValidator
+﻿using System.Collections.Generic;
+
+public interface IPasswordValidator
 {
-    IPasswordRequirement[] PasswordRequirements { get; }
-    bool Validate(string password);
+    IReadOnlyList<IPasswordRequirement> PasswordRequirements { get; }
 }
