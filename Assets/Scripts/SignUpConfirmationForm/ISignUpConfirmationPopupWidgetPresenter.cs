@@ -1,9 +1,8 @@
 ﻿using System;
-using Common.Controllers;
 
 namespace SignUpConfirmationForm
 {
-    public interface ISignUpConfirmationPopupWidgetController : IWidgetPresenter
+    public interface ISignUpConfirmationPopupWidgetPresenter : IWidgetPresenter
     {
         event Action Confirmed;
         event Action Canceled;

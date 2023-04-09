@@ -7,7 +7,7 @@ using YADBF;
 
 namespace SignUpConfirmationForm
 {
-    public sealed class SignUpConfirmationPopupWidgetController : ISignUpConfirmationPopupWidgetController
+    public sealed class SignUpConfirmationPopupWidgetPresenter : ISignUpConfirmationPopupWidgetPresenter
     {
         public event Action Confirmed;
         public event Action Canceled;
@@ -37,7 +37,7 @@ namespace SignUpConfirmationForm
         
         private CancellationTokenSource m_CancellationTokenSource;
 
-        public SignUpConfirmationPopupWidgetController(ISignUpConfirmationService signUpConfirmationService, ISignUpConfirmationPopupWidget signUpConfirmationPopupWidget)
+        public SignUpConfirmationPopupWidgetPresenter(ISignUpConfirmationService signUpConfirmationService, ISignUpConfirmationPopupWidget signUpConfirmationPopupWidget)
         {
             SignUpConfirmationService = signUpConfirmationService;
             SignUpConfirmationPopupWidget = signUpConfirmationPopupWidget;

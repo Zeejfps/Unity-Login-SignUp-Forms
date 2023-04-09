@@ -1,7 +1,7 @@
-using Login;
+using Common.Widgets;
 using YADBF;
 
-namespace Common.Widgets
+namespace InfoPopup
 {
     public sealed class InfoPopupWidget : IInfoPopupWidget
     {

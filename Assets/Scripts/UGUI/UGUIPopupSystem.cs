@@ -1,3 +1,4 @@
+using InfoPopup;
 using Login;
 using SignUpConfirmationForm;
 using UnityEngine;

@@ -8,10 +8,10 @@ using Validators;
 
 namespace LoginSignUpPage
 {
-    public sealed class LoginSignUpPageWidgetController : ILoginSignUpPageWidgetController
+    public sealed class LoginSignUpPageWidgetPresenter : ILoginSignUpPageWidgetPresenter
     {
         private ILoginFormWidgetPresenter LoginFormWidgetPresenter { get; }
-        private ISignUpFormWidgetController SignUpFormWidgetController { get; }
+        private ISignUpFormWidgetPresenter SignUpFormWidgetPresenter { get; }
     
         private ILoginFormWidget LoginFormWidget { get; }
         private ISignUpFormWidget SignUpFormWidget { get; }
@@ -20,7 +20,7 @@ namespace LoginSignUpPage
 
         private ITabGroupController TabGroupController { get; }
     
-        public LoginSignUpPageWidgetController(
+        public LoginSignUpPageWidgetPresenter(
             IPopupManager popupService,
             ILoginService loginService,
             ISignUpService signUpService,
@@ -42,9 +42,9 @@ namespace LoginSignUpPage
             };
         
             LoginFormWidgetPresenter = new LoginFormWidgetPresenter(popupService, loginService, emailValidator, LoginFormWidget);
-            SignUpFormWidgetController = new SignUpFormWidgetController(signUpService, emailValidator, passwordValidators, SignUpFormWidget);
+            SignUpFormWidgetPresenter = new SignUpFormWidgetPresenter(signUpService, emailValidator, passwordValidators, SignUpFormWidget);
         
-            SignUpFormWidgetController.FormSubmitted += SignUpFormWidgetController_OnFormSubmitted;
+            SignUpFormWidgetPresenter.FormSubmitted += SignUpFormWidgetController_OnFormSubmitted;
         
             TabGroupController = new TabGroupController();
             TabGroupController.LinkTabToContent(LoginFormTabWidget, LoginFormWidget);
@@ -58,7 +58,7 @@ namespace LoginSignUpPage
             if (LoginFormWidgetPresenter.ProcessInputEvent(inputEvent)) 
                 return true;
         
-            if (SignUpFormWidgetController.ProcessInputEvent(inputEvent))
+            if (SignUpFormWidgetPresenter.ProcessInputEvent(inputEvent))
                 return true;
 
             return false;
@@ -67,20 +67,20 @@ namespace LoginSignUpPage
         public void Dispose()
         {
             LoginFormWidgetPresenter.Dispose();
-            SignUpFormWidgetController.Dispose();
+            SignUpFormWidgetPresenter.Dispose();
             TabGroupController.Dispose();
         }
     
         private void SignUpFormWidgetController_OnFormSubmitted()
         {
-            var email = SignUpFormWidgetController.Email;
-            var password = SignUpFormWidgetController.Password;
+            var email = SignUpFormWidgetPresenter.Email;
+            var password = SignUpFormWidgetPresenter.Password;
 
             LoginFormWidgetPresenter.Email = email;
             LoginFormWidgetPresenter.Password = password;
 
-            SignUpFormWidgetController.Password = string.Empty;
-            SignUpFormWidgetController.ConfirmPassword = string.Empty;
+            SignUpFormWidgetPresenter.Password = string.Empty;
+            SignUpFormWidgetPresenter.ConfirmPassword = string.Empty;
         
             LoginFormTabWidget.IsSelectedProp.Set(true);
         }

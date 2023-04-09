@@ -12,7 +12,7 @@ namespace UGUI
         [SerializeField] private UGUILoginFormWidgetView m_LoginFormWidgetView;
         [SerializeField] private UGUISignUpFormWidgetView m_SignUpFormWidgetView;
 
-        private LoginSignUpPageWidgetController Controller { get; set; }
+        private LoginSignUpPageWidgetPresenter Presenter { get; set; }
     
         protected override void Awake()
         {
@@ -23,7 +23,7 @@ namespace UGUI
             var popupService = Z.Get<IPopupManager>();
             var loginSignUpPageWidget = Z.Get<ILoginSignUpPageWidget>();
 
-            Controller = new LoginSignUpPageWidgetController(popupService, loginService, signUpService, loginSignUpPageWidget);
+            Presenter = new LoginSignUpPageWidgetPresenter(popupService, loginService, signUpService, loginSignUpPageWidget);
         
             Model = loginSignUpPageWidget;
             Model.IsVisibleProperty.Set(true);
@@ -41,17 +41,17 @@ namespace UGUI
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Tab) && !Input.GetKey(KeyCode.LeftShift))
-                Controller.ProcessInputEvent(InputEvent.FocusNext);
+                Presenter.ProcessInputEvent(InputEvent.FocusNext);
             else if (Input.GetKeyDown(KeyCode.Tab) && Input.GetKey(KeyCode.LeftShift))
-                Controller.ProcessInputEvent(InputEvent.FocusPrevious);
+                Presenter.ProcessInputEvent(InputEvent.FocusPrevious);
             else if (Input.GetKeyDown(KeyCode.Return))
-                Controller.ProcessInputEvent(InputEvent.Submit);
+                Presenter.ProcessInputEvent(InputEvent.Submit);
         }
 
         protected override void OnDestroy()
         {
-            Controller.Dispose();
-            Controller = null;
+            Presenter.Dispose();
+            Presenter = null;
             base.OnDestroy();
         }
     }

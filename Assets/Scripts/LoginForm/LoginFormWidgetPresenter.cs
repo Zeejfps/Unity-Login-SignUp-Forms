@@ -1,6 +1,7 @@
 using System;
 using Common.Controllers;
 using Common.Widgets;
+using InfoPopup;
 using Login;
 using Services;
 using UnityEngine;
@@ -59,7 +60,7 @@ namespace LoginForm
     
         private IPopupManager PopupService { get; }
         private IWidgetFocusController FocusController { get; }
-        private IInfoPopupWidgetController InfoPopupWidgetController { get; }
+        private IInfoPopupWidgetPresenter InfoPopupWidgetPresenter { get; }
 
         public LoginFormWidgetPresenter(
             IPopupManager popupService,
@@ -73,7 +74,7 @@ namespace LoginForm
             LoginFormWidget = loginFormWidget;
             SubmitButtonWidget.ActionProp.Set(SubmitForm);
 
-            InfoPopupWidgetController = new InfoPopupWidgetController(PopupService);
+            InfoPopupWidgetPresenter = new InfoPopupWidgetPresenter(PopupService);
             FocusController = new FocusController
             {
                 CanCycle = true
@@ -207,7 +208,7 @@ namespace LoginForm
                 IsLoading = true;
                 var result = await LoginService.LoginAsync(email, password);
                 if (result != LoginResult.Success)
-                    await InfoPopupWidgetController.ShowAndWaitUntilClosed("Login Error", "Invalid Email and / or Password");
+                    await InfoPopupWidgetPresenter.ShowAndWaitUntilClosed("Login Error", "Invalid Email and / or Password");
             }
             catch (Exception e)
             {

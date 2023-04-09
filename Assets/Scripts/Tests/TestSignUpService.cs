@@ -18,7 +18,7 @@ namespace Tests
         public async Task<bool> SignUpAsync(string email, string username, string password, CancellationToken cancellationToken = default)
         {
             var popupWidget = new SignUpConfirmationPopupWidget();
-            var controller = new SignUpConfirmationPopupWidgetController(new TestSignUpConfirmationService(), popupWidget);
+            var controller = new SignUpConfirmationPopupWidgetPresenter(new TestSignUpConfirmationService(), popupWidget);
             
             var tcs = new TaskCompletionSource<bool>();
 

@@ -9,7 +9,7 @@ using YADBF;
 
 namespace SignUpForm
 {
-    public sealed class SignUpFormWidgetController : ISignUpFormWidgetController
+    public sealed class SignUpFormWidgetPresenter : ISignUpFormWidgetPresenter
     {
         public event Action FormSubmitted;
         public event Action EmailChanged;
@@ -67,7 +67,7 @@ namespace SignUpForm
         private IStateMachine StateMachine { get; }
         private IWidgetFocusController FocusController { get; }
 
-        public SignUpFormWidgetController(
+        public SignUpFormWidgetPresenter(
             ISignUpService signUpService, 
             IEmailValidator emailValidator, 
             IPasswordValidator[] passwordValidators,
@@ -94,7 +94,7 @@ namespace SignUpForm
                 SignUpFormWidget.PasswordRequirementsListWidget.Add(widget);
             }
 
-            StateMachine.State = new SignUpFormWidgetControllerDefaultState(this);
+            StateMachine.State = new SignUpFormWidgetPresenterDefaultState(this);
 
             FocusController = new FocusController
             {
@@ -282,7 +282,7 @@ namespace SignUpForm
         {
             try
             {
-                StateMachine.State = new SignUpFormWidgetControllerSubmittingFormState(this);
+                StateMachine.State = new SignUpFormWidgetPresenterSubmittingFormState(this);
                 var success = await SignUpService.SignUpAsync(Email, Username, Password);
                 if (success) FormSubmitted?.Invoke();
             }
@@ -292,7 +292,7 @@ namespace SignUpForm
             }
             finally
             {
-                StateMachine.State = new SignUpFormWidgetControllerDefaultState(this);
+                StateMachine.State = new SignUpFormWidgetPresenterDefaultState(this);
             }
         }
     }

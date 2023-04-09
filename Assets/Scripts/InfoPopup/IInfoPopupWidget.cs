@@ -1,8 +1,8 @@
-using System;
 using Common.Widgets;
+using Login;
 using YADBF;
 
-namespace Login
+namespace InfoPopup
 {
     public interface IInfoPopupWidget : IPopupWidget
     {

@@ -1,14 +1,14 @@
 ﻿using System.Threading.Tasks;
 using Login;
 
-namespace Common.Widgets
+namespace InfoPopup
 {
-    public sealed class InfoPopupWidgetController : IInfoPopupWidgetController
+    public sealed class InfoPopupWidgetPresenter : IInfoPopupWidgetPresenter
     {
         private IPopupManager PopupService { get; }
         private IInfoPopupWidget InfoPopupWidget { get; }
 
-        public InfoPopupWidgetController(IPopupManager popupService)
+        public InfoPopupWidgetPresenter(IPopupManager popupService)
         {
             PopupService = popupService;
             InfoPopupWidget = new InfoPopupWidget();
