@@ -4,7 +4,7 @@ using YADBF;
 
 namespace Common.Controllers
 {
-    public sealed class TabGroupController : ITabGroupController
+    public sealed class TabGroup : ITabGroupController
     {
         private readonly List<TabToContentLink> m_Links = new();
 

@@ -65,7 +65,7 @@ namespace SignUpForm
         private bool IsConfirmPasswordValid { get; set; }
 
         private IStateMachine StateMachine { get; }
-        private IWidgetFocusController FocusController { get; }
+        private IFocusGroup FocusGroup { get; }
 
         public SignUpFormWidgetPresenter(
             ISignUpService signUpService, 
@@ -96,20 +96,20 @@ namespace SignUpForm
 
             StateMachine.State = new SignUpFormWidgetPresenterDefaultState(this);
 
-            FocusController = new FocusController
+            FocusGroup = new FocusGroup
             {
                 CanCycle = true
             };
-            FocusController.Add(EmailInputWidget);
-            FocusController.Add(UsernameInputWidget);
-            FocusController.Add(PasswordInputWidget);
-            FocusController.Add(ConfirmPasswordInputWidget);
-            FocusController.Add(SubmitButtonWidget);
+            FocusGroup.Add(EmailInputWidget);
+            FocusGroup.Add(UsernameInputWidget);
+            FocusGroup.Add(PasswordInputWidget);
+            FocusGroup.Add(ConfirmPasswordInputWidget);
+            FocusGroup.Add(SubmitButtonWidget);
         }
 
         public void Dispose()
         {
-            FocusController.Dispose();
+            FocusGroup.Dispose();
             SignUpFormWidget.IsVisibleProperty.ValueChanged -= SignUpFormWidget_IsVisibleProp_OnValueChanged;
             EmailInputWidget.TextProp.ValueChanged -= EmailInputWidget_TextProp_OnValueChanged;
             UsernameInputWidget.TextProp.ValueChanged -= UsernameInputWidget_TextProp_OnValueChanged;
@@ -122,14 +122,26 @@ namespace SignUpForm
         {
             if (SignUpFormWidget.IsVisibleProperty.IsFalse())
                 return false;
-        
-            return FocusController.ProcessInputEvent(inputEvent);
+
+            if (inputEvent == InputEvent.FocusNext)
+            {
+                FocusGroup.FocusNext();
+                return true;
+            }
+
+            if (inputEvent == InputEvent.FocusPrevious)
+            {
+                FocusGroup.FocusPrev();
+                return true;
+            }
+
+            return false;
         }
 
         private void SignUpFormWidget_IsVisibleProp_OnValueChanged(ObservableProperty<bool> property, bool wasFocused, bool isFocused)
         {
             if (isFocused)
-                FocusController.FocusFirstWidget();
+                FocusGroup.FocusFirstWidget();
         }
 
         private void EmailInputWidget_TextProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)

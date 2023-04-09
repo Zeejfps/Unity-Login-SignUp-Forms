@@ -46,7 +46,7 @@ namespace LoginSignUpPage
         
             SignUpFormWidgetPresenter.FormSubmitted += SignUpFormWidgetController_OnFormSubmitted;
         
-            TabGroupController = new TabGroupController();
+            TabGroupController = new TabGroup();
             TabGroupController.LinkTabToContent(LoginFormTabWidget, LoginFormWidget);
             TabGroupController.LinkTabToContent(SignUpFormTabWidget, SignUpFormWidget);
         

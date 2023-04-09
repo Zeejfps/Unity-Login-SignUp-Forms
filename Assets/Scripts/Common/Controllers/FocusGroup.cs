@@ -3,7 +3,7 @@ using YADBF;
 
 namespace Common.Controllers
 {
-    public sealed class FocusController : IWidgetFocusController
+    public sealed class FocusGroup : IFocusGroup
     {
         public event FocusChangedHandler FocusChanged;
 
@@ -137,33 +137,33 @@ namespace Common.Controllers
         {
             public int Index { get; }
             public IInteractableWidget FocusableWidget { get; }
-            private FocusController FocusController { get; }
+            private FocusGroup FocusGroup { get; }
             public bool CanBeFocused => FocusableWidget.IsInteractableProperty.Value;
         
-            public FocusListener(int index, IInteractableWidget focusableWidget, FocusController focusController)
+            public FocusListener(int index, IInteractableWidget focusableWidget, FocusGroup focusGroup)
             {
                 Index = index;
                 FocusableWidget = focusableWidget;
-                FocusController = focusController;
+                FocusGroup = focusGroup;
                 FocusableWidget.IsFocusedProperty.ValueChanged += IsFocusedProperty_OnValueChanged;
             }
 
             public void Dispose()
             {
                 FocusableWidget.IsFocusedProperty.ValueChanged -= IsFocusedProperty_OnValueChanged;
-                if (FocusController.FocusedWidget == FocusableWidget) Unfocus();
+                if (FocusGroup.FocusedWidget == FocusableWidget) Unfocus();
             }
 
             public void Focus()
             {
-                FocusController.FocusedWidget = FocusableWidget;
-                FocusController.m_FocusedWidgetIndex = Index;
+                FocusGroup.FocusedWidget = FocusableWidget;
+                FocusGroup.m_FocusedWidgetIndex = Index;
             }
 
             public void Unfocus()
             {
-                FocusController.FocusedWidget = null;
-                FocusController.m_FocusedWidgetIndex = -1;
+                FocusGroup.FocusedWidget = null;
+                FocusGroup.m_FocusedWidgetIndex = -1;
             }
         
             private void IsFocusedProperty_OnValueChanged(ObservableProperty<bool> property, bool wasFocused, bool isFocused)
@@ -172,7 +172,7 @@ namespace Common.Controllers
                 {
                     Focus();
                 }
-                else if (FocusController.FocusedWidget == FocusableWidget)
+                else if (FocusGroup.FocusedWidget == FocusableWidget)
                 {
                     Unfocus();
                 }

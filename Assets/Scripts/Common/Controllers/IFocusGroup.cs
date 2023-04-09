@@ -1,8 +1,10 @@
-﻿namespace Common.Controllers
+﻿using System;
+
+namespace Common.Controllers
 {
     public delegate void FocusChangedHandler(IInteractableWidget prevFocused, IInteractableWidget currFocused);
 
-    public interface IWidgetFocusController : IWidgetPresenter
+    public interface IFocusGroup : IDisposable
     {
         event FocusChangedHandler FocusChanged;
 

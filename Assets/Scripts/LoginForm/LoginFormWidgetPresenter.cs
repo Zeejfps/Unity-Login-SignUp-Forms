@@ -59,7 +59,7 @@ namespace LoginForm
         private ILoginFormWidget LoginFormWidget { get; }
     
         private IPopupManager PopupService { get; }
-        private IWidgetFocusController FocusController { get; }
+        private IFocusGroup FocusGroup { get; }
         private IInfoPopupWidgetPresenter InfoPopupWidgetPresenter { get; }
 
         public LoginFormWidgetPresenter(
@@ -75,15 +75,15 @@ namespace LoginForm
             SubmitButtonWidget.ActionProp.Set(SubmitForm);
 
             InfoPopupWidgetPresenter = new InfoPopupWidgetPresenter(PopupService);
-            FocusController = new FocusController
+            FocusGroup = new FocusGroup
             {
                 CanCycle = true
             };
-            FocusController.Add(EmailInputWidget);
-            FocusController.Add(PasswordInputWidget);
-            FocusController.Add(RememberMeToggleWidget);
-            FocusController.Add(SubmitButtonWidget);
-            FocusController.FocusFirstWidget();
+            FocusGroup.Add(EmailInputWidget);
+            FocusGroup.Add(PasswordInputWidget);
+            FocusGroup.Add(RememberMeToggleWidget);
+            FocusGroup.Add(SubmitButtonWidget);
+            FocusGroup.FocusFirstWidget();
         
             IsLoading = false;
             IsRememberMeChecked = true;
@@ -100,10 +100,19 @@ namespace LoginForm
             if (LoginFormWidget.IsVisibleProperty.IsFalse())
                 return false;
 
-            if (FocusController.ProcessInputEvent(inputEvent))
+            if (inputEvent == InputEvent.FocusNext)
+            {
+                FocusGroup.FocusNext();
                 return true;
+            }
 
-            if (inputEvent == InputEvent.Submit && FocusController.FocusedWidget == PasswordInputWidget)
+            if (inputEvent == InputEvent.FocusPrevious)
+            {
+                FocusGroup.FocusPrev();
+                return true;
+            }
+            
+            if (inputEvent == InputEvent.Submit && FocusGroup.FocusedWidget == PasswordInputWidget)
             {
                 ValidateAndSubmitForm();
                 return true;
@@ -122,7 +131,7 @@ namespace LoginForm
         private void LoginFormWidget_IsVisibleProp_OnValueChanged(ObservableProperty<bool> property, bool prevvalue, bool isVisible)
         {
             if (isVisible)
-                FocusController.FocusFirstWidget();
+                FocusGroup.FocusFirstWidget();
         }
 
         private void EmailInputWidget_TextProp_OnValueChanged(ObservableProperty<string> property, string prevvalue, string currvalue)
