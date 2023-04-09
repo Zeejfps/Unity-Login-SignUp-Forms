@@ -10,7 +10,7 @@ namespace LoginSignUpPage
 {
     public sealed class LoginSignUpPageWidgetController : ILoginSignUpPageWidgetController
     {
-        private ILoginFormWidgetController LoginFormWidgetController { get; }
+        private ILoginFormWidgetPresenter LoginFormWidgetPresenter { get; }
         private ISignUpFormWidgetController SignUpFormWidgetController { get; }
     
         private ILoginFormWidget LoginFormWidget { get; }
@@ -41,7 +41,7 @@ namespace LoginSignUpPage
                 new MinSpecialCharactersPasswordValidator(1)
             };
         
-            LoginFormWidgetController = new LoginFormWidgetController(popupService, loginService, emailValidator, LoginFormWidget);
+            LoginFormWidgetPresenter = new LoginFormWidgetPresenter(popupService, loginService, emailValidator, LoginFormWidget);
             SignUpFormWidgetController = new SignUpFormWidgetController(signUpService, emailValidator, passwordValidators, SignUpFormWidget);
         
             SignUpFormWidgetController.FormSubmitted += SignUpFormWidgetController_OnFormSubmitted;
@@ -55,7 +55,7 @@ namespace LoginSignUpPage
 
         public bool ProcessInputEvent(InputEvent inputEvent)
         {
-            if (LoginFormWidgetController.ProcessInputEvent(inputEvent)) 
+            if (LoginFormWidgetPresenter.ProcessInputEvent(inputEvent)) 
                 return true;
         
             if (SignUpFormWidgetController.ProcessInputEvent(inputEvent))
@@ -66,7 +66,7 @@ namespace LoginSignUpPage
 
         public void Dispose()
         {
-            LoginFormWidgetController.Dispose();
+            LoginFormWidgetPresenter.Dispose();
             SignUpFormWidgetController.Dispose();
             TabGroupController.Dispose();
         }
@@ -76,8 +76,8 @@ namespace LoginSignUpPage
             var email = SignUpFormWidgetController.Email;
             var password = SignUpFormWidgetController.Password;
 
-            LoginFormWidgetController.Email = email;
-            LoginFormWidgetController.Password = password;
+            LoginFormWidgetPresenter.Email = email;
+            LoginFormWidgetPresenter.Password = password;
 
             SignUpFormWidgetController.Password = string.Empty;
             SignUpFormWidgetController.ConfirmPassword = string.Empty;

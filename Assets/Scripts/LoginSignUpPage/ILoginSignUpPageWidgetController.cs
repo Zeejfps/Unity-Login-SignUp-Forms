@@ -1,6 +1,6 @@
 ﻿namespace LoginSignUpPage
 {
-    public interface ILoginSignUpPageWidgetController : IWidgetController
+    public interface ILoginSignUpPageWidgetController : IWidgetPresenter
     {
     
     }

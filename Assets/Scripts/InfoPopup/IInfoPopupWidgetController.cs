@@ -2,7 +2,7 @@
 
 namespace Common.Widgets
 {
-    public interface IInfoPopupWidgetController : IWidgetController
+    public interface IInfoPopupWidgetController : IWidgetPresenter
     {
         Task ShowAndWaitUntilClosed(string titleText, string infoText);
     }

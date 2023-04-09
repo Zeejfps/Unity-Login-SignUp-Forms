@@ -3,7 +3,7 @@ using Common.Controllers;
 
 namespace SignUpForm
 {
-    public interface ISignUpFormWidgetController : IWidgetController
+    public interface ISignUpFormWidgetController : IWidgetPresenter
     {
         event Action FormSubmitted;
         event Action EmailChanged;

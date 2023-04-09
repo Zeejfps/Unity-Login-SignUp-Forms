@@ -9,7 +9,7 @@ using YADBF;
 
 namespace LoginForm
 {
-    internal sealed class LoginFormWidgetController : ILoginFormWidgetController
+    internal sealed class LoginFormWidgetPresenter : ILoginFormWidgetPresenter
     {
         public string Email
         {
@@ -61,7 +61,7 @@ namespace LoginForm
         private IWidgetFocusController FocusController { get; }
         private IInfoPopupWidgetController InfoPopupWidgetController { get; }
 
-        public LoginFormWidgetController(
+        public LoginFormWidgetPresenter(
             IPopupManager popupService,
             ILoginService loginService, 
             IEmailValidator emailValidator,

@@ -2,7 +2,7 @@
 {
     public delegate void FocusChangedHandler(IInteractableWidget prevFocused, IInteractableWidget currFocused);
 
-    public interface IWidgetFocusController : IWidgetController
+    public interface IWidgetFocusController : IWidgetPresenter
     {
         event FocusChangedHandler FocusChanged;
 
