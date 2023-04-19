@@ -1,11 +1,17 @@
+using System.Collections.Generic;
+using Bindings;
+using Common.Widgets;
 using Login;
+using LoginForm;
 using LoginSignUpPage;
 using Services;
+using SignUpForm;
 using UnityEngine;
+using Validators;
 
 namespace UGUI
 {
-    public sealed class UGUILoginSignUpWidgetView : UGUIWidgetView<ILoginSignUpPageWidget>
+    public sealed class UGUILoginSignUpWidgetView : UGUIWidgetView<ILoginSignUpPageWidget>, IWidgetProvider
     {
         [SerializeField] private UGUITabWidgetView m_LoginFormTabWidgetView;
         [SerializeField] private UGUITabWidgetView m_SignUpFormTabWidgetView;
@@ -13,6 +19,8 @@ namespace UGUI
         [SerializeField] private UGUISignUpFormWidgetView m_SignUpFormWidgetView;
 
         private LoginSignUpPageWidgetPresenter Presenter { get; set; }
+        private ILoginFormWidgetPresenter LoginFormWidgetPresenter { get; set; }
+        private ISignUpFormWidgetPresenter SignUpFormWidgetPresenter { get; set; }
     
         protected override void Awake()
         {
@@ -21,9 +29,29 @@ namespace UGUI
             var loginService = Z.Get<ILoginService>();
             var signUpService = Z.Get<ISignUpService>();
             var popupService = Z.Get<IPopupManager>();
-            var loginSignUpPageWidget = Z.Get<ILoginSignUpPageWidget>();
 
-            Presenter = new LoginSignUpPageWidgetPresenter(popupService, loginService, signUpService, loginSignUpPageWidget);
+            var emailTextFieldWidget = new TextFieldWidget();
+            m_IdToWidgetMap.Add("email-field", emailTextFieldWidget);
+            
+            var loginSignUpPageWidget = new LoginSignUpPageWidget(emailTextFieldWidget);
+
+            var emailValidator = new RegexEmailValidator();
+            var passwordValidators = new IPasswordValidator[]
+            {
+                new MinLengthPasswordValidator(3),
+                new MinDigitsPasswordValidator(1),
+                new MinUpperCaseCharactersPasswordValidator(1),
+                new MinLowerCaseCharactersPasswordValidator(1),
+                new MinSpecialCharactersPasswordValidator(1)
+            };
+
+            LoginFormWidgetPresenter = new LoginFormWidgetPresenter(popupService, loginService, emailValidator,
+                loginSignUpPageWidget.LoginFormWidget);
+            
+            SignUpFormWidgetPresenter = new SignUpFormWidgetPresenter(signUpService, emailValidator, passwordValidators,
+                loginSignUpPageWidget.SignUpFormWidget);
+            
+            Presenter = new LoginSignUpPageWidgetPresenter(loginSignUpPageWidget, LoginFormWidgetPresenter, SignUpFormWidgetPresenter);
         
             Model = loginSignUpPageWidget;
             Model.IsVisibleProperty.Set(true);
@@ -50,9 +78,19 @@ namespace UGUI
 
         protected override void OnDestroy()
         {
+            LoginFormWidgetPresenter.Dispose();
             Presenter.Dispose();
             Presenter = null;
             base.OnDestroy();
+        }
+
+        private readonly Dictionary<string, IWidget> m_IdToWidgetMap = new();
+
+        public TWidget Get<TWidget>(string widgetId) where TWidget : class, IWidget
+        {
+            if (m_IdToWidgetMap.TryGetValue(widgetId, out var widget) && widget is TWidget w)
+                return w;
+            return null;
         }
     }
 }

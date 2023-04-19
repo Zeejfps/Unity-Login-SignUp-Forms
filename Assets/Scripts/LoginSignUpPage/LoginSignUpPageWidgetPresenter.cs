@@ -4,7 +4,6 @@ using Login;
 using LoginForm;
 using Services;
 using SignUpForm;
-using Validators;
 
 namespace LoginSignUpPage
 {
@@ -21,28 +20,17 @@ namespace LoginSignUpPage
         private ITabGroupController TabGroupController { get; }
     
         public LoginSignUpPageWidgetPresenter(
-            IPopupManager popupService,
-            ILoginService loginService,
-            ISignUpService signUpService,
-            ILoginSignUpPageWidget loginSignUpPageWidget
+            ILoginSignUpPageWidget loginSignUpPageWidget,
+            ILoginFormWidgetPresenter loginFormWidgetPresenter,
+            ISignUpFormWidgetPresenter signUpFormWidgetPresenter
         ) {
             LoginFormWidget = loginSignUpPageWidget.LoginFormWidget;
             SignUpFormWidget = loginSignUpPageWidget.SignUpFormWidget;
             LoginFormTabWidget = loginSignUpPageWidget.LoginFormTabWidget;
             SignUpFormTabWidget = loginSignUpPageWidget.SignUpFormTabWidget;
-        
-            var emailValidator = new RegexEmailValidator();
-            var passwordValidators = new IPasswordValidator[]
-            {
-                new MinLengthPasswordValidator(3),
-                new MinDigitsPasswordValidator(1),
-                new MinUpperCaseCharactersPasswordValidator(1),
-                new MinLowerCaseCharactersPasswordValidator(1),
-                new MinSpecialCharactersPasswordValidator(1)
-            };
-        
-            LoginFormWidgetPresenter = new LoginFormWidgetPresenter(popupService, loginService, emailValidator, LoginFormWidget);
-            SignUpFormWidgetPresenter = new SignUpFormWidgetPresenter(signUpService, emailValidator, passwordValidators, SignUpFormWidget);
+            
+            LoginFormWidgetPresenter = loginFormWidgetPresenter;
+            SignUpFormWidgetPresenter = signUpFormWidgetPresenter;
         
             SignUpFormWidgetPresenter.FormSubmitted += SignUpFormWidgetController_OnFormSubmitted;
         

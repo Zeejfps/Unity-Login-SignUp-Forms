@@ -825,6 +825,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &2124408780 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4207783167749531254, guid: 2a04c2b3a5b378a4ab63ab5c83c75cec, type: 3}
+  m_PrefabInstance: {fileID: 1962473446360906306}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2124408784 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5854070558104396107, guid: 2a04c2b3a5b378a4ab63ab5c83c75cec, type: 3}
+  m_PrefabInstance: {fileID: 1962473446360906306}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124408780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3af48a94ef14a4190d71868e280dcae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2124408785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124408780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d33f8e68536ab340aef18382dc3ca84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TextFieldWidgetView: {fileID: 2124408784}
+  m_WidgetId: email-field
 --- !u!1001 &1962473446360906306
 PrefabInstance:
   m_ObjectHideFlags: 0

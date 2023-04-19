@@ -11,8 +11,8 @@ namespace LoginForm
         public IButtonWidget SubmitButtonWidget { get; }
         public IToggleWidget RememberMeToggleWidget { get; }
 
-        public LoginFormWidget() {
-            EmailFieldWidget = new TextFieldWidget();
+        public LoginFormWidget(ITextFieldWidget emailFieldWidget) {
+            EmailFieldWidget = emailFieldWidget;
             PasswordFieldWidget = new PasswordFieldWidget();
             SubmitButtonWidget = new ButtonWidget();
             RememberMeToggleWidget = new ToggleWidget();

@@ -13,8 +13,8 @@ namespace SignUpForm
         public IListWidget<IPasswordRequirementWidget> PasswordRequirementsListWidget { get; }
         public IButtonWidget SignUpButtonWidget { get; }
 
-        public SignUpFormWidget() {
-            EmailFieldWidget = new TextFieldWidget();
+        public SignUpFormWidget(ITextFieldWidget emailFieldWidget) {
+            EmailFieldWidget = emailFieldWidget;
             UsernameFieldWidget = new TextFieldWidget();
             PasswordFieldWidget = new PasswordFieldWidget();
             ConfirmPasswordFieldWidget = new PasswordFieldWidget();
