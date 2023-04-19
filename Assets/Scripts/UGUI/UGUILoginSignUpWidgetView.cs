@@ -42,11 +42,17 @@ namespace UGUI
             var passwordField = new PasswordFieldWidget();
             m_IdToWidgetMap.Add("password-field", passwordField);
 
+            var confirmPasswordField = new PasswordFieldWidget();
+            m_IdToWidgetMap.Add("confirm-password-field", confirmPasswordField);
+
             var rememberMeToggle = new ToggleWidget();
             m_IdToWidgetMap.Add("rememberme-toggle", rememberMeToggle);
+
+            var usernameFieldWidget = new TextFieldWidget();
+            m_IdToWidgetMap.Add("username-field", usernameFieldWidget);
             
             var loginFormWidget = new LoginFormWidget(emailFieldWidget, passwordField, rememberMeToggle, submitLoginFormButtonWidget);
-            var signUpFormWidget = new SignUpFormWidget(emailFieldWidget, passwordField, submitSignUpFormButtonWidget);
+            var signUpFormWidget = new SignUpFormWidget(emailFieldWidget, usernameFieldWidget, passwordField, confirmPasswordField, submitSignUpFormButtonWidget);
             
             var loginSignUpPageWidget = new LoginSignUpPageWidget(loginFormWidget, signUpFormWidget);
 

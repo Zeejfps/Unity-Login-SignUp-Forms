@@ -203,6 +203,7 @@ namespace SignUpForm
             }
 
             IsUsernameValid = isUsernameValid;
+            UpdateSubmitButtonState();
         }
 
         public void ValidatePassword()
