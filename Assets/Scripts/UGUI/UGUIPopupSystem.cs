@@ -49,7 +49,7 @@ namespace UGUI
             }
         
             m_PopupView = Instantiate(prefab, transform);
-            m_PopupView.TrySetViewModel(widget);
+            m_PopupView.TrySetModel(widget);
 
             widget.IsVisibleProperty.ValueChanged += PopupWidget_IsVisibleProp_OnValueChanged;
             

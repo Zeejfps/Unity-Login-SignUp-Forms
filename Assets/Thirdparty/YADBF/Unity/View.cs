@@ -55,7 +55,7 @@ namespace YADBF.Unity
             return Model;
         }
 
-        public sealed override bool TrySetViewModel(object viewModel)
+        public sealed override bool TrySetModel(object viewModel)
         {
             if (viewModel is TModel myViewModel)
             {
@@ -118,7 +118,7 @@ namespace YADBF.Unity
     public abstract class View : MonoBehaviour
     {
         public event Action ModelChanged;
-        public abstract bool TrySetViewModel(object viewModel);
+        public abstract bool TrySetModel(object viewModel);
         public abstract object GetModel();
         public abstract Type GetViewModelType();
 

@@ -7,7 +7,6 @@ namespace UGUI
 {
     public sealed class UGUISignUpFormWidgetView : UGUIWidgetView<ISignUpFormWidget>
     {
-        [SerializeField] private View<ITextFieldWidget> m_EmailFieldWidgetView;
         [SerializeField] private View<ITextFieldWidget> m_UsernameFieldWidgetView;
         [SerializeField] private UGUIPasswordFieldWidgetView m_PasswordInputWidgetView;
         [SerializeField] private UGUIPasswordFieldWidgetView m_ConfirmPasswordInputWidgetView;
@@ -17,7 +16,6 @@ namespace UGUI
         protected override void OnBindToModel(ISignUpFormWidget model)
         {
             base.OnBindToModel(model);
-            m_EmailFieldWidgetView.Model = model.EmailFieldWidget;
             m_UsernameFieldWidgetView.Model = model.UsernameFieldWidget;
             m_PasswordInputWidgetView.Model = model.PasswordFieldWidget;
             m_ConfirmPasswordInputWidgetView.Model = model.ConfirmPasswordFieldWidget;

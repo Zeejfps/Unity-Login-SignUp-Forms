@@ -14,10 +14,10 @@ namespace LoginSignUpPage
         public ILoginFormWidget LoginFormWidget { get; }
         public ISignUpFormWidget SignUpFormWidget { get; }
     
-        public LoginSignUpPageWidget(ITextFieldWidget emailFieldWidget) {
+        public LoginSignUpPageWidget(ILoginFormWidget loginFormWidget, ISignUpFormWidget signUpFormWidget) {
 
-            LoginFormWidget = new LoginFormWidget(emailFieldWidget);
-            SignUpFormWidget = new SignUpFormWidget(emailFieldWidget);
+            LoginFormWidget = loginFormWidget;
+            SignUpFormWidget = signUpFormWidget;
         
             LoginFormTabWidget = new TabWidget();
             SignUpFormTabWidget = new TabWidget();

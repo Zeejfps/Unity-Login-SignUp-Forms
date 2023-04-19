@@ -1,5 +1,4 @@
-﻿using Common.Widgets;
-using UnityEngine;
+﻿using UnityEngine;
 using YADBF.Unity;
 
 namespace UGUI

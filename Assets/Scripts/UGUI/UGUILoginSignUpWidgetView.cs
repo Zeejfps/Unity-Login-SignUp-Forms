@@ -30,10 +30,16 @@ namespace UGUI
             var signUpService = Z.Get<ISignUpService>();
             var popupService = Z.Get<IPopupManager>();
 
-            var emailTextFieldWidget = new TextFieldWidget();
-            m_IdToWidgetMap.Add("email-field", emailTextFieldWidget);
+            var emailFieldWidget = new TextFieldWidget();
+            m_IdToWidgetMap.Add("email-field", emailFieldWidget);
+
+            var submitLoginFormButtonWidget = new ButtonWidget();
+            m_IdToWidgetMap.Add("submit-login-form-button", submitLoginFormButtonWidget);
+
+            var loginFormWidget = new LoginFormWidget(emailFieldWidget, submitLoginFormButtonWidget);
+            var signUpFormWidget = new SignUpFormWidget(emailFieldWidget);
             
-            var loginSignUpPageWidget = new LoginSignUpPageWidget(emailTextFieldWidget);
+            var loginSignUpPageWidget = new LoginSignUpPageWidget(loginFormWidget, signUpFormWidget);
 
             var emailValidator = new RegexEmailValidator();
             var passwordValidators = new IPasswordValidator[]

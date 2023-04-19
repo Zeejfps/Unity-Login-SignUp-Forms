@@ -54,8 +54,6 @@ namespace LoginSignUpPage
 
         public void Dispose()
         {
-            LoginFormWidgetPresenter.Dispose();
-            SignUpFormWidgetPresenter.Dispose();
             TabGroupController.Dispose();
         }
     

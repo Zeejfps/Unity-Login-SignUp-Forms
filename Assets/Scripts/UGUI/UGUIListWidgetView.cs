@@ -30,7 +30,7 @@ namespace UGUI
         private void Model_OnItemAdded(object item)
         {
             var view = Instantiate(m_WidgetViewPrefab, m_Container);
-            view.TrySetViewModel(item);
+            view.TrySetModel(item);
             m_ItemToViewMap.Add(item, view);
             LayoutRebuilder.ForceRebuildLayoutImmediate(m_Container);
         }
