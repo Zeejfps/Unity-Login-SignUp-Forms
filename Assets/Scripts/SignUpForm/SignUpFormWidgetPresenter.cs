@@ -52,7 +52,7 @@ namespace SignUpForm
         private IPasswordFieldWidget PasswordFieldWidget => SignUpFormWidget.PasswordFieldWidget;
         private ITextInputWidget ConfirmPasswordInputWidget => ConfirmPasswordFieldWidget.TextInputWidget;
         private IPasswordFieldWidget ConfirmPasswordFieldWidget => SignUpFormWidget.ConfirmPasswordFieldWidget;
-        private IButtonWidget SubmitButtonWidget => SignUpFormWidget.SignUpButtonWidget;
+        private IButtonWidget SubmitButtonWidget => SignUpFormWidget.SubmitButtonWidget;
         
         private ISignUpFormWidget SignUpFormWidget { get; }
         private IEmailValidator EmailValidator { get; }

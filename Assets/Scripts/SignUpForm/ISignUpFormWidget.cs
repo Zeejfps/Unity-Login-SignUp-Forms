@@ -9,6 +9,6 @@ namespace SignUpForm
         IPasswordFieldWidget PasswordFieldWidget { get; }
         IPasswordFieldWidget ConfirmPasswordFieldWidget { get; }
         IListWidget<IPasswordRequirementWidget> PasswordRequirementsListWidget { get; }
-        IButtonWidget SignUpButtonWidget { get; }
+        IButtonWidget SubmitButtonWidget { get; }
     }
 }

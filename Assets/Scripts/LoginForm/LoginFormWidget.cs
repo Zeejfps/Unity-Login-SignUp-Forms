@@ -11,11 +11,16 @@ namespace LoginForm
         public IButtonWidget SubmitButtonWidget { get; }
         public IToggleWidget RememberMeToggleWidget { get; }
 
-        public LoginFormWidget(ITextFieldWidget emailFieldWidget, IButtonWidget submitButtonWidget) {
+        public LoginFormWidget(
+            ITextFieldWidget emailFieldWidget,
+            IPasswordFieldWidget passwordFieldWidget,
+            IToggleWidget rememberMeToggleWidget,
+            IButtonWidget submitButtonWidget
+        ) {
             EmailFieldWidget = emailFieldWidget;
-            PasswordFieldWidget = new PasswordFieldWidget();
+            PasswordFieldWidget = passwordFieldWidget;
+            RememberMeToggleWidget = rememberMeToggleWidget;
             SubmitButtonWidget = submitButtonWidget;
-            RememberMeToggleWidget = new ToggleWidget();
         }
     }
 }

@@ -11,15 +11,15 @@ namespace SignUpForm
         public IPasswordFieldWidget PasswordFieldWidget { get; }
         public IPasswordFieldWidget ConfirmPasswordFieldWidget { get; }
         public IListWidget<IPasswordRequirementWidget> PasswordRequirementsListWidget { get; }
-        public IButtonWidget SignUpButtonWidget { get; }
+        public IButtonWidget SubmitButtonWidget { get; }
 
-        public SignUpFormWidget(ITextFieldWidget emailFieldWidget) {
+        public SignUpFormWidget(ITextFieldWidget emailFieldWidget, IPasswordFieldWidget passwordFieldWidget,  IButtonWidget submitButtonWidget) {
             EmailFieldWidget = emailFieldWidget;
             UsernameFieldWidget = new TextFieldWidget();
-            PasswordFieldWidget = new PasswordFieldWidget();
+            PasswordFieldWidget = passwordFieldWidget;
             ConfirmPasswordFieldWidget = new PasswordFieldWidget();
             PasswordRequirementsListWidget = new ListWidget<IPasswordRequirementWidget>();
-            SignUpButtonWidget = new ButtonWidget();
+            SubmitButtonWidget = submitButtonWidget;
         }
     }
 }

@@ -36,8 +36,17 @@ namespace UGUI
             var submitLoginFormButtonWidget = new ButtonWidget();
             m_IdToWidgetMap.Add("submit-login-form-button", submitLoginFormButtonWidget);
 
-            var loginFormWidget = new LoginFormWidget(emailFieldWidget, submitLoginFormButtonWidget);
-            var signUpFormWidget = new SignUpFormWidget(emailFieldWidget);
+            var submitSignUpFormButtonWidget = new ButtonWidget();
+            m_IdToWidgetMap.Add("submit-signup-form-button", submitSignUpFormButtonWidget);
+
+            var passwordField = new PasswordFieldWidget();
+            m_IdToWidgetMap.Add("password-field", passwordField);
+
+            var rememberMeToggle = new ToggleWidget();
+            m_IdToWidgetMap.Add("rememberme-toggle", rememberMeToggle);
+            
+            var loginFormWidget = new LoginFormWidget(emailFieldWidget, passwordField, rememberMeToggle, submitLoginFormButtonWidget);
+            var signUpFormWidget = new SignUpFormWidget(emailFieldWidget, passwordField, submitSignUpFormButtonWidget);
             
             var loginSignUpPageWidget = new LoginSignUpPageWidget(loginFormWidget, signUpFormWidget);
 
