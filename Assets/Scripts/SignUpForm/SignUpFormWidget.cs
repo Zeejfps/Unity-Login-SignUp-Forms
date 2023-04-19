@@ -18,13 +18,14 @@ namespace SignUpForm
             ITextFieldWidget usernameFieldWidget,
             IPasswordFieldWidget passwordFieldWidget,  
             IPasswordFieldWidget confirmPasswordFieldWidget,
+            IListWidget<IPasswordRequirementWidget> passwordRequirementsListWidget,
             IButtonWidget submitButtonWidget
         ) {
             EmailFieldWidget = emailFieldWidget;
             UsernameFieldWidget = usernameFieldWidget;
             PasswordFieldWidget = passwordFieldWidget;
             ConfirmPasswordFieldWidget = confirmPasswordFieldWidget;
-            PasswordRequirementsListWidget = new ListWidget<IPasswordRequirementWidget>();
+            PasswordRequirementsListWidget = passwordRequirementsListWidget;
             SubmitButtonWidget = submitButtonWidget;
         }
     }

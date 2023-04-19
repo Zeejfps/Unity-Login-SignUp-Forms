@@ -1,8 +1,6 @@
 ﻿using Common.Controllers;
 using Common.Widgets;
-using Login;
 using LoginForm;
-using Services;
 using SignUpForm;
 
 namespace LoginSignUpPage

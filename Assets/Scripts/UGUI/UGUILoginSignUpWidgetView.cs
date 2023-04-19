@@ -39,8 +39,8 @@ namespace UGUI
             var submitSignUpFormButtonWidget = new ButtonWidget();
             m_IdToWidgetMap.Add("submit-signup-form-button", submitSignUpFormButtonWidget);
 
-            var passwordField = new PasswordFieldWidget();
-            m_IdToWidgetMap.Add("password-field", passwordField);
+            var passwordFieldWidget = new PasswordFieldWidget();
+            m_IdToWidgetMap.Add("password-field", passwordFieldWidget);
 
             var confirmPasswordField = new PasswordFieldWidget();
             m_IdToWidgetMap.Add("confirm-password-field", confirmPasswordField);
@@ -50,9 +50,12 @@ namespace UGUI
 
             var usernameFieldWidget = new TextFieldWidget();
             m_IdToWidgetMap.Add("username-field", usernameFieldWidget);
+
+            var passwordRequirementsList = new ListWidget<IPasswordRequirementWidget>();
+            m_IdToWidgetMap.Add("password-requirements-list", passwordRequirementsList);
             
-            var loginFormWidget = new LoginFormWidget(emailFieldWidget, passwordField, rememberMeToggle, submitLoginFormButtonWidget);
-            var signUpFormWidget = new SignUpFormWidget(emailFieldWidget, usernameFieldWidget, passwordField, confirmPasswordField, submitSignUpFormButtonWidget);
+            var loginFormWidget = new LoginFormWidget(emailFieldWidget, passwordFieldWidget, rememberMeToggle, submitLoginFormButtonWidget);
+            var signUpFormWidget = new SignUpFormWidget(emailFieldWidget, usernameFieldWidget, passwordFieldWidget, confirmPasswordField, passwordRequirementsList, submitSignUpFormButtonWidget);
             
             var loginSignUpPageWidget = new LoginSignUpPageWidget(loginFormWidget, signUpFormWidget);
 
