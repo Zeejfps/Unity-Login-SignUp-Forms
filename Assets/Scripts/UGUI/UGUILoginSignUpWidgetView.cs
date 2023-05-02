@@ -13,18 +13,16 @@ namespace UGUI
         [SerializeField] private UGUISignUpFormWidgetView m_SignUpFormWidgetView;
 
         private LoginSignUpPageWidgetPresenter Presenter { get; set; }
-    
-        protected override void Awake()
-        {
-            base.Awake();
 
+        protected override void Start()
+        {
+            base.Start();
             var loginService = Z.Get<ILoginService>();
             var signUpService = Z.Get<ISignUpService>();
             var popupService = Z.Get<IPopupManager>();
             var loginSignUpPageWidget = Z.Get<ILoginSignUpPageWidget>();
 
             Presenter = new LoginSignUpPageWidgetPresenter(popupService, loginService, signUpService, loginSignUpPageWidget);
-        
             Model = loginSignUpPageWidget;
             Model.IsVisibleProperty.Set(true);
         }
